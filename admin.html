@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - Add Supplements</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body style="font-family: Arial, sans-serif; padding: 20px;">
+
+    <h2>Add New Supplement 🛒</h2>
+    
+    <input type="text" id="itemName" placeholder="Item Name (e.g. Whey Protein)" style="padding: 10px; margin-bottom: 10px; width: 300px;"><br>
+    <input type="number" id="itemPrice" placeholder="Price (Rs.)" style="padding: 10px; margin-bottom: 10px; width: 300px;"><br>
+    <input type="text" id="itemImage" placeholder="Image URL" style="padding: 10px; margin-bottom: 10px; width: 300px;"><br>
+    
+    <button onclick="addItem()" style="padding: 10px 20px; background-color: blue; color: white; border: none; cursor: pointer;">Add Item to Shop</button>
+
+    <script>
+        // මෙතනට ඔයාගේ Firebase Config එක දාන්න
+        const firebaseConfig = {
+  apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
+  authDomain: "ultranutritions.firebaseapp.com",
+  projectId: "ultranutritions",
+  storageBucket: "ultranutritions.firebasestorage.app",
+  messagingSenderId: "904882148450",
+  appId: "1:904882148450:web:c4784968cd03e63b3cad3b",
+  measurementId: "G-FZ7L7QDR8W"
+};
+
+        // Firebase Initialize කිරීම
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Data Database එකට යැවීම
+        function addItem() {
+            let name = document.getElementById("itemName").value;
+            let price = document.getElementById("itemPrice").value;
+            let image = document.getElementById("itemImage").value;
+
+            if(name !== "" && price !== "") {
+                db.collection("supplements").add({
+                    name: name,
+                    price: price,
+                    image: image
+                })
+                .then(() => {
+                    alert("Item Successfully Added! ✅");
+                    // ෆෝම් එක හිස් කිරීම
+                    document.getElementById("itemName").value = "";
+                    document.getElementById("itemPrice").value = "";
+                    document.getElementById("itemImage").value = "";
+                })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
+            } else {
+                alert("Please enter Name and Price!");
+            }
+        }
+    </script>
+</body>
+</html>
