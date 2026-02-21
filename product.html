@@ -13,36 +13,59 @@
     
     <style>
         :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; --whatsapp-color: #25D366; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
-        header { background-color: var(--dark-color); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        header h1 { margin: 0; font-size: 28px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; overflow-x: hidden; }
+        header { background-color: var(--dark-color); color: white; padding: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header h1 { margin: 0; font-size: 22px; font-weight: 700; text-transform: uppercase; }
         header h1 span { color: var(--primary-color); }
         
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--dark-color); text-decoration: none; font-weight: 600; margin-bottom: 20px; font-size: 15px; transition: color 0.3s;}
-        .back-btn:hover { color: var(--primary-color); }
+        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; box-sizing: border-box; }
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; color: #666; text-decoration: none; font-weight: 500; margin-bottom: 15px; font-size: 14px; }
 
-        .product-layout { display: flex; flex-wrap: wrap; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); overflow: hidden; }
-        .product-image { flex: 1; min-width: 300px; padding: 40px; display: flex; justify-content: center; align-items: center; border-right: 1px solid #eee; background: #fff;}
-        .product-image img { max-width: 100%; max-height: 400px; object-fit: contain; }
+        .product-layout { 
+            display: flex; flex-direction: row; flex-wrap: wrap; 
+            background: white; border-radius: 15px; overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;
+        }
+
+        .product-image { 
+            flex: 1; min-width: 320px; padding: 30px; 
+            display: flex; justify-content: center; align-items: center; 
+            background: #fff; border-right: 1px solid #f4f4f4;
+        }
+        .product-image img { max-width: 100%; height: auto; max-height: 400px; object-fit: contain; }
         
-        .product-info { flex: 1.2; min-width: 300px; padding: 40px; }
-        .cat-badge { display: inline-block; background: #f0f0f0; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; margin-bottom: 15px;}
-        .product-info h1 { margin: 0 0 15px 0; font-size: 28px; color: var(--dark-color); line-height: 1.3; }
-        .product-info .price { font-size: 32px; color: var(--primary-color); font-weight: 700; margin: 0 0 20px 0; }
+        .product-info { flex: 1.2; min-width: 320px; padding: 40px; box-sizing: border-box; }
+        .cat-badge { display: inline-block; background: #f8f9fa; padding: 6px 14px; border-radius: 5px; font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; margin-bottom: 15px; border: 1px solid #eee; }
         
-        .status-badge { display: inline-block; padding: 6px 15px; border-radius: 5px; font-size: 14px; font-weight: 700; color: white; margin-bottom: 25px;}
+        .product-info h1 { margin: 0 0 10px 0; font-size: 26px; color: var(--dark-color); font-weight: 700; line-height: 1.2; }
+        .product-info .price { font-size: 24px; color: var(--primary-color); font-weight: 700; margin: 0 0 15px 0; }
+        
+        .status-badge { display: inline-block; padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; color: white; margin-bottom: 25px; text-transform: uppercase; }
         .in-stock { background-color: var(--whatsapp-color); }
         .out-of-stock { background-color: var(--primary-color); }
 
-        .description { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 30px; }
+        .description-title { font-size: 16px; font-weight: 700; color: var(--dark-color); margin-bottom: 10px; border-bottom: 2px solid #f4f4f4; padding-bottom: 5px; display: inline-block; }
         
-        .buy-btn { background: var(--whatsapp-color); color: white; padding: 15px; border: none; width: 100%; cursor: pointer; border-radius: 8px; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
-        .buy-btn:hover { background: #20b858; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4); }
-        .buy-btn:disabled { background: #e0e0e0; cursor: not-allowed; color: #888; box-shadow: none; transform: none;}
+        /* Description එක Bullet points විදියට පෙන්වන්න */
+        .description-content { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 30px; }
+        .description-content ul { padding-left: 20px; margin: 0; }
+        .description-content li { margin-bottom: 8px; position: relative; list-style: none; }
+        .description-content li::before { content: "•"; color: var(--primary-color); font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; }
 
-        .loading { text-align: center; padding: 100px; font-size: 18px; color: #666; }
-        .spinner { border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        .buy-btn { background: var(--whatsapp-color); color: white; padding: 16px; border: none; width: 100%; cursor: pointer; border-radius: 10px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
+        .buy-btn:hover { background: #20b858; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2); }
+        .buy-btn:disabled { background: #eee; color: #aaa; cursor: not-allowed; }
+
+        @media (max-width: 768px) {
+            .product-layout { flex-direction: column; }
+            .product-image { border-right: none; border-bottom: 1px solid #f4f4f4; padding: 20px; }
+            .product-info { padding: 25px; }
+            .product-info h1 { font-size: 22px; }
+        }
+
+        .loading { text-align: center; padding: 100px; font-size: 16px; color: #999; }
+        .spinner { border: 3px solid rgba(0,0,0,0.1); width: 35px; height: 35px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -55,7 +78,7 @@
     <div class="container" id="productContainer">
         <div class="loading">
             <div class="spinner"></div>
-            Loading product details...
+            Loading product...
         </div>
     </div>
 
@@ -72,13 +95,12 @@
         const db = firebase.firestore();
         const MY_WHATSAPP_NUMBER = "94713640047";
 
-        // URL එකෙන් Product ID එක ගන්නවා (උදා: product.html?id=xyz123)
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get('id');
         const container = document.getElementById("productContainer");
 
         if(!productId) {
-            container.innerHTML = `<div style="text-align:center; padding: 50px;"><h2>Product Not Found!</h2><a href="index.html" class="back-btn">Go Back to Store</a></div>`;
+            window.location.href = 'index.html';
         } else {
             db.collection("supplements").doc(productId).get().then((doc) => {
                 if(doc.exists) {
@@ -86,20 +108,21 @@
                     let imageUrl = item.image || "https://via.placeholder.com/400x400?text=No+Image";
                     let stockStatus = item.stockStatus || "In Stock";
                     let isOutOfStock = stockStatus === "Out of Stock";
-                    let statusClass = isOutOfStock ? "out-of-stock" : "in-stock";
                     
-                    // විස්තරයක් (Description) නැත්නම් පෙන්වන්න Default Text එකක්
-                    let description = item.description ? item.description : "Premium quality supplement for your fitness goals. 100% authentic product.";
+                    // විස්තරය Bullet points වලට හැරවීම (නව පේළි අනුව)
+                    let descHTML = "";
+                    if(item.description) {
+                        let lines = item.description.split('\n');
+                        descHTML = "<ul>" + lines.map(line => line.trim() ? `<li>${line}</li>` : "").join('') + "</ul>";
+                    } else {
+                        descHTML = "<p>Premium quality supplement for your fitness goals.</p>";
+                    }
                     
                     let message = `Hello Ultra Nutritions! I want to buy:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
                     let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-                    
-                    let buttonHTML = isOutOfStock 
-                        ? `<button class="buy-btn" disabled><i class="fas fa-times-circle"></i> Currently Out of Stock</button>`
-                        : `<button class="buy-btn" onclick="window.open('${whatsappUrl}', '_blank')"><i class="fab fa-whatsapp"></i> Buy via WhatsApp</button>`;
 
                     container.innerHTML = `
-                        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Store</a>
+                        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Shop</a>
                         <div class="product-layout">
                             <div class="product-image">
                                 <img src="${imageUrl}" alt="${item.name}" style="${isOutOfStock ? 'opacity: 0.5; filter: grayscale(100%);' : ''}">
@@ -108,19 +131,22 @@
                                 <span class="cat-badge">${item.category || 'Supplement'}</span>
                                 <h1>${item.name}</h1>
                                 <p class="price">Rs. ${item.price}</p>
-                                <div class="status-badge ${statusClass}">${stockStatus}</div>
-                                <div class="description">
-                                    <p>${description}</p>
+                                <div class="status-badge ${isOutOfStock ? 'out-of-stock' : 'in-stock'}">${stockStatus}</div>
+                                
+                                <div class="description-section">
+                                    <span class="description-title">Product Highlights</span>
+                                    <div class="description-content">
+                                        ${descHTML}
+                                    </div>
                                 </div>
-                                ${buttonHTML}
+                                
+                                <button class="buy-btn" ${isOutOfStock ? 'disabled' : ''} onclick="window.open('${whatsappUrl}', '_blank')">
+                                    <i class="fab fa-whatsapp"></i> ${isOutOfStock ? 'Out of Stock' : 'Order via WhatsApp'}
+                                </button>
                             </div>
                         </div>
                     `;
-                } else {
-                    container.innerHTML = `<div style="text-align:center; padding: 50px;"><h2>Product Not Found!</h2><a href="index.html" class="back-btn">Go Back to Store</a></div>`;
                 }
-            }).catch((error) => {
-                container.innerHTML = `<div style="text-align:center; padding: 50px; color: red;">Error loading product details.</div>`;
             });
         }
     </script>
