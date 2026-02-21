@@ -12,7 +12,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
     <style>
-        :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; }
+        /* Slightly softer dark color for a more professional look */
+        :root { --primary-color: #e63946; --dark-color: #212529; --bg-color: #f8f9fa; }
         
         html, body { 
             overflow-x: hidden; 
@@ -23,6 +24,9 @@
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
         
         header { background-color: var(--dark-color); color: white; padding: 15px 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        
+        /* Header link style */
+        .header-link { text-decoration: none; color: inherit; display: inline-block; cursor: pointer; }
         header h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
         header h1 span { color: var(--primary-color); }
         header p { margin: 5px 0 0; font-size: 12px; color: #ccc; }
@@ -66,11 +70,10 @@
 
         .product-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
-            gap: 15px; 
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+            gap: 12px; 
         }
         
-        /* Card Styles Restructured for Perfect Alignment */
         .card { 
             background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
             transition: transform 0.3s ease, box-shadow 0.3s ease; 
@@ -82,30 +85,30 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.12);
         }
 
-        .stock-badge { position: absolute; top: 8px; right: 8px; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 600; color: white; z-index: 10; letter-spacing: 0.5px; text-transform: uppercase;}
-        .badge-in-stock { background-color: #2a9d8f; } /* Soft professional green */
-        .badge-out-of-stock { background-color: var(--primary-color); }
+        .stock-badge { position: absolute; top: 8px; right: 8px; padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; z-index: 10; letter-spacing: 0.5px; text-transform: uppercase;}
+        
+        /* Updated In Stock style (Green Font, White BG) */
+        .badge-in-stock { background-color: #ffffff; color: #198754; border: 1px solid #198754; box-shadow: 0 2px 4px rgba(0,0,0,0.05); } 
+        .badge-out-of-stock { background-color: var(--primary-color); color: white; border: 1px solid var(--primary-color); }
 
-        .card-img-wrapper { background-color: #fff; padding: 15px; text-align: center; height: 160px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f8f9fa;}
+        /* Mobile specific heights to prevent "long tiles" */
+        .card-img-wrapper { background-color: #fff; padding: 10px; text-align: center; height: 120px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f8f9fa;}
         .card img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
         .card:hover img { transform: scale(1.05); }
         
-        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-body { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; }
         
-        /* Two-line title truncation */
         .card h3 { 
-            margin: 0 0 10px; font-size: 14px; color: var(--dark-color); line-height: 1.4; 
+            margin: 0 0 8px; font-size: 13px; color: var(--dark-color); line-height: 1.4; 
             font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
 
-        /* Forces Price and Button to the bottom of the card always */
-        .price-and-btn { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
-        .price { color: var(--primary-color); font-size: 16px; font-weight: 700; margin: 0; text-align: left;}
+        .price-and-btn { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
+        .price { color: var(--primary-color); font-size: 15px; font-weight: 700; margin: 0; text-align: left;}
 
-        /* Professional Button Style */
         .buy-btn { 
-            background: var(--dark-color); color: white; padding: 10px; border: none; 
-            width: 100%; cursor: pointer; border-radius: 6px; font-size: 12px; font-weight: 600; 
+            background: var(--dark-color); color: white; padding: 8px; border: none; 
+            width: 100%; cursor: pointer; border-radius: 6px; font-size: 11px; font-weight: 600; 
             text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.3s ease;
         }
         .buy-btn:hover:not(:disabled) { background: var(--primary-color); }
@@ -116,20 +119,30 @@
         .spinner { border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin-bottom: 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+        /* Desktop View Adjustments */
         @media (min-width: 768px) {
             header h1 { font-size: 32px; }
             .hero h2 { font-size: 40px; }
             .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
             .category-nav { justify-content: center; flex-wrap: wrap; }
-            .card h3 { font-size: 15px; }
+            
+            /* Restore sizes for desktop */
+            .card-img-wrapper { height: 160px; padding: 15px; }
+            .card-body { padding: 15px; }
+            .card h3 { font-size: 15px; margin: 0 0 10px; }
+            .price { font-size: 16px; }
+            .price-and-btn { gap: 12px; }
+            .buy-btn { padding: 10px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Ultra <span>Nutritions</span></h1>
-        <p>Premium Supplement Store in Sri Lanka</p>
+        <a href="index.html" class="header-link">
+            <h1>Ultra <span>Nutritions</span></h1>
+            <p>Premium Supplement Store in Sri Lanka</p>
+        </a>
     </header>
 
     <section class="hero">
@@ -218,7 +231,6 @@
                 items.forEach(item => {
                     let isOut = item.stockStatus === "Out of Stock";
 
-                    // The whole card AND the button now redirect to the product details page
                     html += `
                         <div class="card" onclick="window.location.href='product.html?id=${item.id}'">
                             <span class="stock-badge ${isOut ? 'badge-out-of-stock' : 'badge-in-stock'}">${item.stockStatus || 'In Stock'}</span>
