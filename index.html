@@ -19,9 +19,7 @@
             --whatsapp-color: #25D366;
         }
 
-        /* Smooth Scrolling එකතු කිරීම */
         html { scroll-behavior: smooth; }
-
         body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
 
         header { background-color: var(--dark-color); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
@@ -35,65 +33,39 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
-        /* Category Navigation Menu එක සැකසීම */
-        .category-nav {
-            display: flex;
-            flex-wrap: wrap; /* ලැප්ටොප් එකේදී පේළි වලට කැඩෙන්න දාපු කේතය */
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 40px;
-            padding: 10px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        
-        .nav-btn {
-            padding: 10px 20px;
-            background: var(--bg-color);
-            border: 1px solid #ddd;
-            color: var(--dark-color);
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
+        .category-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 40px; padding: 10px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .nav-btn { padding: 10px 20px; background: var(--bg-color); border: 1px solid #ddd; color: var(--dark-color); border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
         .nav-btn:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
-        /* පිටුවේ Category කොටස් වෙන් කිරීම */
-        .category-section {
-            margin-bottom: 50px;
-            /* Header එකට යට නොවි පේන්න ඉඩ තැබීම */
-            scroll-margin-top: 100px; 
-        }
-
-        .category-title {
-            font-size: 24px;
-            color: var(--dark-color);
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 5px;
-            margin-bottom: 25px;
-            display: inline-block;
-            text-transform: uppercase;
-        }
-
+        .category-section { margin-bottom: 50px; scroll-margin-top: 100px; }
+        .category-title { font-size: 24px; color: var(--dark-color); border-bottom: 3px solid var(--primary-color); padding-bottom: 5px; margin-bottom: 25px; display: inline-block; text-transform: uppercase; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
 
-        /* කාඩ්පත් සැකසීම */
-        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s ease; display: flex; flex-direction: column; }
+        /* කාඩ්පත් සහ Stock Badges */
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s ease; display: flex; flex-direction: column; position: relative; }
         .card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
-        .card-img-wrapper { background-color: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #eee; }
+        
+        /* අලුතින් එක්කළ Stock Badge එක */
+        .stock-badge { position: absolute; top: 15px; right: 15px; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; color: white; z-index: 10; }
+        .badge-in-stock { background-color: var(--whatsapp-color); }
+        .badge-out-of-stock { background-color: var(--primary-color); }
+
+        .card-img-wrapper { background-color: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #eee; position: relative; }
         .card img { max-width: 100%; height: 220px; object-fit: contain; transition: transform 0.3s ease; }
         .card:hover img { transform: scale(1.05); }
+        
+        /* Out of stock පින්තූරය ටිකක් අඳුරු කිරීම */
+        .img-out-of-stock { opacity: 0.5; filter: grayscale(100%); }
+
         .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .card h3 { margin: 0 0 10px; font-size: 18px; color: var(--dark-color); line-height: 1.4; }
         .price { color: var(--primary-color); font-size: 24px; font-weight: 700; margin: auto 0 15px 0;}
         
         .buy-btn { background: var(--whatsapp-color); color: white; padding: 12px; border: none; width: 100%; cursor: pointer; border-radius: 6px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.3s; }
         .buy-btn:hover { background: #20b858; }
+        
+        /* Out of Stock බොත්තම */
+        .buy-btn:disabled { background: #ccc; cursor: not-allowed; color: #666; }
 
         .loading, .no-products { text-align: center; font-size: 18px; color: #666; padding: 50px; width: 100%; }
         .spinner { border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
@@ -114,8 +86,7 @@
     </section>
 
     <main class="container">
-        <nav class="category-nav" id="categoryNav">
-            </nav>
+        <nav class="category-nav" id="categoryNav"></nav>
         
         <div id="mainContent">
             <div class="loading" id="loadingState">
@@ -157,22 +128,17 @@
             renderPageContent();
 
         }).catch((error) => {
-            console.log("Error getting documents: ", error);
-            mainContent.innerHTML = "<div class='no-products' style='color: red;'>Error loading products. Please check database connection.</div>";
+            mainContent.innerHTML = "<div class='no-products' style='color: red;'>Error loading products.</div>";
         });
 
         function renderPageContent() {
-            // Loading අයින් කිරීම
             mainContent.innerHTML = "";
             categoryNav.innerHTML = "";
 
-            // Database එකේ තියෙන Categories මොනවද කියලා හොයාගැනීම (Products නැති හිස් Categories පෙන්නන්නේ නෑ)
             const categoriesPresent = [...new Set(allItems.map(item => item.category || 'Uncategorized'))];
 
-            // 1. Navigation Menu එක හැදීම
             categoriesPresent.forEach(category => {
-                let categoryId = category.replace(/\s+/g, '-').toLowerCase(); // ID එකක් හදාගන්නවා ලින්ක් කරන්න
-                
+                let categoryId = category.replace(/\s+/g, '-').toLowerCase();
                 let navLink = document.createElement("a");
                 navLink.href = `#${categoryId}`;
                 navLink.className = "nav-btn";
@@ -180,43 +146,50 @@
                 categoryNav.appendChild(navLink);
             });
 
-            // 2. Category අනුව පිටුව කොටස් වලට වෙන් කරලා භාණ්ඩ පෙන්වීම
             categoriesPresent.forEach(category => {
                 let categoryId = category.replace(/\s+/g, '-').toLowerCase();
-                
-                // මේ Category එකට අදාළ Products ටික පෙරහන් කිරීම
                 let itemsInCategory = allItems.filter(item => (item.category || 'Uncategorized') === category);
 
-                // Section එක නිර්මාණය කිරීම
                 let sectionHTML = `
                     <div id="${categoryId}" class="category-section">
                         <h2 class="category-title">${category}</h2>
                         <div class="product-grid">
                 `;
 
-                // ඒ Section එක ඇතුලට Products ටික දැමීම
                 itemsInCategory.forEach(item => {
                     let imageUrl = item.image ? item.image : "https://via.placeholder.com/300x300?text=No+Image";
-                    let message = `Hello Ultra Nutritions! I want to buy:\n\n*Item:* ${item.name}\n*Category:* ${category}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
+                    
+                    // Stock Status එක පරීක්ෂා කිරීම
+                    let stockStatus = item.stockStatus || "In Stock";
+                    let isOutOfStock = stockStatus === "Out of Stock";
+                    
+                    let badgeClass = isOutOfStock ? "badge-out-of-stock" : "badge-in-stock";
+                    let imgClass = isOutOfStock ? "img-out-of-stock" : "";
+                    
+                    let message = `Hello Ultra Nutritions! I want to buy:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
                     let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                    
+                    // Out of stock නම් බොත්තම වැඩ කරන්නේ නෑ
+                    let buttonHTML = isOutOfStock 
+                        ? `<button class="buy-btn" disabled><i class="fas fa-times-circle"></i> Out of Stock</button>`
+                        : `<button class="buy-btn" onclick="window.open('${whatsappUrl}', '_blank')"><i class="fab fa-whatsapp"></i> Buy via WhatsApp</button>`;
 
                     sectionHTML += `
                         <div class="card">
+                            <span class="stock-badge ${badgeClass}">${stockStatus}</span>
                             <div class="card-img-wrapper">
-                                <img src="${imageUrl}" alt="${item.name}">
+                                <img src="${imageUrl}" alt="${item.name}" class="${imgClass}">
                             </div>
                             <div class="card-body">
                                 <h3>${item.name}</h3>
                                 <p class="price">Rs. ${item.price}</p>
-                                <button class="buy-btn" onclick="window.open('${whatsappUrl}', '_blank')">
-                                    <i class="fab fa-whatsapp"></i> Buy
-                                </button>
+                                ${buttonHTML}
                             </div>
                         </div>
                     `;
                 });
 
-                sectionHTML += `</div></div>`; // Grid එක සහ Section එක වැසීම
+                sectionHTML += `</div></div>`;
                 mainContent.innerHTML += sectionHTML;
             });
         }
