@@ -12,138 +12,73 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
     <style>
-        /* මූලික සැකසුම් සහ වර්ණ */
         :root {
-            --primary-color: #e63946; /* තද රතු */
-            --dark-color: #1a1a1a;    /* කළු */
-            --bg-color: #f8f9fa;      /* ලා අළු (Background) */
-            --whatsapp-color: #25D366;/* WhatsApp කොළ */
+            --primary-color: #e63946; 
+            --dark-color: #1a1a1a;    
+            --bg-color: #f8f9fa;      
+            --whatsapp-color: #25D366;
         }
 
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background-color: var(--bg-color); 
-            margin: 0; 
-            padding: 0; 
-            color: #333;
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
 
-        /* Header (ඉහළ කොටස) සැකසීම */
-        header {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
+        header { background-color: var(--dark-color); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        header h1 { margin: 0; font-size: 28px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
         header h1 span { color: var(--primary-color); }
-
         header p { margin: 5px 0 0; font-size: 14px; color: #ccc; }
 
-        /* Hero Banner එක */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover;
-            color: white;
-            text-align: center;
-            padding: 60px 20px;
-            margin-bottom: 40px;
-        }
-
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover; color: white; text-align: center; padding: 60px 20px; margin-bottom: 30px; }
         .hero h2 { font-size: 36px; margin-bottom: 10px; text-transform: uppercase; }
         .hero p { font-size: 18px; color: #ddd; }
 
-        /* Product Section */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-title { text-align: center; font-size: 28px; margin-bottom: 40px; color: var(--dark-color); position: relative;}
-        .section-title::after {
-            content: '';
-            width: 60px;
-            height: 4px;
-            background-color: var(--primary-color);
-            display: block;
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
+        .section-title { text-align: center; font-size: 28px; margin-bottom: 20px; color: var(--dark-color); position: relative;}
+        .section-title::after { content: ''; width: 60px; height: 4px; background-color: var(--primary-color); display: block; margin: 10px auto 0; border-radius: 2px; }
 
-        /* Grid Layout (කාඩ්පත් පෙළගැස්ම) */
-        .product-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 30px; 
-            padding-bottom: 60px;
-        }
-
-        /* Product Card (භාණ්ඩ කාඩ්පත) */
-        .card { 
-            background: white; 
-            border-radius: 12px; 
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
-            transition: all 0.3s ease;
+        /* Category Filter Buttons සැකසීම */
+        .category-filters {
             display: flex;
-            flex-direction: column;
-            position: relative;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0 20px 0;
+            margin-bottom: 30px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .category-filters::-webkit-scrollbar { display: none; } /* Chrome */
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
         }
 
-        .card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 12px 25px rgba(0,0,0,0.15); 
-        }
+        .product-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding-bottom: 60px; }
 
-        .card-img-wrapper {
-            background-color: #fff;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        .card img { 
-            max-width: 100%; 
-            height: 220px; 
-            object-fit: contain; 
-            transition: transform 0.3s ease;
-        }
-
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+        .card-img-wrapper { background-color: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #eee; }
+        .card img { max-width: 100%; height: 220px; object-fit: contain; transition: transform 0.3s ease; }
         .card:hover img { transform: scale(1.05); }
-
         .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-category { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
         .card h3 { margin: 0 0 10px; font-size: 18px; color: var(--dark-color); line-height: 1.4; }
         .price { color: var(--primary-color); font-size: 24px; font-weight: 700; margin: auto 0 15px 0;}
         
-        /* WhatsApp Button */
-        .buy-btn { 
-            background: var(--whatsapp-color); 
-            color: white; 
-            padding: 12px; 
-            border: none; 
-            width: 100%; 
-            cursor: pointer; 
-            border-radius: 6px; 
-            font-size: 16px; 
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: background 0.3s;
-        }
-        
+        .buy-btn { background: var(--whatsapp-color); color: white; padding: 12px; border: none; width: 100%; cursor: pointer; border-radius: 6px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.3s; }
         .buy-btn:hover { background: #20b858; }
 
-        /* Loading Animation */
-        .loading { text-align: center; font-size: 18px; color: #666; padding: 50px; width: 100%; grid-column: 1 / -1;}
+        .loading, .no-products { text-align: center; font-size: 18px; color: #666; padding: 50px; width: 100%; grid-column: 1 / -1;}
         .spinner { border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
@@ -162,7 +97,22 @@
     </section>
 
     <main class="container">
-        <h2 class="section-title">Latest Supplements</h2>
+        <h2 class="section-title">Our Products</h2>
+
+        <div class="category-filters" id="categoryFilters">
+            <button class="filter-btn active" onclick="filterProducts('All')">All</button>
+            <button class="filter-btn" onclick="filterProducts('Protein')">Protein</button>
+            <button class="filter-btn" onclick="filterProducts('Mass Gainers')">Mass Gainers</button>
+            <button class="filter-btn" onclick="filterProducts('Pre Workout')">Pre Workout</button>
+            <button class="filter-btn" onclick="filterProducts('Creatine')">Creatine</button>
+            <button class="filter-btn" onclick="filterProducts('Glutamine, Amino & BCAA')">Glutamine, Amino & BCAA</button>
+            <button class="filter-btn" onclick="filterProducts('Fat Burners & L-Carnitine')">Fat Burners & L-Carnitine</button>
+            <button class="filter-btn" onclick="filterProducts('Testosterone Boosters')">Testosterone Boosters</button>
+            <button class="filter-btn" onclick="filterProducts('Vitamin, Collagen & Fish Oil')">Vitamin, Collagen & Fish Oil</button>
+            <button class="filter-btn" onclick="filterProducts('Energy Drinks')">Energy Drinks</button>
+            <button class="filter-btn" onclick="filterProducts('Protein Bars & Health Food')">Protein Bars & Health Food</button>
+            <button class="filter-btn" onclick="filterProducts('Accessories & Shakers')">Accessories & Shakers</button>
+        </div>
         
         <div class="product-container" id="productList">
             <div class="loading">
@@ -179,45 +129,79 @@
             projectId: "ultranutritions",
             storageBucket: "ultranutritions.firebasestorage.app",
             messagingSenderId: "904882148450",
-            appId: "1:904882148450:web:c4784968cd03e63b3cad3b",
-            measurementId: "G-FZ7L7QDR8W"
+            appId: "1:904882148450:web:c4784968cd03e63b3cad3b"
         };
 
-        // Firebase Initialize කිරීම
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // WhatsApp අංකය
         const MY_WHATSAPP_NUMBER = "94713640047";
-
         const productList = document.getElementById("productList");
+        
+        let allItems = []; // සියලුම භාණ්ඩ ගබඩා කර තබා ගැනීමට
 
-        // Database එකෙන් Items අරගෙන වෙබ් අඩවියේ පෙන්වීම
+        // Database එකෙන් Items එක වරක් පමණක් ලබා ගැනීම
         db.collection("supplements").get().then((querySnapshot) => {
-            productList.innerHTML = ""; // Loading animation එක මැකීම
-            
             if(querySnapshot.empty) {
-                productList.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>No products found. Please add from Admin panel.</p>";
+                productList.innerHTML = "<div class='no-products'>No products found. Please add from Admin panel.</div>";
                 return;
             }
 
             querySnapshot.forEach((doc) => {
-                let item = doc.data();
-                
-                // ෆොටෝ එකක් නැත්නම් Default ෆොටෝ එකක් පෙන්වීම
+                allItems.push(doc.data());
+            });
+
+            // මුලින්ම සියලුම භාණ්ඩ පෙන්වීම
+            renderProducts('All');
+
+        }).catch((error) => {
+            console.log("Error getting documents: ", error);
+            productList.innerHTML = "<div class='no-products' style='color: red;'>Error loading products. Please check database connection.</div>";
+        });
+
+        // බොත්තම් එබූ විට භාණ්ඩ Filter කිරීමේ Function එක
+        function filterProducts(categoryToFilter) {
+            // බොත්තම් වල පාට (Active state) වෙනස් කිරීම
+            let buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText === categoryToFilter) {
+                    btn.classList.add('active');
+                }
+            });
+
+            renderProducts(categoryToFilter);
+        }
+
+        // HTML කාඩ්පත් නිර්මාණය කර පෙන්වීමේ Function එක
+        function renderProducts(category) {
+            productList.innerHTML = ""; 
+
+            // තෝරාගත් Category එකට අදාළ ඒවා පමණක් වෙන් කිරීම
+            let filteredItems = allItems.filter(item => {
+                if (category === 'All') return true;
+                return item.category === category;
+            });
+
+            if(filteredItems.length === 0) {
+                productList.innerHTML = `<div class='no-products'>No items found in <b>${category}</b> category yet.</div>`;
+                return;
+            }
+
+            filteredItems.forEach((item) => {
                 let imageUrl = item.image ? item.image : "https://via.placeholder.com/300x300?text=No+Image";
+                let itemCategory = item.category ? item.category : "Uncategorized";
                 
-                // WhatsApp මැසේජ් එක හැදීම (මෙතනත් Ultra Nutritions ලෙස වෙනස් කළා)
-                let message = `Hello Ultra Nutritions! I want to buy:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
+                let message = `Hello Ultra Nutritions! I want to buy:\n\n*Item:* ${item.name}\n*Category:* ${itemCategory}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
                 let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-                // HTML කාඩ්පත නිර්මාණය
                 let card = `
                     <div class="card">
                         <div class="card-img-wrapper">
                             <img src="${imageUrl}" alt="${item.name}">
                         </div>
                         <div class="card-body">
+                            <span class="card-category">${itemCategory}</span>
                             <h3>${item.name}</h3>
                             <p class="price">Rs. ${item.price}</p>
                             <button class="buy-btn" onclick="window.open('${whatsappUrl}', '_blank')">
@@ -228,10 +212,7 @@
                 `;
                 productList.innerHTML += card;
             });
-        }).catch((error) => {
-            console.log("Error getting documents: ", error);
-            productList.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: red;'>Error loading products. Please check database connection.</p>";
-        });
+        }
     </script>
 </body>
 </html>
