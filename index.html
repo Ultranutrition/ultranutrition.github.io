@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultra Nutritions | Premium Supplement Store</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -34,41 +34,44 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
         .category-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 40px; padding: 10px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .nav-btn { padding: 10px 20px; background: var(--bg-color); border: 1px solid #ddd; color: var(--dark-color); border-radius: 25px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
+        .nav-btn { padding: 8px 18px; background: var(--bg-color); border: 1px solid #ddd; color: var(--dark-color); border-radius: 25px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
         .nav-btn:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
         .category-section { margin-bottom: 50px; scroll-margin-top: 100px; }
-        .category-title { font-size: 24px; color: var(--dark-color); border-bottom: 3px solid var(--primary-color); padding-bottom: 5px; margin-bottom: 25px; display: inline-block; text-transform: uppercase; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-
-        /* කාඩ්පත් සහ Stock Badges */
-        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s ease; display: flex; flex-direction: column; position: relative; }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+        .category-title { font-size: 20px; color: var(--dark-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; margin-bottom: 20px; display: inline-block; text-transform: uppercase; font-weight: 700; }
         
-        /* අලුතින් එක්කළ Stock Badge එක */
-        .stock-badge { position: absolute; top: 15px; right: 15px; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; color: white; z-index: 10; }
+        /* Grid එකේ ප්‍රමාණය කුඩා කිරීම */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+
+        /* කාඩ්පත් සැකසීම */
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.3s ease; display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        
+        .stock-badge { position: absolute; top: 10px; right: 10px; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: 600; color: white; z-index: 10; letter-spacing: 0.5px; }
         .badge-in-stock { background-color: var(--whatsapp-color); }
         .badge-out-of-stock { background-color: var(--primary-color); }
 
-        .card-img-wrapper { background-color: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #eee; position: relative; }
-        .card img { max-width: 100%; height: 220px; object-fit: contain; transition: transform 0.3s ease; }
-        .card:hover img { transform: scale(1.05); }
+        .card-img-wrapper { background-color: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #f4f4f4; position: relative; }
+        /* පින්තූරයේ උස අඩු කිරීම */
+        .card img { max-width: 100%; height: 170px; object-fit: contain; transition: transform 0.3s ease; }
+        .card:hover img { transform: scale(1.03); }
         
-        /* Out of stock පින්තූරය ටිකක් අඳුරු කිරීම */
         .img-out-of-stock { opacity: 0.5; filter: grayscale(100%); }
 
-        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card h3 { margin: 0 0 10px; font-size: 18px; color: var(--dark-color); line-height: 1.4; }
-        .price { color: var(--primary-color); font-size: 24px; font-weight: 700; margin: auto 0 15px 0;}
+        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card h3 { margin: 0 0 8px; font-size: 15px; color: var(--dark-color); line-height: 1.3; font-weight: 600; }
         
-        .buy-btn { background: var(--whatsapp-color); color: white; padding: 12px; border: none; width: 100%; cursor: pointer; border-radius: 6px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.3s; }
-        .buy-btn:hover { background: #20b858; }
+        /* Price එක Professional කිරීම */
+        .price { color: var(--primary-color); font-size: 18px; font-weight: 700; margin: auto 0 12px 0; letter-spacing: 0.5px; }
         
-        /* Out of Stock බොත්තම */
-        .buy-btn:disabled { background: #ccc; cursor: not-allowed; color: #666; }
+        /* Button එක Professional කිරීම */
+        .buy-btn { background: var(--whatsapp-color); color: white; padding: 9px; border: none; width: 100%; cursor: pointer; border-radius: 5px; font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(37, 211, 102, 0.3); letter-spacing: 0.3px;}
+        .buy-btn:hover { background: #20b858; box-shadow: 0 4px 8px rgba(37, 211, 102, 0.4); }
+        
+        .buy-btn:disabled { background: #e0e0e0; cursor: not-allowed; color: #888; box-shadow: none; border: 1px solid #ccc;}
 
-        .loading, .no-products { text-align: center; font-size: 18px; color: #666; padding: 50px; width: 100%; }
-        .spinner { border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        .loading, .no-products { text-align: center; font-size: 16px; color: #666; padding: 40px; width: 100%; }
+        .spinner { border: 3px solid rgba(0,0,0,0.1); width: 30px; height: 30px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 10px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
     </style>
@@ -159,7 +162,6 @@
                 itemsInCategory.forEach(item => {
                     let imageUrl = item.image ? item.image : "https://via.placeholder.com/300x300?text=No+Image";
                     
-                    // Stock Status එක පරීක්ෂා කිරීම
                     let stockStatus = item.stockStatus || "In Stock";
                     let isOutOfStock = stockStatus === "Out of Stock";
                     
@@ -169,7 +171,6 @@
                     let message = `Hello Ultra Nutritions! I want to buy:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
                     let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
                     
-                    // Out of stock නම් බොත්තම වැඩ කරන්නේ නෑ
                     let buttonHTML = isOutOfStock 
                         ? `<button class="buy-btn" disabled><i class="fas fa-times-circle"></i> Out of Stock</button>`
                         : `<button class="buy-btn" onclick="window.open('${whatsappUrl}', '_blank')"><i class="fab fa-whatsapp"></i> Buy via WhatsApp</button>`;
