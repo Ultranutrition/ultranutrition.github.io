@@ -14,7 +14,6 @@
     <style>
         :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; --whatsapp-color: #25D366; }
         
-        /* අලුතින් එකතු කළා: පිටුව දෙපැත්තට පැන්නීම වැලැක්වීමට */
         html, body { 
             overflow-x: hidden; 
             width: 100%;
@@ -32,20 +31,25 @@
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover; 
             color: white; text-align: center; padding: 40px 15px; margin-bottom: 20px; 
         }
-        
-        /* Hero text එක ෆෝන් එකට ගැලපෙන්න හැදුවා */
         .hero h2 { font-size: 24px; margin-bottom: 10px; text-transform: uppercase; line-height: 1.2; }
         .hero p { font-size: 14px; color: #ddd; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; box-sizing: border-box; }
 
-        /* Category Nav එක ෆෝන් එකේදී පේළියට Scroll කරන්න පුළුවන් කළා */
+        /* Search Bar Styles */
+        .search-container { margin-bottom: 25px; position: relative; }
+        .search-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888; }
+        #searchInput { 
+            width: 100%; padding: 12px 12px 12px 45px; border-radius: 30px; 
+            border: 1px solid #ddd; outline: none; font-family: 'Poppins'; 
+            font-size: 14px; box-sizing: border-box; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
         .category-nav { 
             display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
             justify-content: flex-start; gap: 10px; margin-bottom: 30px; padding: 15px 5px; 
             background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        /* Scrollbar එක හංගන්න */
         .category-nav::-webkit-scrollbar { display: none; }
         
         .nav-btn { 
@@ -53,12 +57,11 @@
             border: 1px solid #ddd; color: var(--dark-color); border-radius: 25px; 
             font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.3s; 
         }
-        .nav-btn:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .nav-btn:hover, .nav-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
-        .category-section { margin-bottom: 40px; scroll-margin-top: 80px; }
+        .category-section { margin-bottom: 40px; scroll-margin-top: 100px; }
         .category-title { font-size: 18px; color: var(--dark-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; margin-bottom: 20px; display: inline-block; text-transform: uppercase; font-weight: 700; }
 
-        /* Product Grid එක ෆෝන් එකේදී බඩු 2 බැගින් පේන ලෙස සැකසුවා */
         .product-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
@@ -79,7 +82,18 @@
 
         .buy-btn { background: var(--whatsapp-color); color: white; padding: 8px; border: none; width: 100%; cursor: pointer; border-radius: 5px; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
 
-        /* Desktop එකට වඩා ලොකු screen වලට grid එක හදන්න */
+        /* Loading Spinner Center Fix */
+        .loading { 
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; min-height: 300px; width: 100%; text-align: center; 
+        }
+        .spinner { 
+            border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; 
+            border-radius: 50%; border-left-color: var(--primary-color); 
+            animation: spin 1s linear infinite; margin-bottom: 15px; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         @media (min-width: 768px) {
             header h1 { font-size: 32px; }
             .hero h2 { font-size: 40px; }
@@ -87,10 +101,6 @@
             .category-nav { justify-content: center; flex-wrap: wrap; }
             .card h3 { font-size: 15px; height: auto; }
         }
-
-        .loading, .no-products { text-align: center; font-size: 16px; color: #666; padding: 40px; width: 100%; }
-        .spinner { border: 3px solid rgba(0,0,0,0.1); width: 30px; height: 30px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 10px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -106,12 +116,17 @@
     </section>
 
     <main class="container">
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search for protein, creatine, brand...">
+        </div>
+
         <nav class="category-nav" id="categoryNav"></nav>
         
         <div id="mainContent">
-            <div class="loading" id="loadingState">
+            <div class="loading">
                 <div class="spinner"></div>
-                Loading latest stock...
+                <p>Loading products...</p>
             </div>
         </div>
     </main>
@@ -131,12 +146,14 @@
         const MY_WHATSAPP_NUMBER = "94713640047";
         const categoryNav = document.getElementById("categoryNav");
         const mainContent = document.getElementById("mainContent");
+        const searchInput = document.getElementById("searchInput");
         
         let allItems = []; 
 
+        // Firebase වලින් Data ගැනීම
         db.collection("supplements").get().then((querySnapshot) => {
             if(querySnapshot.empty) {
-                mainContent.innerHTML = "<div class='no-products'>No products found.</div>";
+                mainContent.innerHTML = "<div class='loading'>No products found.</div>";
                 return;
             }
             querySnapshot.forEach((doc) => {
@@ -144,63 +161,80 @@
                 itemData.id = doc.id;
                 allItems.push(itemData);
             });
-            renderPageContent();
+            renderStore(allItems);
         }).catch((error) => {
-            mainContent.innerHTML = "<div class='no-products'>Error loading products.</div>";
+            mainContent.innerHTML = "<div class='loading'>Error loading data.</div>";
         });
 
-        function renderPageContent() {
+        // මුළු Store එකම පෙන්වන ප්‍රධාන Function එක
+        function renderStore(products) {
             mainContent.innerHTML = "";
             categoryNav.innerHTML = "";
-            const categoriesPresent = [...new Set(allItems.map(item => item.category || 'Uncategorized'))];
 
-            categoriesPresent.forEach(category => {
-                let categoryId = category.replace(/\s+/g, '-').toLowerCase();
-                let navLink = document.createElement("a");
-                navLink.href = `#${categoryId}`;
-                navLink.className = "nav-btn";
-                navLink.innerText = category;
-                categoryNav.appendChild(navLink);
+            if(products.length === 0) {
+                mainContent.innerHTML = "<div class='loading'>No matching products found.</div>";
+                return;
+            }
+
+            const categories = [...new Set(products.map(item => item.category || 'Uncategorized'))];
+
+            // Category Buttons හැදීම
+            categories.forEach(category => {
+                let btn = document.createElement("a");
+                btn.className = "nav-btn";
+                btn.href = `#${category.replace(/\s+/g, '-').toLowerCase()}`;
+                btn.innerText = category;
+                categoryNav.appendChild(btn);
             });
 
-            categoriesPresent.forEach(category => {
+            // බඩු Grid එක හැදීම
+            categories.forEach(category => {
                 let categoryId = category.replace(/\s+/g, '-').toLowerCase();
-                let itemsInCategory = allItems.filter(item => (item.category || 'Uncategorized') === category);
+                let items = products.filter(item => (item.category || 'Uncategorized') === category);
 
-                let sectionHTML = `<div id="${categoryId}" class="category-section">
-                    <h2 class="category-title">${category}</h2><div class="product-grid">`;
+                let section = document.createElement("div");
+                section.id = categoryId;
+                section.className = "category-section";
+                
+                let html = `<h2 class="category-title">${category}</h2><div class="product-grid">`;
+                
+                items.forEach(item => {
+                    let isOut = item.stockStatus === "Out of Stock";
+                    let message = `Hello! I'm interested in ${item.name}`;
+                    let waLink = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-                itemsInCategory.forEach(item => {
-                    let imageUrl = item.image ? item.image : "https://via.placeholder.com/300x300?text=No+Image";
-                    let stockStatus = item.stockStatus || "In Stock";
-                    let isOutOfStock = stockStatus === "Out of Stock";
-                    let badgeClass = isOutOfStock ? "badge-out-of-stock" : "badge-in-stock";
-                    
-                    let message = `Hello Ultra Nutritions! I want to buy: ${item.name} (Rs. ${item.price})`;
-                    let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-                    
-                    let buttonHTML = isOutOfStock 
-                        ? `<button class="buy-btn" disabled><i class="fas fa-times-circle"></i> Sold Out</button>`
-                        : `<button class="buy-btn" onclick="event.stopPropagation(); window.open('${whatsappUrl}', '_blank')"><i class="fab fa-whatsapp"></i> Buy Now</button>`;
-
-                    sectionHTML += `
+                    html += `
                         <div class="card" onclick="window.location.href='product.html?id=${item.id}'">
-                            <span class="stock-badge ${badgeClass}">${stockStatus}</span>
+                            <span class="stock-badge ${isOut ? 'badge-out-of-stock' : 'badge-in-stock'}">${item.stockStatus || 'In Stock'}</span>
                             <div class="card-img-wrapper">
-                                <img src="${imageUrl}" alt="${item.name}">
+                                <img src="${item.image || 'https://via.placeholder.com/200'}" alt="${item.name}">
                             </div>
                             <div class="card-body">
                                 <h3>${item.name}</h3>
                                 <p class="price">Rs. ${item.price}</p>
-                                ${buttonHTML}
+                                <button class="buy-btn" ${isOut ? 'disabled' : ''} onclick="event.stopPropagation(); window.open('${waLink}', '_blank')">
+                                    <i class="fab fa-whatsapp"></i> ${isOut ? 'Sold Out' : 'Buy Now'}
+                                </button>
                             </div>
                         </div>
                     `;
                 });
-                sectionHTML += `</div></div>`;
-                mainContent.innerHTML += sectionHTML;
+                
+                html += `</div>`;
+                section.innerHTML = html;
+                mainContent.appendChild(section);
             });
         }
+
+        // Search Functionality
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = allItems.filter(item => 
+                item.name.toLowerCase().includes(term) || 
+                (item.category && item.category.toLowerCase().includes(term))
+            );
+            renderStore(filtered);
+        });
     </script>
 </body>
 </html>
