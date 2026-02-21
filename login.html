@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Ultra Nutritions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 350px; text-align: center; }
+        h2 { margin-bottom: 25px; color: #1a1a1a; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #e63946; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        button:hover { background: #d62839; }
+        #errorMsg { color: red; font-size: 13px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <h2>Admin Login</h2>
+    <input type="email" id="email" placeholder="Email Address">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="errorMsg"></p>
+</div>
+
+<script>
+    // පරණ firebaseConfig එකම මෙතනට දාන්න
+    const firebaseConfig = {
+        apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
+        authDomain: "ultranutritions.firebaseapp.com",
+        projectId: "ultranutritions",
+        storageBucket: "ultranutritions.firebasestorage.app",
+        messagingSenderId: "904882148450",
+        appId: "1:904882148450:web:c4784968cd03e63b3cad3b"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const errorMsg = document.getElementById("errorMsg");
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+            window.location.href = "admin.html"; // Login වුණාම admin පේජ් එකට යනවා
+        })
+        .catch((error) => {
+            errorMsg.innerText = "Invalid login credentials!";
+        });
+    }
+</script>
+</body>
+</html>
