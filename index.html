@@ -13,39 +13,81 @@
     
     <style>
         :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; --whatsapp-color: #25D366; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
-        header { background-color: var(--dark-color); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        header h1 { margin: 0; font-size: 28px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-        header h1 span { color: var(--primary-color); }
-        header p { margin: 5px 0 0; font-size: 14px; color: #ccc; }
-        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover; color: white; text-align: center; padding: 60px 20px; margin-bottom: 30px; }
-        .hero h2 { font-size: 36px; margin-bottom: 10px; text-transform: uppercase; }
-        .hero p { font-size: 18px; color: #ddd; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .category-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 40px; padding: 10px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .nav-btn { padding: 8px 18px; background: var(--bg-color); border: 1px solid #ddd; color: var(--dark-color); border-radius: 25px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
-        .nav-btn:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-        .category-section { margin-bottom: 50px; scroll-margin-top: 100px; }
-        .category-title { font-size: 20px; color: var(--dark-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; margin-bottom: 20px; display: inline-block; text-transform: uppercase; font-weight: 700; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
         
-        /* Clickable Card Styles */
-        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.3s ease; display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; cursor: pointer; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); border-color: var(--primary-color); }
-        .stock-badge { position: absolute; top: 10px; right: 10px; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: 600; color: white; z-index: 10; letter-spacing: 0.5px; }
+        /* අලුතින් එකතු කළා: පිටුව දෙපැත්තට පැන්නීම වැලැක්වීමට */
+        html, body { 
+            overflow-x: hidden; 
+            width: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
+        
+        header { background-color: var(--dark-color); color: white; padding: 15px 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        header h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        header h1 span { color: var(--primary-color); }
+        header p { margin: 5px 0 0; font-size: 12px; color: #ccc; }
+
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover; 
+            color: white; text-align: center; padding: 40px 15px; margin-bottom: 20px; 
+        }
+        
+        /* Hero text එක ෆෝන් එකට ගැලපෙන්න හැදුවා */
+        .hero h2 { font-size: 24px; margin-bottom: 10px; text-transform: uppercase; line-height: 1.2; }
+        .hero p { font-size: 14px; color: #ddd; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; box-sizing: border-box; }
+
+        /* Category Nav එක ෆෝන් එකේදී පේළියට Scroll කරන්න පුළුවන් කළා */
+        .category-nav { 
+            display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+            justify-content: flex-start; gap: 10px; margin-bottom: 30px; padding: 15px 5px; 
+            background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        /* Scrollbar එක හංගන්න */
+        .category-nav::-webkit-scrollbar { display: none; }
+        
+        .nav-btn { 
+            white-space: nowrap; padding: 8px 18px; background: var(--bg-color); 
+            border: 1px solid #ddd; color: var(--dark-color); border-radius: 25px; 
+            font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.3s; 
+        }
+        .nav-btn:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+        .category-section { margin-bottom: 40px; scroll-margin-top: 80px; }
+        .category-title { font-size: 18px; color: var(--dark-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; margin-bottom: 20px; display: inline-block; text-transform: uppercase; font-weight: 700; }
+
+        /* Product Grid එක ෆෝන් එකේදී බඩු 2 බැගින් පේන ලෙස සැකසුවා */
+        .product-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+            gap: 15px; 
+        }
+        
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: 0.3s; display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; cursor: pointer; }
+        .stock-badge { position: absolute; top: 8px; right: 8px; padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 600; color: white; z-index: 10; }
         .badge-in-stock { background-color: var(--whatsapp-color); }
         .badge-out-of-stock { background-color: var(--primary-color); }
-        .card-img-wrapper { background-color: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #f4f4f4; position: relative; }
-        .card img { max-width: 100%; height: 170px; object-fit: contain; transition: transform 0.3s ease; }
-        .card:hover img { transform: scale(1.03); }
-        .img-out-of-stock { opacity: 0.5; filter: grayscale(100%); }
-        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card h3 { margin: 0 0 8px; font-size: 15px; color: var(--dark-color); line-height: 1.3; font-weight: 600; }
-        .price { color: var(--primary-color); font-size: 18px; font-weight: 700; margin: auto 0 12px 0; letter-spacing: 0.5px; }
-        .buy-btn { background: var(--whatsapp-color); color: white; padding: 9px; border: none; width: 100%; cursor: pointer; border-radius: 5px; font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(37, 211, 102, 0.3); letter-spacing: 0.3px;}
-        .buy-btn:hover { background: #20b858; box-shadow: 0 4px 8px rgba(37, 211, 102, 0.4); }
-        .buy-btn:disabled { background: #e0e0e0; cursor: not-allowed; color: #888; box-shadow: none; border: 1px solid #ccc;}
+
+        .card-img-wrapper { background-color: #fff; padding: 10px; text-align: center; height: 150px; display: flex; align-items: center; justify-content: center; }
+        .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        .card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card h3 { margin: 0 0 8px; font-size: 13px; color: var(--dark-color); line-height: 1.3; font-weight: 600; height: 34px; overflow: hidden; }
+        .price { color: var(--primary-color); font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+
+        .buy-btn { background: var(--whatsapp-color); color: white; padding: 8px; border: none; width: 100%; cursor: pointer; border-radius: 5px; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
+
+        /* Desktop එකට වඩා ලොකු screen වලට grid එක හදන්න */
+        @media (min-width: 768px) {
+            header h1 { font-size: 32px; }
+            .hero h2 { font-size: 40px; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 25px; }
+            .category-nav { justify-content: center; flex-wrap: wrap; }
+            .card h3 { font-size: 15px; height: auto; }
+        }
+
         .loading, .no-products { text-align: center; font-size: 16px; color: #666; padding: 40px; width: 100%; }
         .spinner { border: 3px solid rgba(0,0,0,0.1); width: 30px; height: 30px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 10px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -55,12 +97,12 @@
 
     <header>
         <h1>Ultra <span>Nutritions</span></h1>
-        <p>Your Ultimate Supplement Store in Sri Lanka</p>
+        <p>Premium Supplement Store in Sri Lanka</p>
     </header>
 
     <section class="hero">
-        <h2>FABRICATOR OF POWERFULL YOUNGERS</h2>
-        <p>100% Authentic Whey Protein, Creatine & Pre-workouts</p>
+        <h2>FABRICATOR OF POWERFUL YOUNGERS</h2>
+        <p>Authentic Whey Protein, Creatine & Pre-workouts</p>
     </section>
 
     <main class="container">
@@ -94,18 +136,17 @@
 
         db.collection("supplements").get().then((querySnapshot) => {
             if(querySnapshot.empty) {
-                mainContent.innerHTML = "<div class='no-products'>No products found. Please add from Admin panel.</div>";
+                mainContent.innerHTML = "<div class='no-products'>No products found.</div>";
                 return;
             }
-
             querySnapshot.forEach((doc) => {
                 let itemData = doc.data();
-                itemData.id = doc.id; // Document ID එක Save කරගන්නවා
+                itemData.id = doc.id;
                 allItems.push(itemData);
             });
             renderPageContent();
         }).catch((error) => {
-            mainContent.innerHTML = "<div class='no-products' style='color: red;'>Error loading products.</div>";
+            mainContent.innerHTML = "<div class='no-products'>Error loading products.</div>";
         });
 
         function renderPageContent() {
@@ -134,22 +175,19 @@
                     let stockStatus = item.stockStatus || "In Stock";
                     let isOutOfStock = stockStatus === "Out of Stock";
                     let badgeClass = isOutOfStock ? "badge-out-of-stock" : "badge-in-stock";
-                    let imgClass = isOutOfStock ? "img-out-of-stock" : "";
                     
-                    let message = `Hello Ultra Nutritions! I want to buy:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
+                    let message = `Hello Ultra Nutritions! I want to buy: ${item.name} (Rs. ${item.price})`;
                     let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
                     
-                    // event.stopPropagation() දාලා තියෙන්නේ Buy බොත්තම එබුවම අලුත් පිටුවට යන්නේ නැතුව කෙලින්ම Whatsapp යන්න
                     let buttonHTML = isOutOfStock 
-                        ? `<button class="buy-btn" disabled onclick="event.stopPropagation();"><i class="fas fa-times-circle"></i> Out of Stock</button>`
-                        : `<button class="buy-btn" onclick="event.stopPropagation(); window.open('${whatsappUrl}', '_blank')"><i class="fab fa-whatsapp"></i> Buy via WhatsApp</button>`;
+                        ? `<button class="buy-btn" disabled><i class="fas fa-times-circle"></i> Sold Out</button>`
+                        : `<button class="buy-btn" onclick="event.stopPropagation(); window.open('${whatsappUrl}', '_blank')"><i class="fab fa-whatsapp"></i> Buy Now</button>`;
 
-                    // කාඩ් එක Click කළාම product.html පිටුවට ID එකත් එක්ක යනවා
                     sectionHTML += `
                         <div class="card" onclick="window.location.href='product.html?id=${item.id}'">
                             <span class="stock-badge ${badgeClass}">${stockStatus}</span>
                             <div class="card-img-wrapper">
-                                <img src="${imageUrl}" alt="${item.name}" class="${imgClass}">
+                                <img src="${imageUrl}" alt="${item.name}">
                             </div>
                             <div class="card-body">
                                 <h3>${item.name}</h3>
