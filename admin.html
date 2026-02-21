@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Ultra Nutritions</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding: 20px; }
         .admin-container { max-width: 600px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 0 auto 30px auto; }
         h2 { text-align: center; color: #1a1a1a; margin-bottom: 20px;}
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0 20px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
-        button { width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        input[type="text"], input[type="number"], select, textarea { width: 100%; padding: 12px; margin: 10px 0 20px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+        input[type="file"] { width: 100%; padding: 10px 0; margin-bottom: 20px; cursor: pointer;}
+        label { font-size: 14px; font-weight: 600; color: #333; }
+        button { width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s;}
         button:hover { background: #2563eb; }
+        button:disabled { background: #9ca3af; cursor: not-allowed; }
         .message { text-align: center; margin-top: 15px; font-weight: bold; }
         .item-list { display: flex; flex-direction: column; gap: 15px; }
         .item-card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; background: #fff;}
@@ -30,8 +36,14 @@
 
     <div class="admin-container">
         <h2>Add New Supplement 🛒</h2>
-        <input type="text" id="itemName" placeholder="Item Name (e.g. Whey Protein)">
-        <input type="number" id="itemPrice" placeholder="Price (Rs.)">
+        
+        <label>Item Name</label>
+        <input type="text" id="itemName" placeholder="e.g. Whey Protein">
+        
+        <label>Price (Rs.)</label>
+        <input type="number" id="itemPrice" placeholder="e.g. 15000">
+        
+        <label>Category</label>
         <select id="itemCategory">
             <option value="" disabled selected>Select a Category...</option>
             <option value="Protein">Protein</option>
@@ -47,10 +59,13 @@
             <option value="Accessories & Shakers">Accessories & Shakers</option>
         </select>
         
-        <textarea id="itemDescription" rows="4" placeholder="Enter Product Description (Features, Flavors, Servings...)"></textarea>
+        <label>Product Description</label>
+        <textarea id="itemDescription" rows="4" placeholder="Enter Product Description..."></textarea>
         
-        <input type="text" id="itemImage" placeholder="Image URL">
-        <button onclick="addItem()">Add Item to Shop</button>
+        <label>Upload Product Image</label>
+        <input type="file" id="itemImage" accept="image/*">
+        
+        <button id="addBtn" onclick="addItem()">Add Item to Shop</button>
         <p class="message" id="statusMessage"></p>
     </div>
 
@@ -70,37 +85,74 @@
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const storage = firebase.storage(); // Firebase Storage Load කිරීම
 
         function addItem() {
             let name = document.getElementById("itemName").value;
             let price = document.getElementById("itemPrice").value;
             let category = document.getElementById("itemCategory").value;
-            let description = document.getElementById("itemDescription").value; // අලුත්
-            let image = document.getElementById("itemImage").value;
+            let description = document.getElementById("itemDescription").value; 
+            let fileInput = document.getElementById("itemImage");
+            let file = fileInput.files[0]; // තෝරාගත් පින්තූරය
+            
             let msg = document.getElementById("statusMessage");
+            let btn = document.getElementById("addBtn");
 
             if(name === "" || price === "" || category === "") {
                 msg.style.color = "red"; msg.innerText = "Name, Price, and Category are required!"; return;
             }
 
-            msg.style.color = "blue"; msg.innerText = "Adding item...";
+            // පින්තූරය Upload වෙනකම් Button එක ඔබන්න බැරි වෙන්න හදනවා
+            btn.disabled = true;
+            msg.style.color = "blue"; 
+            msg.innerText = "Uploading Image & Saving... Please wait ⏳";
+
+            if (file) {
+                // එකම නම තියෙන පින්තූර දෙකක් ආවොත් ප්‍රශ්නයක් නොවෙන්න වෙලාව (Time) එක්ක නම හදනවා
+                let fileName = new Date().getTime() + "_" + file.name; 
+                let storageRef = storage.ref('supplements/' + fileName);
+                
+                // පින්තූරය Storage එකට Upload කිරීම
+                storageRef.put(file).then((snapshot) => {
+                    return snapshot.ref.getDownloadURL(); // Upload වුණාට පස්සේ Download Link එක ගන්නවා
+                }).then((downloadURL) => {
+                    saveToFirestore(name, price, category, description, downloadURL);
+                }).catch((error) => {
+                    msg.style.color = "red"; msg.innerText = "Error uploading image!";
+                    btn.disabled = false;
+                });
+            } else {
+                // පින්තූරයක් තෝරලා නැත්නම් හිස්ව යවනවා
+                saveToFirestore(name, price, category, description, "");
+            }
+        }
+
+        // Database එකට Save කරන Function එක
+        function saveToFirestore(name, price, category, description, imageUrl) {
+            let msg = document.getElementById("statusMessage");
+            let btn = document.getElementById("addBtn");
 
             db.collection("supplements").add({
                 name: name,
                 price: price,
                 category: category,
-                description: description, // Database එකට Description එක යැවීම
-                image: image,
+                description: description,
+                image: imageUrl, // Upload වුණ පින්තූරයේ ලින්ක් එක
                 stockStatus: "In Stock"
             }).then(() => {
-                msg.style.color = "green"; msg.innerText = "Item added successfully!";
+                msg.style.color = "green"; msg.innerText = "Item added successfully! ✅";
                 document.getElementById("itemName").value = "";
                 document.getElementById("itemPrice").value = "";
                 document.getElementById("itemCategory").value = "";
-                document.getElementById("itemDescription").value = "";
+                document.getElementById("itemDescription").value = ""; 
                 document.getElementById("itemImage").value = "";
+                btn.disabled = false; // ආයෙත් Button එක වැඩ කරන්න හදනවා
+                
                 setTimeout(() => { msg.innerText = ""; }, 3000);
                 loadItems();
+            }).catch((error) => {
+                msg.style.color = "red"; msg.innerText = "Error adding item!";
+                btn.disabled = false;
             });
         }
 
