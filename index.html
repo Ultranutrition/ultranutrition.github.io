@@ -61,7 +61,7 @@
             margin-bottom: 40px;
         }
 
-        .hero h2 { font-size: 36px; margin-bottom: 10px; }
+        .hero h2 { font-size: 36px; margin-bottom: 10px; text-transform: uppercase; }
         .hero p { font-size: 18px; color: #ddd; }
 
         /* Product Section */
@@ -157,7 +157,7 @@
     </header>
 
     <section class="hero">
-        <h2>Fuel Your Ambition</h2>
+        <h2>FABRICATOR OF POWERFULL YOUNGERS</h2>
         <p>100% Authentic Whey Protein, Creatine & Pre-workouts</p>
     </section>
 
@@ -173,23 +173,22 @@
     </main>
 
     <script>
-        // ⚠️ පියවර 1: අර කලින් ගත්ත ඔයාගේ Firebase Config එක මෙතනට දාන්න
         const firebaseConfig = {
-  apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
-  authDomain: "ultranutritions.firebaseapp.com",
-  projectId: "ultranutritions",
-  storageBucket: "ultranutritions.firebasestorage.app",
-  messagingSenderId: "904882148450",
-  appId: "1:904882148450:web:c4784968cd03e63b3cad3b",
-  measurementId: "G-FZ7L7QDR8W"
-};
+            apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
+            authDomain: "ultranutritions.firebaseapp.com",
+            projectId: "ultranutritions",
+            storageBucket: "ultranutritions.firebasestorage.app",
+            messagingSenderId: "904882148450",
+            appId: "1:904882148450:web:c4784968cd03e63b3cad3b",
+            measurementId: "G-FZ7L7QDR8W"
+        };
 
         // Firebase Initialize කිරීම
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // ⚠️ පියවර 2: ඔයාගේ WhatsApp අංකය මෙතනට දෙන්න (94 න් පටන් ගන්න)
-        const MY_WHATSAPP_NUMBER = "94701234567";
+        // ⚠️ WhatsApp අංකය මෙතන නිවැරදිව යාවත්කාලීන කළා
+        const MY_WHATSAPP_NUMBER = "94713640047";
 
         const productList = document.getElementById("productList");
 
@@ -208,9 +207,9 @@
                 // ෆොටෝ එකක් නැත්නම් Default ෆොටෝ එකක් පෙන්වීම
                 let imageUrl = item.image ? item.image : "https://via.placeholder.com/300x300?text=No+Image";
                 
-                // WhatsApp මැසේජ් එක හැදීම
+                // WhatsApp මැසේජ් එක හැදීම (මෙතන MY_WHATSAPP_NUMBER කියන විචල්‍යය භාවිතා කළා)
                 let message = `Hello Ultra Nutrition! I want to buy:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
-                let whatsappUrl = `https://wa.me/${94713640047}?text=${encodeURIComponent(message)}`;
+                let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
                 // HTML කාඩ්පත නිර්මාණය
                 let card = `
