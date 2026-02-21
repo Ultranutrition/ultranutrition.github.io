@@ -1,62 +1,101 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel - Add Supplements</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Ultra Nutritions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding: 40px; }
+        .admin-container { max-width: 500px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: auto; }
+        h2 { text-align: center; color: #1a1a1a; margin-bottom: 20px;}
+        input, select { width: 100%; padding: 12px; margin: 10px 0 20px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+        button { width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        button:hover { background: #2563eb; }
+        .message { text-align: center; margin-top: 15px; font-weight: bold; }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; padding: 20px;">
+<body>
 
-    <h2>Add New Supplement 🛒</h2>
-    
-    <input type="text" id="itemName" placeholder="Item Name (e.g. Whey Protein)" style="padding: 10px; margin-bottom: 10px; width: 300px;"><br>
-    <input type="number" id="itemPrice" placeholder="Price (Rs.)" style="padding: 10px; margin-bottom: 10px; width: 300px;"><br>
-    <input type="text" id="itemImage" placeholder="Image URL" style="padding: 10px; margin-bottom: 10px; width: 300px;"><br>
-    
-    <button onclick="addItem()" style="padding: 10px 20px; background-color: blue; color: white; border: none; cursor: pointer;">Add Item to Shop</button>
+    <div class="admin-container">
+        <h2>Add New Supplement 🛒</h2>
+        
+        <input type="text" id="itemName" placeholder="Item Name (e.g. Whey Protein)">
+        
+        <input type="number" id="itemPrice" placeholder="Price (Rs.)">
+        
+        <select id="itemCategory">
+            <option value="" disabled selected>Select a Category...</option>
+            <option value="Protein">Protein</option>
+            <option value="Mass Gainers">Mass Gainers</option>
+            <option value="Pre Workout">Pre Workout</option>
+            <option value="Creatine">Creatine</option>
+            <option value="Glutamine, Amino & BCAA">Glutamine, Amino & BCAA</option>
+            <option value="Fat Burners & L-Carnitine">Fat Burners & L-Carnitine</option>
+            <option value="Testosterone Boosters">Testosterone Boosters</option>
+            <option value="Vitamin, Collagen & Fish Oil">Vitamin, Collagen & Fish Oil</option>
+            <option value="Energy Drinks">Energy Drinks</option>
+            <option value="Protein Bars & Health Food">Protein Bars & Health Food</option>
+            <option value="Accessories & Shakers">Accessories & Shakers</option>
+        </select>
+
+        <input type="text" id="itemImage" placeholder="Image URL">
+        
+        <button onclick="addItem()">Add Item to Shop</button>
+
+        <p class="message" id="statusMessage"></p>
+    </div>
 
     <script>
-        // මෙතනට ඔයාගේ Firebase Config එක දාන්න
         const firebaseConfig = {
-  apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
-  authDomain: "ultranutritions.firebaseapp.com",
-  projectId: "ultranutritions",
-  storageBucket: "ultranutritions.firebasestorage.app",
-  messagingSenderId: "904882148450",
-  appId: "1:904882148450:web:c4784968cd03e63b3cad3b",
-  measurementId: "G-FZ7L7QDR8W"
-};
-
-        // Firebase Initialize කිරීම
+            apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
+            authDomain: "ultranutritions.firebaseapp.com",
+            projectId: "ultranutritions",
+            storageBucket: "ultranutritions.firebasestorage.app",
+            messagingSenderId: "904882148450",
+            appId: "1:904882148450:web:c4784968cd03e63b3cad3b"
+        };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Data Database එකට යැවීම
         function addItem() {
             let name = document.getElementById("itemName").value;
             let price = document.getElementById("itemPrice").value;
+            let category = document.getElementById("itemCategory").value;
             let image = document.getElementById("itemImage").value;
+            let msg = document.getElementById("statusMessage");
 
-            if(name !== "" && price !== "") {
-                db.collection("supplements").add({
-                    name: name,
-                    price: price,
-                    image: image
-                })
-                .then(() => {
-                    alert("Item Successfully Added! ✅");
-                    // ෆෝම් එක හිස් කිරීම
-                    document.getElementById("itemName").value = "";
-                    document.getElementById("itemPrice").value = "";
-                    document.getElementById("itemImage").value = "";
-                })
-                .catch((error) => {
-                    console.error("Error adding document: ", error);
-                });
-            } else {
-                alert("Please enter Name and Price!");
+            if(name === "" || price === "" || category === "") {
+                msg.style.color = "red";
+                msg.innerText = "Please fill Name, Price, and Category!";
+                return;
             }
+
+            msg.style.color = "blue";
+            msg.innerText = "Adding item...";
+
+            db.collection("supplements").add({
+                name: name,
+                price: price,
+                category: category,
+                image: image
+            }).then(() => {
+                msg.style.color = "green";
+                msg.innerText = "Item added successfully!";
+                // Form එක හිස් කිරීම
+                document.getElementById("itemName").value = "";
+                document.getElementById("itemPrice").value = "";
+                document.getElementById("itemCategory").value = "";
+                document.getElementById("itemImage").value = "";
+                
+                setTimeout(() => { msg.innerText = ""; }, 3000);
+            }).catch((error) => {
+                msg.style.color = "red";
+                msg.innerText = "Error adding item!";
+                console.error(error);
+            });
         }
     </script>
 </body>
