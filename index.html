@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra Nutrition | Premium Supplement Store</title>
+    <title>Ultra Nutritions | Premium Supplement Store</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -152,7 +152,7 @@
 <body>
 
     <header>
-        <h1>Ultra <span>Nutrition</span></h1>
+        <h1>Ultra <span>Nutritions</span></h1>
         <p>Your Ultimate Supplement Store in Sri Lanka</p>
     </header>
 
@@ -187,7 +187,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // ⚠️ WhatsApp අංකය මෙතන නිවැරදිව යාවත්කාලීන කළා
+        // WhatsApp අංකය
         const MY_WHATSAPP_NUMBER = "94713640047";
 
         const productList = document.getElementById("productList");
@@ -207,8 +207,8 @@
                 // ෆොටෝ එකක් නැත්නම් Default ෆොටෝ එකක් පෙන්වීම
                 let imageUrl = item.image ? item.image : "https://via.placeholder.com/300x300?text=No+Image";
                 
-                // WhatsApp මැසේජ් එක හැදීම (මෙතන MY_WHATSAPP_NUMBER කියන විචල්‍යය භාවිතා කළා)
-                let message = `Hello Ultra Nutrition! I want to buy:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
+                // WhatsApp මැසේජ් එක හැදීම (මෙතනත් Ultra Nutritions ලෙස වෙනස් කළා)
+                let message = `Hello Ultra Nutritions! I want to buy:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
                 let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
                 // HTML කාඩ්පත නිර්මාණය
