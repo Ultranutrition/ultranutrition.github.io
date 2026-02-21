@@ -12,7 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
     <style>
-        :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; --whatsapp-color: #25D366; }
+        :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; }
         
         html, body { 
             overflow-x: hidden; 
@@ -43,7 +43,9 @@
             width: 100%; padding: 12px 12px 12px 45px; border-radius: 30px; 
             border: 1px solid #ddd; outline: none; font-family: 'Poppins'; 
             font-size: 14px; box-sizing: border-box; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            transition: border-color 0.3s;
         }
+        #searchInput:focus { border-color: var(--primary-color); }
 
         .category-nav { 
             display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -68,38 +70,58 @@
             gap: 15px; 
         }
         
-        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: 0.3s; display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; cursor: pointer; }
-        .stock-badge { position: absolute; top: 8px; right: 8px; padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 600; color: white; z-index: 10; }
-        .badge-in-stock { background-color: var(--whatsapp-color); }
+        /* Card Styles Restructured for Perfect Alignment */
+        .card { 
+            background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; 
+            cursor: pointer; height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .stock-badge { position: absolute; top: 8px; right: 8px; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 600; color: white; z-index: 10; letter-spacing: 0.5px; text-transform: uppercase;}
+        .badge-in-stock { background-color: #2a9d8f; } /* Soft professional green */
         .badge-out-of-stock { background-color: var(--primary-color); }
 
-        .card-img-wrapper { background-color: #fff; padding: 10px; text-align: center; height: 150px; display: flex; align-items: center; justify-content: center; }
-        .card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .card-img-wrapper { background-color: #fff; padding: 15px; text-align: center; height: 160px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f8f9fa;}
+        .card img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
+        .card:hover img { transform: scale(1.05); }
         
-        .card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card h3 { margin: 0 0 8px; font-size: 13px; color: var(--dark-color); line-height: 1.3; font-weight: 600; height: 34px; overflow: hidden; }
-        .price { color: var(--primary-color); font-size: 16px; font-weight: 700; margin-bottom: 10px; }
-
-        .buy-btn { background: var(--whatsapp-color); color: white; padding: 8px; border: none; width: 100%; cursor: pointer; border-radius: 5px; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
-
-        /* Loading Spinner Center Fix */
-        .loading { 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; min-height: 300px; width: 100%; text-align: center; 
+        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+        
+        /* Two-line title truncation */
+        .card h3 { 
+            margin: 0 0 10px; font-size: 14px; color: var(--dark-color); line-height: 1.4; 
+            font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
-        .spinner { 
-            border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; 
-            border-radius: 50%; border-left-color: var(--primary-color); 
-            animation: spin 1s linear infinite; margin-bottom: 15px; 
+
+        /* Forces Price and Button to the bottom of the card always */
+        .price-and-btn { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
+        .price { color: var(--primary-color); font-size: 16px; font-weight: 700; margin: 0; text-align: left;}
+
+        /* Professional Button Style */
+        .buy-btn { 
+            background: var(--dark-color); color: white; padding: 10px; border: none; 
+            width: 100%; cursor: pointer; border-radius: 6px; font-size: 12px; font-weight: 600; 
+            text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.3s ease;
         }
+        .buy-btn:hover:not(:disabled) { background: var(--primary-color); }
+        .buy-btn:disabled { background: #ccc; cursor: not-allowed; color: #666; }
+
+        /* Loading Spinner */
+        .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; width: 100%; text-align: center; }
+        .spinner { border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin-bottom: 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         @media (min-width: 768px) {
             header h1 { font-size: 32px; }
             .hero h2 { font-size: 40px; }
-            .product-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 25px; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
             .category-nav { justify-content: center; flex-wrap: wrap; }
-            .card h3 { font-size: 15px; height: auto; }
+            .card h3 { font-size: 15px; }
         }
     </style>
 </head>
@@ -143,14 +165,12 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        const MY_WHATSAPP_NUMBER = "94713640047";
         const categoryNav = document.getElementById("categoryNav");
         const mainContent = document.getElementById("mainContent");
         const searchInput = document.getElementById("searchInput");
         
         let allItems = []; 
 
-        // Firebase වලින් Data ගැනීම
         db.collection("supplements").get().then((querySnapshot) => {
             if(querySnapshot.empty) {
                 mainContent.innerHTML = "<div class='loading'>No products found.</div>";
@@ -166,7 +186,6 @@
             mainContent.innerHTML = "<div class='loading'>Error loading data.</div>";
         });
 
-        // මුළු Store එකම පෙන්වන ප්‍රධාන Function එක
         function renderStore(products) {
             mainContent.innerHTML = "";
             categoryNav.innerHTML = "";
@@ -178,7 +197,6 @@
 
             const categories = [...new Set(products.map(item => item.category || 'Uncategorized'))];
 
-            // Category Buttons හැදීම
             categories.forEach(category => {
                 let btn = document.createElement("a");
                 btn.className = "nav-btn";
@@ -187,7 +205,6 @@
                 categoryNav.appendChild(btn);
             });
 
-            // බඩු Grid එක හැදීම
             categories.forEach(category => {
                 let categoryId = category.replace(/\s+/g, '-').toLowerCase();
                 let items = products.filter(item => (item.category || 'Uncategorized') === category);
@@ -200,9 +217,8 @@
                 
                 items.forEach(item => {
                     let isOut = item.stockStatus === "Out of Stock";
-                    let message = `Hello! I'm interested in ${item.name}`;
-                    let waLink = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
+                    // The whole card AND the button now redirect to the product details page
                     html += `
                         <div class="card" onclick="window.location.href='product.html?id=${item.id}'">
                             <span class="stock-badge ${isOut ? 'badge-out-of-stock' : 'badge-in-stock'}">${item.stockStatus || 'In Stock'}</span>
@@ -211,10 +227,12 @@
                             </div>
                             <div class="card-body">
                                 <h3>${item.name}</h3>
-                                <p class="price">Rs. ${item.price}</p>
-                                <button class="buy-btn" ${isOut ? 'disabled' : ''} onclick="event.stopPropagation(); window.open('${waLink}', '_blank')">
-                                    <i class="fab fa-whatsapp"></i> ${isOut ? 'Sold Out' : 'Buy Now'}
-                                </button>
+                                <div class="price-and-btn">
+                                    <p class="price">Rs. ${item.price}</p>
+                                    <button class="buy-btn" ${isOut ? 'disabled' : ''}>
+                                        ${isOut ? 'Sold Out' : 'Buy Now'}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -226,7 +244,6 @@
             });
         }
 
-        // Search Functionality
         searchInput.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
             const filtered = allItems.filter(item => 
