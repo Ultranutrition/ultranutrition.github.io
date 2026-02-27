@@ -13,7 +13,6 @@
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding: 20px; }
         
-        /* Logout Button and Header Styles */
         .header-bar { max-width: 800px; margin: 0 auto 20px auto; display: flex; justify-content: space-between; align-items: center; }
         .header-bar h2 { margin: 0; color: #1a1a1a; }
         .btn-logout { background: #e63946; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; width: auto; }
@@ -31,7 +30,6 @@
 
         .message { text-align: center; margin-top: 15px; font-weight: bold; }
         
-        /* Search Bar Style */
         .search-container { margin-bottom: 20px; }
         #adminSearch { border: 2px solid #3b82f6; }
 
@@ -43,7 +41,9 @@
         .item-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end;}
         .btn-delete { background: #e63946; padding: 8px 15px; width: auto; font-size: 14px; color: white; border:none; border-radius:5px; cursor:pointer;}
         .btn-status { background: #f4a261; padding: 8px 15px; width: auto; font-size: 14px; color: #000; border:none; border-radius:5px; cursor:pointer;}
-        .btn-edit { background: #2a9d8f; padding: 8px 15px; width: auto; font-size: 14px; color: white; border:none; border-radius:5px; cursor:pointer;} /* අලුත් Edit බොත්තමේ පාට */
+        .btn-edit { background: #2a9d8f; padding: 8px 15px; width: auto; font-size: 14px; color: white; border:none; border-radius:5px; cursor:pointer;}
+        
+        .image-inputs { display: flex; gap: 10px; }
     </style>
 </head>
 <body>
@@ -57,6 +57,7 @@
         <h2 id="formTitle">Add New Supplement 🛒</h2>
         <input type="text" id="itemName" placeholder="Item Name (e.g. Whey Protein)">
         <input type="number" id="itemPrice" placeholder="Price (Rs.)">
+        
         <select id="itemCategory">
             <option value="" disabled selected>Select a Category...</option>
             <option value="Protein">Protein</option>
@@ -73,7 +74,9 @@
         </select>
         
         <textarea id="itemDescription" rows="4" placeholder="Enter Product Description..."></textarea>
-        <input type="text" id="itemImage" placeholder="Image Path/URL (e.g. images/item.jpg)">
+        
+        <input type="text" id="itemImage" placeholder="Main Image Path (e.g. images/item-front.jpg)">
+        <input type="text" id="itemImage2" placeholder="Second Image Path - Optional (e.g. images/item-back.jpg)">
         
         <button id="saveBtn" onclick="saveItem()">Add Item to Shop</button>
         <button id="cancelBtn" class="btn-cancel" onclick="cancelEdit()">Cancel Edit</button>
@@ -102,7 +105,6 @@
         };
         firebase.initializeApp(firebaseConfig);
         
-        // --- SECURITY CHECK ---
         firebase.auth().onAuthStateChanged((user) => {
             if (!user) {
                 window.location.href = "login.html";
@@ -116,19 +118,18 @@
                 window.location.href = "login.html";
             });
         }
-        // -----------------------
 
         const db = firebase.firestore();
         let allProducts = []; 
-        let editModeId = null; // Edit කරන අයිටම් එකේ ID එක තියාගන්න විචල්‍යයක්
+        let editModeId = null; 
 
-        // අලුතින් දාන්න සහ අප්ඩේට් කරන්න පාවිච්චි කරන Function එක
         function saveItem() {
             let name = document.getElementById("itemName").value;
             let price = document.getElementById("itemPrice").value;
             let category = document.getElementById("itemCategory").value;
             let description = document.getElementById("itemDescription").value; 
             let image = document.getElementById("itemImage").value;
+            let image2 = document.getElementById("itemImage2").value; // දෙවෙනි පින්තූරය
             let msg = document.getElementById("statusMessage");
 
             if(name === "" || price === "" || category === "") {
@@ -140,20 +141,18 @@
                 price: price,
                 category: category,
                 description: description,
-                image: image
+                image: image,
+                image2: image2 // Data එකට එකතු කළා
             };
 
-            // Edit Mode එකේ නම් තියෙන්නේ (ID එකක් තියෙනවා නම්) Update කරනවා
             if (editModeId) {
                 db.collection("supplements").doc(editModeId).update(productData).then(() => {
                     msg.style.color = "green"; msg.innerText = "Successfully Updated!";
-                    cancelEdit(); // Edit එක ඉවර නිසා Form එක clear කරනවා
+                    cancelEdit(); 
                     loadItems();
                 });
-            } 
-            // අලුතින් නම් Add කරනවා
-            else {
-                productData.stockStatus = "In Stock"; // අලුතින් දාද්දි විතරක් In stock කියලා දානවා
+            } else {
+                productData.stockStatus = "In Stock"; 
                 db.collection("supplements").add(productData).then(() => {
                     msg.style.color = "green"; msg.innerText = "Successfully Added!";
                     resetForm();
@@ -162,31 +161,28 @@
             }
         }
 
-        // Edit බොත්තම එබුවම Form එකට ඩේටා පුරවන Function එක
         function editItem(id) {
-            let item = allProducts.find(p => p.id === id); // අදාල Product එක හොයාගන්නවා
+            let item = allProducts.find(p => p.id === id); 
             if (item) {
                 document.getElementById("itemName").value = item.name;
                 document.getElementById("itemPrice").value = item.price;
                 document.getElementById("itemCategory").value = item.category;
                 document.getElementById("itemDescription").value = item.description;
-                document.getElementById("itemImage").value = item.image;
+                document.getElementById("itemImage").value = item.image || "";
+                document.getElementById("itemImage2").value = item.image2 || ""; // Edit කරද්දි පෙන්වනවා
 
-                editModeId = id; // ID එක සෙට් කරනවා
+                editModeId = id; 
                 
-                // Form එකේ පෙනුම වෙනස් කරනවා
                 document.getElementById("formTitle").innerText = "Edit Supplement ✏️";
                 document.getElementById("saveBtn").innerText = "Update Item";
                 document.getElementById("saveBtn").style.background = "#2a9d8f";
                 document.getElementById("cancelBtn").style.display = "block";
                 document.getElementById("statusMessage").innerText = "";
 
-                // පිටුවේ උඩටම යනවා ලේසියට
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
-        // Edit කරන එක එපා නම් ඒක Cancel කරන්න
         function cancelEdit() {
             editModeId = null;
             resetForm();
@@ -202,6 +198,7 @@
             document.getElementById("itemCategory").value = "";
             document.getElementById("itemDescription").value = "";
             document.getElementById("itemImage").value = "";
+            document.getElementById("itemImage2").value = ""; // Form එක clear කරද්දි මකනවා
         }
 
         function loadItems() {
@@ -221,7 +218,6 @@
             const listDiv = document.getElementById("adminItemsList");
             let statusColor = item.stockStatus === "In Stock" ? "green" : "red";
             
-            // Edit බොත්තම මෙතනට අලුතින් දැම්මා
             let card = `
                 <div class="item-card">
                     <div class="item-details">
