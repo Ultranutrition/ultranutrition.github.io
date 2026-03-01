@@ -5,178 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Ultra Nutritions | Best Supplement Shop & Online Store in Sri Lanka</title>
-    <meta name="description" content="Buy authentic Whey Protein, Creatine, and Bodybuilding Supplements in Sri Lanka. Find the best whey protein price, top bodybuilding supplements, and buy online at Ultra Nutritions. Island-wide delivery.">
-    <meta name="keywords" content="Best supplement Shop in Sri Lanka, Online supplement store Sri Lanka, whey protein price in sri lanka, Bodybuilding supplements Sri Lanka, Protein supplement Sri Lanka, supplement shops in colombo, whey protein isolate">
-    <meta name="author" content="Ultra Nutritions">
-    <meta name="robots" content="index, follow">
-
-    <meta property="og:title" content="Ultra Nutritions | Premium Supplement Store Sri Lanka">
-    <meta property="og:description" content="100% Authentic Whey Protein & Bodybuilding Supplements at the best prices in Sri Lanka.">
-    <meta property="og:type" content="website">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Buy authentic Whey Protein, Creatine, and Bodybuilding Supplements in Sri Lanka. Best whey protein price and island-wide delivery.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SportsActivityLocation",
-      "name": "Ultra Nutritions",
-      "description": "Best online supplement store in Sri Lanka offering whey protein, creatine, and bodybuilding supplements.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "LK"
-      }
-    }
-    </script>
 
     <style>
-        :root { --primary-color: #e63946; --dark-color: #212529; --bg-color: #f8f9fa; }
+        :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #fcfcfc; }
         
-        html, body { 
-            overflow-x: hidden; 
-            width: 100%;
-            scroll-behavior: smooth;
+        /* SEO Hiding Technique (Safe for Google) */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
 
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; display: flex; flex-direction: column; min-height: 100vh;}
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; overflow-x: hidden; }
         
-        header { background-color: var(--dark-color); color: white; padding: 15px 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        
-        .header-link { text-decoration: none; color: inherit; display: inline-block; cursor: pointer; }
-        header h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        header { background-color: var(--dark-color); color: white; padding: 20px 10px; text-align: center; position: sticky; top: 0; z-index: 1000; }
+        .header-link { text-decoration: none; color: inherit; }
+        header h1 { margin: 0; font-size: 26px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         header h1 span { color: var(--primary-color); }
-        header p { margin: 5px 0 0; font-size: 12px; color: #ccc; }
 
         .hero { 
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover; 
-            color: white; text-align: center; padding: 40px 15px; margin-bottom: 20px; 
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover; 
+            color: white; text-align: center; padding: 60px 15px; 
         }
-        .hero h2 { font-size: 24px; margin-bottom: 10px; text-transform: uppercase; line-height: 1.2; letter-spacing: 1px;}
-        .hero p { font-size: 14px; color: #ddd; }
-        .hero .seo-subtitle { color: var(--primary-color); font-weight: 600; margin-bottom: 5px; display: block;}
+        .hero h2 { font-size: 28px; font-weight: 800; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; box-sizing: border-box; flex-grow: 1; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
 
-        .search-container { margin-bottom: 25px; position: relative; }
-        .search-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888; }
+        .search-wrapper { max-width: 600px; margin: -30px auto 40px; position: relative; z-index: 10; }
         #searchInput { 
-            width: 100%; padding: 12px 12px 12px 45px; border-radius: 30px; 
-            border: 1px solid #ddd; outline: none; font-family: 'Poppins'; 
-            font-size: 14px; box-sizing: border-box; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-            transition: border-color 0.3s;
+            width: 100%; padding: 15px 25px 15px 55px; border-radius: 50px; 
+            border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.1); font-size: 15px; outline: none;
         }
-        #searchInput:focus { border-color: var(--primary-color); }
+        .search-wrapper i { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: #888; font-size: 18px; }
 
-        .category-nav { 
-            display: flex; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
-            justify-content: flex-start; gap: 10px; margin-bottom: 30px; padding: 15px 5px; 
-            background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .category-nav::-webkit-scrollbar { display: none; }
-        
-        .nav-btn { 
-            white-space: nowrap; padding: 8px 18px; background: var(--bg-color); 
-            border: 1px solid #ddd; color: var(--dark-color); border-radius: 25px; 
-            font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.3s; 
-        }
-        .nav-btn:hover, .nav-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-
-        .category-section { margin-bottom: 40px; scroll-margin-top: 100px; }
-        .category-title { font-size: 18px; color: var(--dark-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; margin-bottom: 20px; display: inline-block; text-transform: uppercase; font-weight: 700; }
+        /* Category Horizontal Bar Logic */
+        .category-section { margin-bottom: 50px; width: 100%; }
+        .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-left: 5px solid var(--primary-color); padding-left: 15px; }
+        .category-title { font-size: 20px; font-weight: 700; text-transform: uppercase; margin: 0; color: var(--dark-color); }
 
         .product-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-            gap: 12px; 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 20px; 
+            padding: 10px 5px 20px 5px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
-        
+        /* Hide scrollbar for clean look but keep functionality */
+        .product-grid::-webkit-scrollbar { height: 6px; }
+        .product-grid::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+
         .card { 
-            background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
-            display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; 
-            cursor: pointer; height: 100%;
+            min-width: 200px; max-width: 200px; background: white; border-radius: 12px; 
+            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            transition: 0.3s; border: 1px solid #f0f0f0; cursor: pointer; position: relative;
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.12); }
-
-        .stock-badge { position: absolute; top: 8px; right: 8px; padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; z-index: 10; letter-spacing: 0.5px; text-transform: uppercase;}
-        .badge-in-stock { background-color: #ffffff; color: #198754; border: 1px solid #198754; box-shadow: 0 2px 4px rgba(0,0,0,0.05); } 
-        .badge-out-of-stock { background-color: var(--primary-color); color: white; border: 1px solid var(--primary-color); }
-
-        .card-img-wrapper { background-color: #fff; padding: 10px; text-align: center; height: 120px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f8f9fa;}
-        .card img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
-        .card:hover img { transform: scale(1.05); }
+        @media (min-width: 768px) { .card { min-width: 240px; max-width: 240px; } }
         
-        .card-body { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card h3 { margin: 0 0 8px; font-size: 13px; color: var(--dark-color); line-height: 1.4; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
 
-        .price-and-btn { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
-        .price { color: var(--primary-color); font-size: 15px; font-weight: 700; margin: 0; text-align: left;}
+        .stock-badge { position: absolute; top: 10px; right: 10px; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; z-index: 5; }
+        .in-stock { background: #198754; color: white; }
+        .out-of-stock { background: var(--primary-color); color: white; }
 
-        .buy-btn { background: var(--dark-color); color: white; padding: 8px; border: none; width: 100%; cursor: pointer; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.3s ease; }
-        .buy-btn:hover:not(:disabled) { background: var(--primary-color); }
-        .buy-btn:disabled { background: #ccc; cursor: not-allowed; color: #666; }
+        .card-img { height: 180px; display: flex; align-items: center; justify-content: center; padding: 20px; background: #fff; }
+        .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        .card-body { padding: 15px; border-top: 1px solid #f8f9fa; }
+        .card h3 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: #222; height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .price { color: var(--primary-color); font-size: 17px; font-weight: 800; margin: 0; }
 
-        .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; width: 100%; text-align: center; }
-        .spinner { border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin-bottom: 15px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .seo-footer { background: var(--dark-color); color: #777; padding: 40px 20px; text-align: center; border-top: 1px solid #333; }
+        .footer-main-text { color: #eee; font-size: 14px; font-weight: 500; margin-bottom: 10px; display: block; }
 
-        /* SEO Footer Styles */
-        .seo-footer { background-color: var(--dark-color); color: #aaa; padding: 30px 15px; text-align: center; margin-top: 50px; font-size: 12px; line-height: 1.6; }
-        .seo-footer p { max-width: 900px; margin: 0 auto 10px; }
-        .seo-footer strong { color: #fff; }
-
-        @media (min-width: 768px) {
-            header h1 { font-size: 32px; }
-            .hero h2 { font-size: 40px; }
-            .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-            .category-nav { justify-content: center; flex-wrap: wrap; }
-            .card-img-wrapper { height: 160px; padding: 15px; }
-            .card-body { padding: 15px; }
-            .card h3 { font-size: 15px; margin: 0 0 10px; }
-            .price { font-size: 16px; }
-            .price-and-btn { gap: 12px; }
-            .buy-btn { padding: 10px; font-size: 12px; }
+        @media (max-width: 600px) {
+            .hero h2 { font-size: 20px; }
+            .card { min-width: 170px; max-width: 170px; }
+            .card-img { height: 140px; }
         }
+
+        .loading-state { text-align: center; padding: 50px; width: 100%; }
+        .spinner { border: 3px solid rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
+    <div class="visually-hidden">
+        <h1>Best Online Supplement Store in Sri Lanka - Ultra Nutritions</h1>
+        <p>Whey protein price in Sri Lanka, bodybuilding supplements Colombo, authentic creatine, and vitamins at Ultra Nutritions online store.</p>
+    </div>
+
     <header>
         <a href="index.html" class="header-link">
             <h1>Ultra <span>Nutritions</span></h1>
-            <p>Top Rated Supplement Store in Sri Lanka</p>
         </a>
     </header>
 
     <section class="hero">
-        <h2>FABRICATOR OF POWERFUL YOUNGERS</h2>
-        <p><span class="seo-subtitle">Best Online Supplement Store in Sri Lanka</span><br>100% Authentic Whey Protein, Creatine & Bodybuilding Supplements</p>
+        <h2>Fabricator of Powerful Youngers</h2>
     </section>
 
     <main class="container">
-        <div class="search-container">
+        <div class="search-wrapper">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Search for whey protein, creatine, brand...">
+            <input type="text" id="searchInput" placeholder="Search supplements (e.g. Whey, Creatine, Brand)">
         </div>
 
-        <nav class="category-nav" id="categoryNav"></nav>
-        
-        <div id="mainContent">
-            <div class="loading">
+        <div id="storeContent">
+            <div class="loading-state">
                 <div class="spinner"></div>
-                <p>Loading products...</p>
+                <p>Loading Authentic Supplements...</p>
             </div>
         </div>
     </main>
 
     <footer class="seo-footer">
-        <p><strong>Ultra Nutritions</strong> is your trusted <em>online supplement store in Sri Lanka</em>. We offer the best <em>whey protein prices in Sri Lanka</em>, including whey protein isolate and gold standard options. Whether you are searching for top 10 <em>bodybuilding supplements in Colombo</em>, Galle, or island-wide, we guarantee 100% authentic products.</p>
-        <p>Compare our <em>supplement prices in Sri Lanka</em> and build your physique with confidence.</p>
-        <p>&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
+        <span class="footer-main-text">Sri Lanka's Most Trusted Destination for Premium Fitness Nutrition.</span>
+        <div class="visually-hidden">
+            <p>Ultra Nutritions is the leading supplement shop in Sri Lanka offering the best prices for whey protein, muscle tech, on whey gold standard, and island-wide delivery in Colombo, Kandy, and Galle.</p>
+        </div>
+        <p style="font-size: 12px; margin: 0;">&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -191,96 +152,76 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        const categoryNav = document.getElementById("categoryNav");
-        const mainContent = document.getElementById("mainContent");
-        const searchInput = document.getElementById("searchInput");
-        
-        let allItems = []; 
+        let allProducts = [];
 
-        db.collection("supplements").get().then((querySnapshot) => {
-            if(querySnapshot.empty) {
-                mainContent.innerHTML = "<div class='loading'>No products found.</div>";
-                return;
-            }
-            querySnapshot.forEach((doc) => {
-                let itemData = doc.data();
-                itemData.id = doc.id;
-                allItems.push(itemData);
+        db.collection("supplements").get().then((snapshot) => {
+            snapshot.forEach(doc => {
+                let data = doc.data();
+                data.id = doc.id;
+                allProducts.push(data);
             });
-            renderStore(allItems);
-        }).catch((error) => {
-            mainContent.innerHTML = "<div class='loading'>Error loading data.</div>";
+            renderRows(allProducts);
         });
 
-        function renderStore(products) {
-            mainContent.innerHTML = "";
-            categoryNav.innerHTML = "";
+        function renderRows(products) {
+            const storeContent = document.getElementById("storeContent");
+            storeContent.innerHTML = "";
 
             if(products.length === 0) {
-                mainContent.innerHTML = "<div class='loading'>No matching products found.</div>";
+                storeContent.innerHTML = "<p style='text-align:center;'>No products found matching your search.</p>";
                 return;
             }
 
-            const categories = [...new Set(products.map(item => item.category || 'Uncategorized'))];
+            const categories = [...new Set(products.map(p => p.category || 'Other Supplements'))];
 
-            categories.forEach(category => {
-                let btn = document.createElement("a");
-                btn.className = "nav-btn";
-                btn.href = `#${category.replace(/\s+/g, '-').toLowerCase()}`;
-                btn.innerText = category;
-                categoryNav.appendChild(btn);
+            // Order categories (Optional: Whey Protein First)
+            const sortedCategories = categories.sort((a, b) => {
+                if (a.toLowerCase().includes('whey')) return -1;
+                return 1;
             });
 
-            categories.forEach(category => {
-                let categoryId = category.replace(/\s+/g, '-').toLowerCase();
-                let items = products.filter(item => (item.category || 'Uncategorized') === category);
-
-                let section = document.createElement("div");
-                section.id = categoryId;
-                section.className = "category-section";
+            sortedCategories.forEach(cat => {
+                const catProducts = products.filter(p => (p.category || 'Other Supplements') === cat);
                 
-                let html = `<h2 class="category-title">${category}</h2><div class="product-grid">`;
+                const section = document.createElement('div');
+                section.className = 'category-section';
                 
-                items.forEach(item => {
-                    let isOut = item.stockStatus === "Out of Stock";
+                let html = `
+                    <div class="category-header">
+                        <h2 class="category-title">${cat}</h2>
+                    </div>
+                    <div class="product-grid">
+                `;
 
+                catProducts.forEach(item => {
+                    const isOut = item.stockStatus === "Out of Stock";
                     html += `
                         <div class="card" onclick="window.location.href='product.html?id=${item.id}'">
-                            <span class="stock-badge ${isOut ? 'badge-out-of-stock' : 'badge-in-stock'}">${item.stockStatus || 'In Stock'}</span>
-                            <div class="card-img-wrapper">
-                                <img 
-                                    src="${item.image || 'https://via.placeholder.com/200'}" 
-                                    alt="Buy ${item.name} in Sri Lanka - Authentic ${item.category || 'Bodybuilding Supplements'} at Best Price" 
-                                    title="${item.name} | Ultra Nutritions Sri Lanka" 
-                                    loading="lazy"
-                                >
+                            <span class="stock-badge ${isOut ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
+                            <div class="card-img">
+                                <img src="${item.image || 'https://via.placeholder.com/200'}" alt="${item.name}" loading="lazy">
                             </div>
                             <div class="card-body">
                                 <h3>${item.name}</h3>
-                                <div class="price-and-btn">
-                                    <p class="price">Rs. ${item.price}</p>
-                                    <button class="buy-btn" ${isOut ? 'disabled' : ''}>
-                                        ${isOut ? 'Sold Out' : 'Buy Now'}
-                                    </button>
-                                </div>
+                                <p class="price">Rs. ${item.price}</p>
                             </div>
                         </div>
                     `;
                 });
-                
+
                 html += `</div>`;
                 section.innerHTML = html;
-                mainContent.appendChild(section);
+                storeContent.appendChild(section);
             });
         }
 
-        searchInput.addEventListener('input', (e) => {
+        document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            const filtered = allItems.filter(item => 
-                item.name.toLowerCase().includes(term) || 
-                (item.category && item.category.toLowerCase().includes(term))
+            const filtered = allProducts.filter(p => 
+                p.name.toLowerCase().includes(term) || 
+                (p.category && p.category.toLowerCase().includes(term))
             );
-            renderStore(filtered);
+            renderRows(filtered);
         });
     </script>
 </body>
