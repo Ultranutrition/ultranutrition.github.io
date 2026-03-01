@@ -18,11 +18,17 @@
         .btn-logout { background: #e63946; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; width: auto; }
         .btn-logout:hover { background: #d62839; }
 
-        .admin-container { max-width: 600px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 0 auto 30px auto; }
+        .admin-container { max-width: 700px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 0 auto 30px auto; }
         h2 { text-align: center; color: #1a1a1a; margin-bottom: 20px;}
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0 20px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
         
-        button { width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; color: #333;}
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+        
+        .row { display: flex; gap: 15px; }
+        .row .form-group { flex: 1; }
+
+        button { width: 100%; padding: 14px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px;}
         button:hover { background: #2563eb; }
         
         .btn-cancel { background: #6c757d; margin-top: 10px; display: none; }
@@ -31,7 +37,7 @@
         .message { text-align: center; margin-top: 15px; font-weight: bold; }
         
         .search-container { margin-bottom: 20px; }
-        #adminSearch { border: 2px solid #3b82f6; }
+        #adminSearch { border: 2px solid #3b82f6; padding: 12px;}
 
         .item-list { display: flex; flex-direction: column; gap: 15px; }
         .item-card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; background: #fff;}
@@ -39,11 +45,11 @@
         .item-details p { margin: 0; font-size: 14px; color: #666; }
         
         .item-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end;}
-        .btn-delete { background: #e63946; padding: 8px 15px; width: auto; font-size: 14px; color: white; border:none; border-radius:5px; cursor:pointer;}
-        .btn-status { background: #f4a261; padding: 8px 15px; width: auto; font-size: 14px; color: #000; border:none; border-radius:5px; cursor:pointer;}
-        .btn-edit { background: #2a9d8f; padding: 8px 15px; width: auto; font-size: 14px; color: white; border:none; border-radius:5px; cursor:pointer;}
+        .btn-delete { background: #e63946; padding: 8px 15px; width: auto; font-size: 14px; color: white; border:none; border-radius:5px; cursor:pointer; margin-top: 0;}
+        .btn-status { background: #f4a261; padding: 8px 15px; width: auto; font-size: 14px; color: #000; border:none; border-radius:5px; cursor:pointer; margin-top: 0;}
+        .btn-edit { background: #2a9d8f; padding: 8px 15px; width: auto; font-size: 14px; color: white; border:none; border-radius:5px; cursor:pointer; margin-top: 0;}
         
-        .image-inputs { display: flex; gap: 10px; }
+        .helper-text { font-size: 11px; color: #888; margin-top: -8px; margin-bottom: 10px; display: block;}
     </style>
 </head>
 <body>
@@ -55,28 +61,52 @@
 
     <div class="admin-container">
         <h2 id="formTitle">Add New Supplement 🛒</h2>
-        <input type="text" id="itemName" placeholder="Item Name (e.g. Whey Protein)">
-        <input type="number" id="itemPrice" placeholder="Price (Rs.)">
         
-        <select id="itemCategory">
-            <option value="" disabled selected>Select a Category...</option>
-            <option value="Protein">Protein</option>
-            <option value="Mass Gainers">Mass Gainers</option>
-            <option value="Pre Workout">Pre Workout</option>
-            <option value="Creatine">Creatine</option>
-            <option value="Glutamine, Amino & BCAA">Glutamine, Amino & BCAA</option>
-            <option value="Fat Burners & L-Carnitine">Fat Burners & L-Carnitine</option>
-            <option value="Testosterone Boosters">Testosterone Boosters</option>
-            <option value="Vitamin, Collagen & Fish Oil">Vitamin, Collagen & Fish Oil</option>
-            <option value="Energy Drinks">Energy Drinks</option>
-            <option value="Protein Bars & Health Food">Protein Bars & Health Food</option>
-            <option value="Accessories & Shakers">Accessories & Shakers</option>
-        </select>
+        <div class="row">
+            <div class="form-group">
+                <label>Product Name *</label>
+                <input type="text" id="itemName" placeholder="e.g. Whey Protein Gold">
+            </div>
+            <div class="form-group">
+                <label>Price (Rs.) *</label>
+                <input type="number" id="itemPrice" placeholder="e.g. 15000">
+            </div>
+        </div>
         
-        <textarea id="itemDescription" rows="4" placeholder="Enter Product Description..."></textarea>
+        <div class="form-group">
+            <label>Category *</label>
+            <select id="itemCategory">
+                <option value="" disabled selected>Select a Category...</option>
+                <option value="Protein">Protein</option>
+                <option value="Mass Gainers">Mass Gainers</option>
+                <option value="Pre Workout">Pre Workout</option>
+                <option value="Creatine">Creatine</option>
+                <option value="Glutamine, Amino & BCAA">Glutamine, Amino & BCAA</option>
+                <option value="Fat Burners & L-Carnitine">Fat Burners & L-Carnitine</option>
+                <option value="Testosterone Boosters">Testosterone Boosters</option>
+                <option value="Vitamin, Collagen & Fish Oil">Vitamin, Collagen & Fish Oil</option>
+                <option value="Energy Drinks">Energy Drinks</option>
+                <option value="Protein Bars & Health Food">Protein Bars & Health Food</option>
+                <option value="Accessories & Shakers">Accessories & Shakers</option>
+            </select>
+        </div>
         
-        <input type="text" id="itemImage" placeholder="Main Image Path (e.g. images/item-front.jpg)">
-        <input type="text" id="itemImage2" placeholder="Second Image Path - Optional (e.g. images/item-back.jpg)">
+        <div class="form-group">
+            <label>Highlights / Short Description</label>
+            <textarea id="itemDescription" rows="4" placeholder="Enter bullet points (one per line)..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Images</label>
+            <input type="text" id="itemImage" placeholder="Main Image Path/URL (e.g. images/item-front.jpg)" style="margin-bottom: 8px;">
+            <input type="text" id="itemImage2" placeholder="Second Image Path/URL - Optional">
+        </div>
+
+        <div class="form-group">
+            <label>SEO Article (HTML Allowed) - Optional</label>
+            <span class="helper-text">You can use &lt;h2&gt;, &lt;h3&gt;, &lt;p&gt;, &lt;strong&gt; tags to format the article. This will show below the product.</span>
+            <textarea id="seoArticle" rows="6" placeholder="<h2>Buy Whey Protein in Sri Lanka</h2>&#10;<p>Best quality protein...</p>"></textarea>
+        </div>
         
         <button id="saveBtn" onclick="saveItem()">Add Item to Shop</button>
         <button id="cancelBtn" class="btn-cancel" onclick="cancelEdit()">Cancel Edit</button>
@@ -129,11 +159,12 @@
             let category = document.getElementById("itemCategory").value;
             let description = document.getElementById("itemDescription").value; 
             let image = document.getElementById("itemImage").value;
-            let image2 = document.getElementById("itemImage2").value; // දෙවෙනි පින්තූරය
+            let image2 = document.getElementById("itemImage2").value;
+            let seoArticle = document.getElementById("seoArticle").value; // අලුතින් එකතු කළ SEO Article එක
             let msg = document.getElementById("statusMessage");
 
             if(name === "" || price === "" || category === "") {
-                msg.style.color = "red"; msg.innerText = "Required fields are missing!"; return;
+                msg.style.color = "red"; msg.innerText = "Name, Price, and Category are required!"; return;
             }
 
             let productData = {
@@ -142,14 +173,23 @@
                 category: category,
                 description: description,
                 image: image,
-                image2: image2 // Data එකට එකතු කළා
+                image2: image2,
+                seoArticle: seoArticle // Database එකට යවනවා
             };
+
+            document.getElementById("saveBtn").innerText = "Saving...";
+            document.getElementById("saveBtn").disabled = true;
 
             if (editModeId) {
                 db.collection("supplements").doc(editModeId).update(productData).then(() => {
                     msg.style.color = "green"; msg.innerText = "Successfully Updated!";
                     cancelEdit(); 
                     loadItems();
+                }).catch(err => {
+                    msg.style.color = "red"; msg.innerText = "Error updating!";
+                    console.error(err);
+                }).finally(() => {
+                    document.getElementById("saveBtn").disabled = false;
                 });
             } else {
                 productData.stockStatus = "In Stock"; 
@@ -157,6 +197,12 @@
                     msg.style.color = "green"; msg.innerText = "Successfully Added!";
                     resetForm();
                     loadItems();
+                }).catch(err => {
+                    msg.style.color = "red"; msg.innerText = "Error saving!";
+                    console.error(err);
+                }).finally(() => {
+                    document.getElementById("saveBtn").innerText = "Add Item to Shop";
+                    document.getElementById("saveBtn").disabled = false;
                 });
             }
         }
@@ -167,9 +213,10 @@
                 document.getElementById("itemName").value = item.name;
                 document.getElementById("itemPrice").value = item.price;
                 document.getElementById("itemCategory").value = item.category;
-                document.getElementById("itemDescription").value = item.description;
+                document.getElementById("itemDescription").value = item.description || "";
                 document.getElementById("itemImage").value = item.image || "";
-                document.getElementById("itemImage2").value = item.image2 || ""; // Edit කරද්දි පෙන්වනවා
+                document.getElementById("itemImage2").value = item.image2 || "";
+                document.getElementById("seoArticle").value = item.seoArticle || ""; // Edit කරද්දි පෙන්වනවා
 
                 editModeId = id; 
                 
@@ -198,7 +245,8 @@
             document.getElementById("itemCategory").value = "";
             document.getElementById("itemDescription").value = "";
             document.getElementById("itemImage").value = "";
-            document.getElementById("itemImage2").value = ""; // Form එක clear කරද්දි මකනවා
+            document.getElementById("itemImage2").value = "";
+            document.getElementById("seoArticle").value = ""; // Form එක clear කරද්දි මකනවා
         }
 
         function loadItems() {
@@ -206,6 +254,12 @@
             db.collection("supplements").get().then((snapshot) => {
                 allProducts = []; 
                 listDiv.innerHTML = "";
+                
+                if (snapshot.empty) {
+                    listDiv.innerHTML = "<p style='text-align:center; color:#666;'>No products found.</p>";
+                    return;
+                }
+
                 snapshot.forEach((doc) => {
                     let product = { id: doc.id, ...doc.data() };
                     allProducts.push(product);
@@ -239,7 +293,13 @@
             let term = document.getElementById("adminSearch").value.toLowerCase();
             const listDiv = document.getElementById("adminItemsList");
             listDiv.innerHTML = "";
-            allProducts.filter(p => p.name.toLowerCase().includes(term)).forEach(renderCard);
+            
+            let filtered = allProducts.filter(p => p.name.toLowerCase().includes(term));
+            if(filtered.length === 0) {
+                 listDiv.innerHTML = "<p style='text-align:center; color:#666;'>No matching products.</p>";
+            } else {
+                filtered.forEach(renderCard);
+            }
         }
 
         function deleteItem(id) {
