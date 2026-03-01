@@ -176,81 +176,97 @@
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <script defer>
-        window.addEventListener('DOMContentLoaded', () => {
-            const firebaseConfig = {
-                apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
-                authDomain: "ultranutritions.firebaseapp.com",
-                projectId: "ultranutritions",
-                storageBucket: "ultranutritions.firebasestorage.app",
-                messagingSenderId: "904882148450",
-                appId: "1:904882148450:web:c4784968cd03e63b3cad3b"
-            };
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            }
-            const db = firebase.firestore();
+        // Start Firebase initialization and data fetching immediately
+        const firebaseConfig = {
+            apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
+            authDomain: "ultranutritions.firebaseapp.com",
+            projectId: "ultranutritions",
+            storageBucket: "ultranutritions.firebasestorage.app",
+            messagingSenderId: "904882148450",
+            appId: "1:904882148450:web:c4784968cd03e63b3cad3b"
+        };
+        
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+        let allProducts = [];
 
-            let allProducts = [];
+        // Encoded SVG - safe to use inside HTML attributes
+        const fallbackImg = "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23f4f4f4%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2212px%22 fill=%22%23999%22%3EImage Not Found%3C/text%3E%3C/svg%3E";
+
+        db.collection("supplements").get().then((snapshot) => {
+            allProducts = [];
+            snapshot.forEach(doc => {
+                let data = doc.data();
+                data.id = doc.id;
+                allProducts.push(data);
+            });
             
-            // Fast SVG Data URI for missing images (Zero network requests)
-            const fallbackImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f4f4f4'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='12px' fill='%23999'%3EImage Not Found%3C/text%3E%3C/svg%3E";
-
-            db.collection("supplements").get().then((snapshot) => {
-                allProducts = [];
-                snapshot.forEach(doc => {
-                    let data = doc.data();
-                    data.id = doc.id;
-                    allProducts.push(data);
-                });
+            // Wait for DOM to be fully painted before rendering
+            if(document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => renderRows(allProducts));
+            } else {
                 renderRows(allProducts);
-            });
+            }
+        });
 
-            function renderRows(products) {
-                const storeContent = document.getElementById("storeContent");
+        function renderRows(products) {
+            const storeContent = document.getElementById("storeContent");
+            if(!storeContent) return;
 
-                if(products.length === 0) {
-                    storeContent.innerHTML = "<p style='text-align:center; padding: 40px; color: #666;'>No products found.</p>";
-                    return;
-                }
-
-                const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
-                categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
-
-                let finalHTML = ""; 
-
-                categories.forEach(cat => {
-                    const catProducts = products.filter(p => (p.category || 'Supplements') === cat);
-                    let html = `<div class="category-section"><div class="category-header"><div class="category-title">${cat}</div></div><div class="product-grid">`;
-                    
-                    catProducts.forEach(item => {
-                        const isOut = item.stockStatus === "Out of Stock";
-                        const imgUrl = item.image || fallbackImg;
-                        
-                        // Added loading="lazy" decoding="async" safely, and Fallback SVG inline
-                        html += `<a href="product?id=${item.id}" class="card">
-                            <span class="stock-badge ${isOut ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
-                            <div class="card-img">
-                                <img src="${imgUrl}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${fallbackImg}';" alt="${item.name}">
-                            </div>
-                            <div class="card-body"><h3>${item.name}</h3><div class="price">Rs. ${item.price}</div></div>
-                        </a>`;
-                    });
-                    html += `</div></div>`;
-                    finalHTML += html;
-                });
-
-                storeContent.innerHTML = finalHTML;
+            if(products.length === 0) {
+                storeContent.innerHTML = "<p style='text-align:center; padding: 40px; color: #666;'>No products found.</p>";
+                return;
             }
 
-            let searchTimeout;
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => {
-                    const term = e.target.value.toLowerCase().trim();
-                    const filtered = allProducts.filter(p => p.name.toLowerCase().includes(term) || (p.category && p.category.toLowerCase().includes(term)));
-                    renderRows(filtered);
-                }, 250); 
+            const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
+            categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
+
+            let finalHTML = ""; 
+            let globalItemIndex = 0; 
+
+            categories.forEach(cat => {
+                const catProducts = products.filter(p => (p.category || 'Supplements') === cat);
+                let html = `<div class="category-section"><div class="category-header"><div class="category-title">${cat}</div></div><div class="product-grid">`;
+                
+                catProducts.forEach(item => {
+                    const isOut = item.stockStatus === "Out of Stock";
+                    const imgUrl = item.image || fallbackImg;
+                    
+                    // First 4 items load instantly, the rest are lazy loaded for better performance score
+                    const loadStrategy = globalItemIndex < 4 ? 'eager' : 'lazy';
+                    globalItemIndex++;
+                    
+                    html += `<a href="product?id=${item.id}" class="card">
+                        <span class="stock-badge ${isOut ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
+                        <div class="card-img">
+                            <img src="${imgUrl}" loading="${loadStrategy}" decoding="async" onerror="this.onerror=null; this.src='${fallbackImg}';" alt="${item.name}">
+                        </div>
+                        <div class="card-body"><h3>${item.name}</h3><div class="price">Rs. ${item.price}</div></div>
+                    </a>`;
+                });
+                html += `</div></div>`;
+                finalHTML += html;
             });
+
+            storeContent.innerHTML = finalHTML;
+        }
+
+        // Add search event listener
+        document.addEventListener('DOMContentLoaded', () => {
+            let searchTimeout;
+            const searchInput = document.getElementById('searchInput');
+            if(searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        const term = e.target.value.toLowerCase().trim();
+                        const filtered = allProducts.filter(p => p.name.toLowerCase().includes(term) || (p.category && p.category.toLowerCase().includes(term)));
+                        renderRows(filtered);
+                    }, 250); 
+                });
+            }
         });
     </script>
 </body>
