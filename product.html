@@ -48,43 +48,64 @@
         .product-info { flex: 1; display: flex; flex-direction: column; }
         .cat-badge { display: inline-block; background: #f0f0f0; padding: 5px 12px; border-radius: 5px; font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 12px; width: fit-content; }
         
-        .product-info h1 { margin: 0 0 15px 0; font-size: 32px; font-weight: 800; color: #111; line-height: 1.2; }
+        .product-info h1 { margin: 0 0 15px 0; font-size: 30px; font-weight: 800; color: #111; line-height: 1.2; }
         
-        .price-section { padding: 20px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin-bottom: 25px; display: flex; align-items: center; gap: 20px; }
-        .price { font-size: 32px; color: var(--primary-color); font-weight: 800; margin: 0; }
-        .status-badge { padding: 6px 15px; border-radius: 50px; font-size: 12px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.5px;}
+        .price-section { padding: 15px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin-bottom: 25px; display: flex; align-items: center; gap: 20px; }
+        .price { font-size: 28px; color: var(--primary-color); font-weight: 800; margin: 0; }
+        .status-badge { padding: 6px 15px; border-radius: 50px; font-size: 11px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.5px;}
         .in-stock { background-color: #198754; } .out-of-stock { background-color: #dc3545; }
 
         .description-section { margin-bottom: 30px; }
-        .description-title { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 15px; display: block;}
-        .description-content { font-size: 15px; color: #555; line-height: 1.7; }
+        .description-title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 12px; display: block;}
+        .description-content { font-size: 14px; color: #555; line-height: 1.7; }
         .description-content ul { padding: 0; margin: 0; }
-        .description-content li { margin-bottom: 10px; position: relative; padding-left: 25px; list-style: none;}
-        .description-content li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); position: absolute; left: 0; font-size: 14px; top: 3px;}
+        .description-content li { margin-bottom: 8px; position: relative; padding-left: 25px; list-style: none;}
+        .description-content li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); position: absolute; left: 0; font-size: 13px; top: 3px;}
 
         .action-buttons { margin-top: auto; }
+        
+        /* Smaller WhatsApp Button */
         .buy-btn { 
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 18px 30px; border: none; 
-            width: 100%; max-width: 400px; cursor: pointer; border-radius: 8px; font-size: 16px; font-weight: 700; 
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 12px 25px; border: none; 
+            width: 100%; max-width: 320px; cursor: pointer; border-radius: 8px; font-size: 15px; font-weight: 700; 
             display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; transition: 0.3s;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
         }
         .buy-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
         .buy-btn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; color: #666;}
 
-        /* --- SEO ARTICLE SECTION --- */
+        /* --- SEO ARTICLE SECTION (Updated for Auto Formatting) --- */
         .seo-article-container { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-color); }
-        .seo-article { max-width: 900px; line-height: 1.8; color: #444; font-size: 15px; }
-        .seo-article h2 { color: #111; font-size: 24px; margin-bottom: 20px; }
-        .seo-article h3 { color: #222; font-size: 18px; margin-top: 30px; margin-bottom: 12px; }
-        .seo-article p { margin-bottom: 15px; }
+        .seo-article { max-width: 900px; color: #444; font-size: 14.5px; }
+        
+        /* Auto-generated Titles will take these styles */
+        .seo-article h3 { 
+            color: #111; 
+            font-size: 18px; 
+            margin-top: 30px; 
+            margin-bottom: 12px; 
+            font-weight: 700;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+        
+        /* Auto-generated Paragraphs */
+        .seo-article p { 
+            margin-bottom: 18px; 
+            line-height: 1.8;
+            text-align: justify;
+        }
 
         /* --- Standardized Footer --- */
-        .main-footer { background-color: var(--dark-color); color: #999; padding: 40px 20px 30px; text-align: center; font-size: 13px; line-height: 1.8; margin-top: 60px;}
-        .main-footer p { max-width: 800px; margin: 0 auto 10px auto; }
+        .main-footer { background-color: var(--dark-color); color: #999; padding: 30px 20px 20px; text-align: center; font-size: 13px; line-height: 1.8; margin-top: 60px;}
+        .main-footer p { max-width: 800px; margin: 0 auto; }
         .main-footer strong { color: #fff; }
-        .main-footer i { color: #ccc; font-style: normal; }
-        .copyright { margin-top: 25px !important; border-top: 1px solid #333; padding-top: 25px; font-size: 12px;}
+        
+        /* Hidden SEO Text for Google Bots only */
+        .seo-hidden-text { display: none; }
+        
+        .copyright { margin-top: 20px !important; border-top: 1px solid #333; padding-top: 20px; font-size: 12px;}
 
         /* Responsive */
         @media (max-width: 850px) {
@@ -92,9 +113,11 @@
             .product-gallery { width: 100%; max-width: 100%; flex-direction: column-reverse; }
             .thumbnail-list { flex-direction: row; width: 100%; justify-content: center; gap: 15px;}
             .thumbnail { width: 60px; height: 60px; }
-            .product-info h1 { font-size: 26px; }
-            .price { font-size: 28px; }
+            .product-info h1 { font-size: 24px; }
+            .price { font-size: 26px; }
             .buy-btn { max-width: 100%; }
+            .main-image-container { cursor: default; }
+            .seo-article p { text-align: left; }
         }
 
         .loading-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; width: 100%;}
@@ -119,8 +142,12 @@
     </div>
 
     <footer class="main-footer">
-        <p><strong>Ultra Nutritions</strong> is your trusted online supplement store in Sri Lanka. We offer the best whey protein prices in Sri Lanka, including whey protein isolate and gold standard options. Whether you are searching for top 10 bodybuilding supplements in Colombo, Galle, or island-wide, we guarantee 100% authentic products.</p>
-        <p>Compare our supplement prices in Sri Lanka and build your physique with confidence.</p>
+        <p><strong>Ultra Nutritions</strong> - Premium Online Supplement Store in Sri Lanka. 100% Authentic Products Guaranteed.</p>
+        
+        <div class="seo-hidden-text">
+            We offer the best whey protein prices in Sri Lanka, including whey protein isolate and gold standard options. Whether you are searching for top 10 bodybuilding supplements in Colombo, Galle, or island-wide, we guarantee 100% authentic products. Compare our supplement prices in Sri Lanka and build your physique with confidence.
+        </div>
+        
         <p class="copyright">&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
     </footer>
 
@@ -168,10 +195,30 @@
 
             let seoArticleHTML = "";
             if (item.seoArticle && item.seoArticle.trim() !== "") {
+                
+                // --- Auto Format Logic ---
+                let formattedSEO = item.seoArticle;
+                
+                // HTML Tags (p, br, h3) මුකුත් නැත්නම් විතරක් Auto Format කරනවා
+                if (!formattedSEO.includes('<p>') && !formattedSEO.includes('<br>')) {
+                    formattedSEO = formattedSEO.split(/\r?\n/).map(line => {
+                        line = line.trim();
+                        if (!line) return ""; // හිස් පේළි අයින් කරනවා
+                        
+                        // අකුරු 80කට වඩා අඩු, අගට තිතක් නැති පේළි Title විදිහට ගන්නවා
+                        if (line.length < 80 && !line.endsWith('.')) {
+                            return `<h3>${line}</h3>`;
+                        } else {
+                            // අනිත් ඒවා Paragraph විදිහට ගන්නවා
+                            return `<p>${line}</p>`;
+                        }
+                    }).join('');
+                }
+
                 seoArticleHTML = `
                 <div class="seo-article-container">
                     <article class="seo-article">
-                        ${item.seoArticle}
+                        ${formattedSEO}
                     </article>
                 </div>`;
             }
@@ -214,7 +261,7 @@
                         
                         <div class="action-buttons">
                             <button class="buy-btn" ${isOutOfStock ? 'disabled' : ''} onclick="window.open('${whatsappUrl}', '_blank')">
-                                <i class="fab fa-whatsapp" style="font-size: 20px;"></i> ${isOutOfStock ? 'Currently Unavailable' : 'Order via WhatsApp'}
+                                <i class="fab fa-whatsapp" style="font-size: 18px;"></i> ${isOutOfStock ? 'Currently Unavailable' : 'Order via WhatsApp'}
                             </button>
                         </div>
                     </div>
@@ -223,27 +270,28 @@
                 ${seoArticleHTML} `;
         }
 
-        // Change Main Image on Thumbnail Click
         function changeImage(src, element) {
             document.getElementById('mainProductImage').src = src;
             document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
             element.classList.add('active');
         }
 
-        // Hover Zoom Effect Logic
         function zoomImage(e, container) {
+            if (window.innerWidth <= 850) return; 
+
             const img = container.querySelector('img');
             const rect = container.getBoundingClientRect();
             
-            // Calculate mouse position relative to the container
             const x = ((e.clientX - rect.left) / rect.width) * 100;
             const y = ((e.clientY - rect.top) / rect.height) * 100;
             
             img.style.transformOrigin = `${x}% ${y}%`;
-            img.style.transform = 'scale(2)'; // Change this value to increase/decrease zoom level
+            img.style.transform = 'scale(2)';
         }
 
         function resetZoom(container) {
+            if (window.innerWidth <= 850) return;
+
             const img = container.querySelector('img');
             img.style.transformOrigin = 'center center';
             img.style.transform = 'scale(1)';
