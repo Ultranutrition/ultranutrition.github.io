@@ -3,16 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra Nutritions | Premium Supplement Store</title>
     
+    <title>Ultra Nutritions | Best Supplement Shop & Online Store in Sri Lanka</title>
+    <meta name="description" content="Buy authentic Whey Protein, Creatine, and Bodybuilding Supplements in Sri Lanka. Find the best whey protein price, top bodybuilding supplements, and buy online at Ultra Nutritions. Island-wide delivery.">
+    <meta name="keywords" content="Best supplement Shop in Sri Lanka, Online supplement store Sri Lanka, whey protein price in sri lanka, Bodybuilding supplements Sri Lanka, Protein supplement Sri Lanka, supplement shops in colombo, whey protein isolate">
+    <meta name="author" content="Ultra Nutritions">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Ultra Nutritions | Premium Supplement Store Sri Lanka">
+    <meta property="og:description" content="100% Authentic Whey Protein & Bodybuilding Supplements at the best prices in Sri Lanka.">
+    <meta property="og:type" content="website">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsActivityLocation",
+      "name": "Ultra Nutritions",
+      "description": "Best online supplement store in Sri Lanka offering whey protein, creatine, and bodybuilding supplements.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "LK"
+      }
+    }
+    </script>
+
     <style>
-        /* Slightly softer dark color for a more professional look */
         :root { --primary-color: #e63946; --dark-color: #212529; --bg-color: #f8f9fa; }
         
         html, body { 
@@ -21,11 +42,10 @@
             scroll-behavior: smooth;
         }
 
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; display: flex; flex-direction: column; min-height: 100vh;}
         
         header { background-color: var(--dark-color); color: white; padding: 15px 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
         
-        /* Header link style */
         .header-link { text-decoration: none; color: inherit; display: inline-block; cursor: pointer; }
         header h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
         header h1 span { color: var(--primary-color); }
@@ -38,9 +58,8 @@
         .hero h2 { font-size: 24px; margin-bottom: 10px; text-transform: uppercase; line-height: 1.2; }
         .hero p { font-size: 14px; color: #ddd; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; box-sizing: border-box; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; box-sizing: border-box; flex-grow: 1; }
 
-        /* Search Bar Styles */
         .search-container { margin-bottom: 25px; position: relative; }
         .search-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888; }
         #searchInput { 
@@ -80,53 +99,40 @@
             display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; 
             cursor: pointer; height: 100%;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
-        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.12); }
 
         .stock-badge { position: absolute; top: 8px; right: 8px; padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; z-index: 10; letter-spacing: 0.5px; text-transform: uppercase;}
-        
-        /* Updated In Stock style (Green Font, White BG) */
         .badge-in-stock { background-color: #ffffff; color: #198754; border: 1px solid #198754; box-shadow: 0 2px 4px rgba(0,0,0,0.05); } 
         .badge-out-of-stock { background-color: var(--primary-color); color: white; border: 1px solid var(--primary-color); }
 
-        /* Mobile specific heights to prevent "long tiles" */
         .card-img-wrapper { background-color: #fff; padding: 10px; text-align: center; height: 120px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f8f9fa;}
         .card img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
         .card:hover img { transform: scale(1.05); }
         
         .card-body { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; }
-        
-        .card h3 { 
-            margin: 0 0 8px; font-size: 13px; color: var(--dark-color); line-height: 1.4; 
-            font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-        }
+        .card h3 { margin: 0 0 8px; font-size: 13px; color: var(--dark-color); line-height: 1.4; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
         .price-and-btn { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
         .price { color: var(--primary-color); font-size: 15px; font-weight: 700; margin: 0; text-align: left;}
 
-        .buy-btn { 
-            background: var(--dark-color); color: white; padding: 8px; border: none; 
-            width: 100%; cursor: pointer; border-radius: 6px; font-size: 11px; font-weight: 600; 
-            text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.3s ease;
-        }
+        .buy-btn { background: var(--dark-color); color: white; padding: 8px; border: none; width: 100%; cursor: pointer; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; transition: background 0.3s ease; }
         .buy-btn:hover:not(:disabled) { background: var(--primary-color); }
         .buy-btn:disabled { background: #ccc; cursor: not-allowed; color: #666; }
 
-        /* Loading Spinner */
         .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; width: 100%; text-align: center; }
         .spinner { border: 4px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin-bottom: 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Desktop View Adjustments */
+        /* SEO Footer Styles */
+        .seo-footer { background-color: var(--dark-color); color: #aaa; padding: 30px 15px; text-align: center; margin-top: 50px; font-size: 12px; line-height: 1.6; }
+        .seo-footer p { max-width: 900px; margin: 0 auto 10px; }
+        .seo-footer strong { color: #fff; }
+
         @media (min-width: 768px) {
             header h1 { font-size: 32px; }
             .hero h2 { font-size: 40px; }
             .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
             .category-nav { justify-content: center; flex-wrap: wrap; }
-            
-            /* Restore sizes for desktop */
             .card-img-wrapper { height: 160px; padding: 15px; }
             .card-body { padding: 15px; }
             .card h3 { font-size: 15px; margin: 0 0 10px; }
@@ -141,19 +147,19 @@
     <header>
         <a href="index.html" class="header-link">
             <h1>Ultra <span>Nutritions</span></h1>
-            <p>Premium Supplement Store in Sri Lanka</p>
+            <p>Top Rated Supplement Store in Sri Lanka</p>
         </a>
     </header>
 
     <section class="hero">
-        <h2>FABRICATOR OF POWERFUL YOUNGERS</h2>
-        <p>Authentic Whey Protein, Creatine & Pre-workouts</p>
+        <h2>Best Online Supplement Store in Sri Lanka</h2>
+        <p>100% Authentic Whey Protein, Creatine & Bodybuilding Supplements at the Best Prices</p>
     </section>
 
     <main class="container">
         <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Search for protein, creatine, brand...">
+            <input type="text" id="searchInput" placeholder="Search for whey protein, creatine, brand...">
         </div>
 
         <nav class="category-nav" id="categoryNav"></nav>
@@ -165,6 +171,12 @@
             </div>
         </div>
     </main>
+
+    <footer class="seo-footer">
+        <p><strong>Ultra Nutritions</strong> is your trusted <em>online supplement store in Sri Lanka</em>. We offer the best <em>whey protein prices in Sri Lanka</em>, including whey protein isolate and gold standard options. Whether you are searching for top 10 <em>bodybuilding supplements in Colombo</em>, Galle, or island-wide, we guarantee 100% authentic products.</p>
+        <p>Compare our <em>supplement prices in Sri Lanka</em> and build your physique with confidence.</p>
+        <p>&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
+    </footer>
 
     <script>
         const firebaseConfig = {
@@ -235,7 +247,12 @@
                         <div class="card" onclick="window.location.href='product.html?id=${item.id}'">
                             <span class="stock-badge ${isOut ? 'badge-out-of-stock' : 'badge-in-stock'}">${item.stockStatus || 'In Stock'}</span>
                             <div class="card-img-wrapper">
-                                <img src="${item.image || 'https://via.placeholder.com/200'}" alt="${item.name}">
+                                <img 
+                                    src="${item.image || 'https://via.placeholder.com/200'}" 
+                                    alt="Buy ${item.name} in Sri Lanka - Authentic ${item.category || 'Bodybuilding Supplements'} at Best Price" 
+                                    title="${item.name} | Ultra Nutritions Sri Lanka" 
+                                    loading="lazy"
+                                >
                             </div>
                             <div class="card-body">
                                 <h3>${item.name}</h3>
