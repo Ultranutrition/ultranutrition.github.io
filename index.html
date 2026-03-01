@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://firestore.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800;900&family=Teko:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         :root { --primary: #e63946; --dark: #0f0f0f; --light-bg: #f8f9fa; --text: #1a1a1a; }
@@ -26,19 +26,19 @@
         header h1 span { color: var(--primary); }
         .header-tagline { font-size: 9px; color: #b3b3b3; letter-spacing: 1.5px; margin-top: 2px; text-transform: uppercase; }
         
-        .hero { background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; color: white; text-align: center; padding: 35px 15px 45px; } /* Padding ටිකක් වැඩි කළා */
+        .hero { background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; color: white; text-align: center; padding: 35px 15px 45px; } 
         
-        /* --- අලුත් Hero Text Styles --- */
+        /* --- අලුත් Hero Text Styles (Teko Font) --- */
         .hero h2 { 
-            font-family: 'Oswald', sans-serif; /* අලුත් උස ෆොන්ට් එක */
-            font-size: 28px; /* සයිස් එක ටිකක් ලොකු කළා */
+            font-family: 'Teko', sans-serif; /* වඩාත් modern සහ sharp ෆොන්ට් එක */
+            font-size: 40px; /* Teko ෆොන්ට් එකේ අකුරු වල shape එක නිසා size එක ටිකක් වැඩි කරන්න ඕනේ ලොකුවට පේන්න */
             font-weight: 700; 
             margin: 0; 
             text-transform: uppercase; 
-            letter-spacing: 1px; 
+            letter-spacing: 1.5px; 
             color: #ffffff; 
-            line-height: 1.2; 
-            text-shadow: 2px 4px 8px rgba(0,0,0,0.8); /* වැඩිපුර Shadow එකක් දුන්නා පේන්න */
+            line-height: 1; 
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.8); 
         }
         
         .main-content { flex: 1; } 
@@ -87,7 +87,7 @@
         @media (min-width: 768px) { 
             header h1 { font-size: 28px; } 
             .hero { padding: 50px 20px 60px; } 
-            .hero h2 { font-size: 42px; letter-spacing: 2px; } /* Desktop එකේදී තවත් ලොකු කළා */
+            .hero h2 { font-size: 58px; letter-spacing: 2px; } /* Desktop එකේදී තවත් ලොකු කළා */
             .product-grid, .skeleton-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; } 
             .footer-container { grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: left; }
         }
