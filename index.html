@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://firestore.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
     
     <style>
         :root { --primary: #e63946; --dark: #0f0f0f; --light-bg: #f8f9fa; --text: #1a1a1a; }
@@ -26,10 +26,22 @@
         header h1 span { color: var(--primary); }
         .header-tagline { font-size: 9px; color: #b3b3b3; letter-spacing: 1.5px; margin-top: 2px; text-transform: uppercase; }
         
-        .hero { background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; color: white; text-align: center; padding: 25px 15px 40px; }
-        .hero h2 { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; margin: 0; text-transform: uppercase; letter-spacing: 0.5px; color: #ffffff; line-height: 1.4; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); }
+        .hero { background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; color: white; text-align: center; padding: 35px 15px 45px; } /* Padding ටිකක් වැඩි කළා */
         
-        .main-content { flex: 1; } /* Pushes footer to the bottom */
+        /* --- අලුත් Hero Text Styles --- */
+        .hero h2 { 
+            font-family: 'Oswald', sans-serif; /* අලුත් උස ෆොන්ට් එක */
+            font-size: 28px; /* සයිස් එක ටිකක් ලොකු කළා */
+            font-weight: 700; 
+            margin: 0; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            color: #ffffff; 
+            line-height: 1.2; 
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.8); /* වැඩිපුර Shadow එකක් දුන්නා පේන්න */
+        }
+        
+        .main-content { flex: 1; } 
         
         .search-wrapper { max-width: 500px; margin: -18px auto 25px; padding: 0 15px; position: relative; z-index: 10; }
         .search-inner { position: relative; }
@@ -60,7 +72,6 @@
         .skeleton-price { height: 16px; width: 50%; margin: 0 auto; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         
-        /* --- PROFESSIONAL FOOTER STYLES --- */
         .site-footer { background-color: var(--dark); color: #e0e0e0; padding: 50px 20px 20px; font-size: 13px; border-top: 3px solid var(--primary); margin-top: auto; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 30px; margin-bottom: 30px; }
         .footer-col h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; text-transform: uppercase; color: #fff; margin: 0 0 15px; letter-spacing: -0.5px; }
@@ -75,8 +86,8 @@
 
         @media (min-width: 768px) { 
             header h1 { font-size: 28px; } 
-            .hero { padding: 40px 20px 50px; } 
-            .hero h2 { font-size: 32px; letter-spacing: 1px; } 
+            .hero { padding: 50px 20px 60px; } 
+            .hero h2 { font-size: 42px; letter-spacing: 2px; } /* Desktop එකේදී තවත් ලොකු කළා */
             .product-grid, .skeleton-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; } 
             .footer-container { grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: left; }
         }
@@ -145,7 +156,10 @@
             <div class="footer-col">
                 <h4>Contact Us</h4>
                 <ul>
-                    <li>📞 +94 7X XXX XXXX</li> <li>✉️ info@ultranutritions.com</li> <li>📍 Colombo, Sri Lanka</li> </ul>
+                    <li>📞 <a href="tel:+94718136757">+94 71 813 6757</a></li> 
+                    <li>✉️ <a href="mailto:ultranutritionmatara@gmail.com">ultranutritionmatara@gmail.com</a></li> 
+                    <li>📍 Matara, Sri Lanka</li> 
+                </ul>
             </div>
         </div>
         <div class="footer-bottom">
