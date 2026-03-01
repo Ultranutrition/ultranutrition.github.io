@@ -3,98 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Ultra Nutritions | Premium Supplement Store Sri Lanka</title>
-    
     <meta name="description" content="100% Authentic Whey Protein & Bodybuilding Supplements at the Best Prices in Sri Lanka. Top Rated Supplement Store.">
     <meta name="keywords" content="Supplements Sri Lanka, Whey Protein, Creatine, Bodybuilding, Ultra Nutritions">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://ultranutritions.com/">
     
-    <meta name="theme-color" content="#0f0f0f">
-    
-    <meta property="og:title" content="Ultra Nutritions | Premium Supplement Store Sri Lanka">
-    <meta property="og:description" content="100% Authentic Whey Protein & Bodybuilding Supplements at the Best Prices in Sri Lanka.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800">
-    <meta property="og:type" content="website">
-
-    <link rel="icon" href="favicon.jpg" type="image/jpeg">
-    <link rel="apple-touch-icon" href="favicon.jpg">
-
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.gstatic.com">
     <link rel="preconnect" href="https://firestore.googleapis.com">
-    <link rel="preconnect" href="https://firebasestorage.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --primary: #e63946; 
-            --dark: #0f0f0f; 
-            --light-bg: #f8f9fa;
-            --text: #1a1a1a;
-        }
-
+        /* CSS ටික කලින් එකමයි. කිසිම වෙනසක් නෑ. */
+        :root { --primary: #e63946; --dark: #0f0f0f; --light-bg: #f8f9fa; --text: #1a1a1a; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--light-bg); 
-            margin: 0; padding: 0; 
-            color: var(--text); 
-            overflow-x: hidden; 
-        }
-
-        header { 
-            background-color: var(--dark); 
-            color: white; 
-            padding: 15px; 
-            text-align: center; 
-            position: sticky; top: 0; z-index: 1000;
-            border-bottom: 2px solid var(--primary);
-        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--light-bg); margin: 0; padding: 0; color: var(--text); overflow-x: hidden; }
+        header { background-color: var(--dark); color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary); }
         .header-link { text-decoration: none; color: inherit; display: inline-block; }
         header h1 { margin: 0; font-size: 23px; font-weight: 800; text-transform: uppercase; font-family: 'Montserrat', sans-serif; letter-spacing: -0.5px; }
         header h1 span { color: var(--primary); }
         .header-tagline { font-size: 9px; color: #b3b3b3; letter-spacing: 1.5px; margin-top: 2px; text-transform: uppercase; }
-
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
-                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; 
-            color: white; text-align: center; 
-            padding: 22px 15px 35px; 
-        }
-        .hero h2 { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 16px; 
-            font-weight: 600; 
-            margin: 0; 
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #ffffff;
-            line-height: 1.4;
-        }
-
+        .hero { background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; color: white; text-align: center; padding: 22px 15px 35px; }
+        .hero h2 { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 2px; color: #ffffff; line-height: 1.4; }
         .search-wrapper { max-width: 500px; margin: -18px auto 25px; padding: 0 15px; position: relative; z-index: 10; }
         .search-inner { position: relative; }
-        #searchInput { 
-            width: 100%; padding: 14px 20px 14px 45px; 
-            border-radius: 12px; border: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
-            font-size: 14px; outline: none; font-family: 'Inter', sans-serif;
-        }
+        #searchInput { width: 100%; padding: 14px 20px 14px 45px; border-radius: 12px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); font-size: 14px; outline: none; font-family: 'Inter', sans-serif; }
         .search-inner svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); stroke: var(--primary); width: 18px; height: 18px; }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 12px 40px; }
         .category-section { margin-bottom: 35px; }
         .category-header { margin-bottom: 15px; padding-left: 10px; border-left: 3px solid var(--primary); }
         .category-title { font-size: 16px; font-weight: 700; text-transform: uppercase; color: var(--dark); font-family: 'Montserrat', sans-serif; }
-
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-
         .card { background: #fff; border-radius: 12px; border: 1px solid #eee; position: relative; display: flex; flex-direction: column; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; color: inherit; cursor: pointer; }
-        .card:active { transform: scale(0.98); }
         .stock-badge { position: absolute; top: 8px; left: 8px; padding: 3px 6px; border-radius: 4px; font-size: 8px; font-weight: 700; z-index: 2; }
         .in-stock { background: #e8f5e9; color: #2e7d32; }
         .out-of-stock { background: #ffebee; color: #c62828; }
@@ -103,32 +42,14 @@
         .card-body { padding: 10px; text-align: center; border-top: 1px solid #f9f9f9; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
         .card h3 { margin: 0 0 8px; font-size: 12px; font-weight: 600; color: #333; height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; }
         .price { color: var(--primary); font-size: 14px; font-weight: 800; }
-
         .skeleton-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding-top: 10px; }
         .skeleton-card { background: #fff; border-radius: 12px; border: 1px solid #eee; height: 230px; display: flex; flex-direction: column; padding: 15px; }
-        .skeleton-img, .skeleton-text, .skeleton-price {
-            background: #f0f0f0;
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite linear;
-            border-radius: 8px;
-        }
+        .skeleton-img, .skeleton-text, .skeleton-price { background: #f0f0f0; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite linear; border-radius: 8px; }
         .skeleton-img { height: 130px; width: 100%; margin-bottom: 15px; border-radius: 10px; }
         .skeleton-text { height: 14px; width: 85%; margin: 0 auto 10px; }
         .skeleton-price { height: 16px; width: 50%; margin: 0 auto; }
-
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        @media (min-width: 768px) {
-            header h1 { font-size: 28px; }
-            .hero { padding: 40px 20px 50px; }
-            .hero h2 { font-size: 24px; letter-spacing: 4px; }
-            .product-grid, .skeleton-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        }
-
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        @media (min-width: 768px) { header h1 { font-size: 28px; } .hero { padding: 40px 20px 50px; } .hero h2 { font-size: 24px; letter-spacing: 4px; } .product-grid, .skeleton-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; } }
         footer { background: var(--dark); color: #a0a0a0; padding: 30px 20px; text-align: center; font-size: 11px; }
     </style>
 </head>
@@ -160,104 +81,90 @@
             <div class="skeleton-grid">
                 <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-price"></div></div>
                 <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-price"></div></div>
-                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-price"></div></div>
-                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-price"></div></div>
             </div>
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
-    </footer>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
+            authDomain: "ultranutritions.firebaseapp.com",
+            projectId: "ultranutritions",
+            storageBucket: "ultranutritions.firebasestorage.app",
+            messagingSenderId: "904882148450",
+            appId: "1:904882148450:web:c4784968cd03e63b3cad3b"
+        };
+        
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+        let allProducts = [];
 
-    <script defer>
-        window.addEventListener('DOMContentLoaded', () => {
-            const firebaseConfig = {
-                apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
-                authDomain: "ultranutritions.firebaseapp.com",
-                projectId: "ultranutritions",
-                storageBucket: "ultranutritions.firebasestorage.app",
-                messagingSenderId: "904882148450",
-                appId: "1:904882148450:web:c4784968cd03e63b3cad3b"
-            };
-            
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
+        const fallbackImg = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y0ZjRmNCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMnB4IiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=";
+
+        db.collection("supplements").get().then((snapshot) => {
+            allProducts = [];
+            snapshot.forEach(doc => {
+                let data = doc.data();
+                data.id = doc.id;
+                allProducts.push(data);
+                
+                // OYA ME TIKA CHECK KARANNA F12 OBALA:
+                console.log("Loaded Product:", data.name, "| Image URL:", data.image);
+            });
+            renderRows(allProducts);
+        });
+
+        function renderRows(products) {
+            const storeContent = document.getElementById("storeContent");
+            if(!storeContent) return;
+
+            if(products.length === 0) {
+                storeContent.innerHTML = "<p style='text-align:center; padding: 40px;'>No products found.</p>";
+                return;
             }
-            const db = firebase.firestore();
-            let allProducts = [];
 
-            // 100% Safe Base64 Image - Quotes or special characters won't break HTML anymore
-            const fallbackImg = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y0ZjRmNCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMnB4IiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=";
+            const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
+            categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
 
-            db.collection("supplements").get().then((snapshot) => {
-                allProducts = [];
-                snapshot.forEach(doc => {
-                    let data = doc.data();
-                    data.id = doc.id;
-                    allProducts.push(data);
+            let finalHTML = ""; 
+
+            categories.forEach(cat => {
+                const catProducts = products.filter(p => (p.category || 'Supplements') === cat);
+                let html = `<div class="category-section"><div class="category-header"><div class="category-title">${cat}</div></div><div class="product-grid">`;
+                
+                catProducts.forEach(item => {
+                    // ME TANA WENAS KARANNA DATABASE EKE FIELD NAME EKA ANUWA:
+                    // item.image wenuwata item.imageUrl wenda puluwan
+                    const imgUrl = item.image || item.imageUrl || fallbackImg; 
+                    
+                    html += `<a href="product?id=${item.id}" class="card">
+                        <span class="stock-badge ${item.stockStatus === 'Out of Stock' ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
+                        <div class="card-img">
+                            <img src="${imgUrl}" loading="lazy" onerror="this.src='${fallbackImg}'" alt="${item.name}">
+                        </div>
+                        <div class="card-body"><h3>${item.name}</h3><div class="price">Rs. ${item.price}</div></div>
+                    </a>`;
                 });
-                renderRows(allProducts);
+                html += `</div></div>`;
+                finalHTML += html;
             });
 
-            function renderRows(products) {
-                const storeContent = document.getElementById("storeContent");
-                if(!storeContent) return;
+            storeContent.innerHTML = finalHTML;
+        }
 
-                if(products.length === 0) {
-                    storeContent.innerHTML = "<p style='text-align:center; padding: 40px; color: #666;'>No products found.</p>";
-                    return;
-                }
-
-                const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
-                categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
-
-                let finalHTML = ""; 
-                let globalItemIndex = 0; 
-
-                categories.forEach(cat => {
-                    const catProducts = products.filter(p => (p.category || 'Supplements') === cat);
-                    let html = `<div class="category-section"><div class="category-header"><div class="category-title">${cat}</div></div><div class="product-grid">`;
-                    
-                    catProducts.forEach(item => {
-                        const isOut = item.stockStatus === "Out of Stock";
-                        const imgUrl = item.image || fallbackImg;
-                        
-                        // First 4 items load instantly, the rest are lazy loaded
-                        const loadStrategy = globalItemIndex < 4 ? 'eager' : 'lazy';
-                        globalItemIndex++;
-                        
-                        html += `<a href="product?id=${item.id}" class="card">
-                            <span class="stock-badge ${isOut ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
-                            <div class="card-img">
-                                <img src="${imgUrl}" loading="${loadStrategy}" decoding="async" onerror="this.onerror=null; this.src='${fallbackImg}';" alt="${item.name}">
-                            </div>
-                            <div class="card-body"><h3>${item.name}</h3><div class="price">Rs. ${item.price}</div></div>
-                        </a>`;
-                    });
-                    html += `</div></div>`;
-                    finalHTML += html;
-                });
-
-                storeContent.innerHTML = finalHTML;
-            }
-
-            // Search Filter
-            let searchTimeout;
-            const searchInput = document.getElementById('searchInput');
-            if(searchInput) {
-                searchInput.addEventListener('input', (e) => {
-                    clearTimeout(searchTimeout);
-                    searchTimeout = setTimeout(() => {
-                        const term = e.target.value.toLowerCase().trim();
-                        const filtered = allProducts.filter(p => p.name.toLowerCase().includes(term) || (p.category && p.category.toLowerCase().includes(term)));
-                        renderRows(filtered);
-                    }, 250); 
-                });
-            }
+        const searchInput = document.getElementById('searchInput');
+        let searchTimeout;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const term = e.target.value.toLowerCase().trim();
+                renderRows(allProducts.filter(p => p.name.toLowerCase().includes(term)));
+            }, 250); 
         });
     </script>
 </body>
