@@ -191,6 +191,9 @@
             const db = firebase.firestore();
 
             let allProducts = [];
+            
+            // Fast SVG Data URI for missing images (Zero network requests)
+            const fallbackImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f4f4f4'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='12px' fill='%23999'%3EImage Not Found%3C/text%3E%3C/svg%3E";
 
             db.collection("supplements").get().then((snapshot) => {
                 allProducts = [];
@@ -221,10 +224,14 @@
                     
                     catProducts.forEach(item => {
                         const isOut = item.stockStatus === "Out of Stock";
-                        // Image වල loading="lazy" අයින් කරලා onerror එකක් දැම්මා
+                        const imgUrl = item.image || fallbackImg;
+                        
+                        // Added loading="lazy" decoding="async" safely, and Fallback SVG inline
                         html += `<a href="product?id=${item.id}" class="card">
                             <span class="stock-badge ${isOut ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
-                            <div class="card-img"><img src="${item.image || 'https://via.placeholder.com/200'}" onerror="this.onerror=null;this.src='https://via.placeholder.com/200';" alt="${item.name}"></div>
+                            <div class="card-img">
+                                <img src="${imgUrl}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${fallbackImg}';" alt="${item.name}">
+                            </div>
                             <div class="card-body"><h3>${item.name}</h3><div class="price">Rs. ${item.price}</div></div>
                         </a>`;
                     });
