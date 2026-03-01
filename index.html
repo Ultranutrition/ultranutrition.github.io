@@ -11,7 +11,7 @@
         <p>100% Authentic Whey Protein & Bodybuilding Supplements at the Best Prices in Sri Lanka. Authentic Whey Protein, Creatine, and Pre-workout supplements with island-wide delivery.</p>
     </div>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -45,24 +45,26 @@
             border-bottom: 2px solid var(--primary);
         }
         .header-link { text-decoration: none; color: inherit; }
-        header h1 { margin: 0; font-size: 22px; font-weight: 800; text-transform: uppercase; }
+        header h1 { margin: 0; font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
         header h1 span { color: var(--primary); }
-        .header-tagline { font-size: 10px; color: #888; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
+        .header-tagline { font-size: 9px; color: #888; letter-spacing: 1.5px; margin-top: 2px; text-transform: uppercase; font-weight: 500; }
 
-        /* --- Hero --- */
+        /* --- Hero Section (Professional Update) --- */
         .hero { 
-            background: linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.82)), 
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
                         url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; 
             color: white; text-align: center; 
-            padding: 60px 20px; 
+            padding: 55px 20px; 
         }
         .hero h2 { 
-            font-size: 26px; 
-            font-weight: 800; 
+            font-size: 16px; /* Reduced font size for elegance */
+            font-weight: 600; 
             margin: 0; 
-            text-transform: uppercase; /* Capitalizing everything */
-            letter-spacing: 1px;
-            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 3px; /* Added spacing for a premium feel */
+            color: #ffffff;
+            opacity: 0.95;
+            line-height: 1.5;
         }
 
         /* --- Search --- */
@@ -71,8 +73,8 @@
         #searchInput { 
             width: 100%; padding: 14px 20px 14px 45px; 
             border-radius: 12px; border: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-            font-size: 15px; outline: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12); 
+            font-size: 14px; outline: none;
         }
         .search-inner i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); }
 
@@ -82,9 +84,9 @@
         .category-section { margin-bottom: 35px; }
         .category-header { 
             margin-bottom: 15px; padding-left: 10px;
-            border-left: 4px solid var(--primary);
+            border-left: 3px solid var(--primary);
         }
-        .category-title { font-size: 18px; font-weight: 700; text-transform: uppercase; color: var(--dark); }
+        .category-title { font-size: 16px; font-weight: 700; text-transform: uppercase; color: var(--dark); letter-spacing: 0.5px; }
 
         .product-grid { 
             display: grid; 
@@ -125,12 +127,13 @@
 
         /* --- Tablet & Desktop --- */
         @media (min-width: 768px) {
-            header h1 { font-size: 28px; }
+            header h1 { font-size: 24px; }
             .hero { padding: 80px 20px; }
-            .hero h2 { font-size: 42px; }
+            .hero h2 { font-size: 22px; letter-spacing: 5px; }
             .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
             .card h3 { font-size: 14px; height: 40px; }
             .price { font-size: 16px; }
+            .category-title { font-size: 18px; }
         }
 
         .loading-state { text-align: center; padding: 50px; color: #888; }
@@ -140,7 +143,7 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        footer { background: var(--dark); color: #555; padding: 30px 20px; text-align: center; font-size: 11px; border-top: 1px solid #222; }
+        footer { background: var(--dark); color: #555; padding: 30px 20px; text-align: center; font-size: 10px; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
@@ -160,21 +163,21 @@
         <div class="search-wrapper">
             <div class="search-inner">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search supplements...">
+                <input type="text" id="searchInput" placeholder="Search protein, creatine, brands...">
             </div>
         </div>
 
         <div id="storeContent">
             <div class="loading-state">
                 <div class="spinner"></div>
-                <p>Loading Inventory...</p>
+                <p>Syncing Inventory...</p>
             </div>
         </div>
     </main>
 
     <footer>
         <p>&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
-        <p>Premium Destination for Fitness Nutrition in Sri Lanka.</p>
+        <p>Your Trusted Partner in Fitness & Performance.</p>
     </footer>
 
     <script>
@@ -206,7 +209,7 @@
             storeContent.innerHTML = "";
 
             if(products.length === 0) {
-                storeContent.innerHTML = "<p style='text-align:center; grid-column: 1/-1; padding: 40px;'>No items found.</p>";
+                storeContent.innerHTML = "<p style='text-align:center; grid-column: 1/-1; padding: 40px;'>No items found matching your search.</p>";
                 return;
             }
 
