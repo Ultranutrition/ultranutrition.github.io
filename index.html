@@ -6,6 +6,8 @@
     
     <title>Ultra Nutritions | Premium Supplement Store Sri Lanka</title>
     
+    <link rel="icon" href="favicon.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="favicon.jpg">
     <div style="display: none !important; visibility: hidden;">
         <h1>Ultra Nutritions Sri Lanka - Best Whey Protein & Supplements</h1>
         <p>100% Authentic Whey Protein & Bodybuilding Supplements at the Best Prices in Sri Lanka.</p>
@@ -91,7 +93,6 @@
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
         /* --- Product Card --- */
-        /* Changed from div to anchor <a> styling - exact same look, better SEO */
         .card { background: #fff; border-radius: 12px; border: 1px solid #eee; position: relative; display: flex; flex-direction: column; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; cursor: pointer; will-change: transform; }
         .card:active { transform: scale(0.98); }
         .stock-badge { position: absolute; top: 8px; left: 8px; padding: 3px 6px; border-radius: 4px; font-size: 8px; font-weight: 700; z-index: 2; }
@@ -136,7 +137,7 @@
 <body>
 
     <header>
-        <a href="index.html" class="header-link">
+        <a href="/" class="header-link">
             <h1>Ultra <span>Nutritions</span></h1>
             <p class="header-tagline">Top Rated Supplement Store in Sri Lanka</p>
         </a>
@@ -206,7 +207,6 @@
             const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
             categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
 
-            // 🚀 SPEED OPTIMIZATION: DOM Batching - Build whole string first to avoid Reflows/Repaints
             let finalHTML = ""; 
 
             categories.forEach(cat => {
@@ -215,9 +215,7 @@
                 
                 catProducts.forEach(item => {
                     const isOut = item.stockStatus === "Out of Stock";
-                    // 🚀 SPEED OPTIMIZATION: decoding="async" added for smooth scrolling
-                    // 🚀 SEO OPTIMIZATION: Changed card to <a href="..."> tag instead of div onclick
-                    html += `<a href="product.html?id=${item.id}" class="card">
+                    html += `<a href="product?id=${item.id}" class="card">
                         <span class="stock-badge ${isOut ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
                         <div class="card-img"><img src="${item.image || 'https://via.placeholder.com/200'}" loading="lazy" decoding="async" alt="${item.name}"></div>
                         <div class="card-body"><h3>${item.name}</h3><div class="price">Rs. ${item.price}</div></div>
@@ -227,11 +225,9 @@
                 finalHTML += html;
             });
 
-            // Single massive DOM update (Extremely Fast)
             storeContent.innerHTML = finalHTML;
         }
 
-        // 🚀 SPEED OPTIMIZATION: Search Debounce - Prevents lag when typing fast
         let searchTimeout;
         document.getElementById('searchInput').addEventListener('input', (e) => {
             clearTimeout(searchTimeout);
@@ -239,7 +235,7 @@
                 const term = e.target.value.toLowerCase().trim();
                 const filtered = allProducts.filter(p => p.name.toLowerCase().includes(term) || (p.category && p.category.toLowerCase().includes(term)));
                 renderRows(filtered);
-            }, 250); // Waits 250ms after typing stops before searching
+            }, 250); 
         });
     </script>
 </body>
