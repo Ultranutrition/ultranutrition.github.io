@@ -8,7 +8,7 @@
     
     <div style="display: none !important; visibility: hidden;">
         <h1>Ultra Nutritions Sri Lanka - Best Whey Protein & Supplements</h1>
-        <p>Authentic Whey Protein, Creatine, and Pre-workout supplements in Sri Lanka with island-wide delivery.</p>
+        <p>100% Authentic Whey Protein & Bodybuilding Supplements at the Best Prices in Sri Lanka. Authentic Whey Protein, Creatine, and Pre-workout supplements with island-wide delivery.</p>
     </div>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -51,13 +51,19 @@
 
         /* --- Hero --- */
         .hero { 
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+            background: linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.82)), 
                         url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; 
             color: white; text-align: center; 
-            padding: 40px 20px 60px; 
+            padding: 60px 20px; 
         }
-        .hero h2 { font-size: 24px; font-weight: 700; margin: 0; }
-        .hero p { font-size: 13px; color: #ccc; margin: 8px auto 0; max-width: 500px; }
+        .hero h2 { 
+            font-size: 26px; 
+            font-weight: 800; 
+            margin: 0; 
+            text-transform: uppercase; /* Capitalizing everything */
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
 
         /* --- Search --- */
         .search-wrapper { max-width: 500px; margin: -25px auto 30px; padding: 0 15px; position: relative; z-index: 10; }
@@ -70,7 +76,7 @@
         }
         .search-inner i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); }
 
-        /* --- Grid Logic (The Core Change) --- */
+        /* --- Grid Logic --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 12px 40px; }
         
         .category-section { margin-bottom: 35px; }
@@ -80,10 +86,9 @@
         }
         .category-title { font-size: 18px; font-weight: 700; text-transform: uppercase; color: var(--dark); }
 
-        /* Mobile First: 2 Columns Grid */
         .product-grid { 
             display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* 2 items per row on mobile */
+            grid-template-columns: repeat(2, 1fr); 
             gap: 12px; 
         }
 
@@ -118,12 +123,11 @@
         }
         .price { color: var(--primary); font-size: 14px; font-weight: 800; }
 
-        /* --- Laptop/Desktop Adjustments --- */
+        /* --- Tablet & Desktop --- */
         @media (min-width: 768px) {
             header h1 { font-size: 28px; }
-            .hero { padding: 60px 20px 80px; }
-            .hero h2 { font-size: 36px; }
-            /* Desktop: 4 or 5 columns */
+            .hero { padding: 80px 20px; }
+            .hero h2 { font-size: 42px; }
             .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
             .card h3 { font-size: 14px; height: 40px; }
             .price { font-size: 16px; }
@@ -136,7 +140,7 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        footer { background: var(--dark); color: #555; padding: 30px 20px; text-align: center; font-size: 11px; }
+        footer { background: var(--dark); color: #555; padding: 30px 20px; text-align: center; font-size: 11px; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
@@ -150,7 +154,6 @@
 
     <section class="hero">
         <h2>Fabricator of Powerful Youngers</h2>
-        <p>100% Authentic Whey Protein & Bodybuilding Supplements at the Best Prices in Sri Lanka.</p>
     </section>
 
     <main class="container">
@@ -175,7 +178,6 @@
     </footer>
 
     <script>
-        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
             authDomain: "ultranutritions.firebaseapp.com",
