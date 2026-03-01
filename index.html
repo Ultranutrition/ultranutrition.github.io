@@ -22,13 +22,11 @@
     <link rel="apple-touch-icon" href="favicon.jpg">
 
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800" fetchpriority="high">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.gstatic.com">
     <link rel="preconnect" href="https://firestore.googleapis.com">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://firebasestorage.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -176,85 +174,78 @@
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <script defer>
-        // Start Firebase initialization and data fetching immediately
-        const firebaseConfig = {
-            apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
-            authDomain: "ultranutritions.firebaseapp.com",
-            projectId: "ultranutritions",
-            storageBucket: "ultranutritions.firebasestorage.app",
-            messagingSenderId: "904882148450",
-            appId: "1:904882148450:web:c4784968cd03e63b3cad3b"
-        };
-        
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const db = firebase.firestore();
-        let allProducts = [];
-
-        // Encoded SVG - safe to use inside HTML attributes
-        const fallbackImg = "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23f4f4f4%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2212px%22 fill=%22%23999%22%3EImage Not Found%3C/text%3E%3C/svg%3E";
-
-        db.collection("supplements").get().then((snapshot) => {
-            allProducts = [];
-            snapshot.forEach(doc => {
-                let data = doc.data();
-                data.id = doc.id;
-                allProducts.push(data);
-            });
+        window.addEventListener('DOMContentLoaded', () => {
+            const firebaseConfig = {
+                apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
+                authDomain: "ultranutritions.firebaseapp.com",
+                projectId: "ultranutritions",
+                storageBucket: "ultranutritions.firebasestorage.app",
+                messagingSenderId: "904882148450",
+                appId: "1:904882148450:web:c4784968cd03e63b3cad3b"
+            };
             
-            // Wait for DOM to be fully painted before rendering
-            if(document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => renderRows(allProducts));
-            } else {
-                renderRows(allProducts);
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
             }
-        });
+            const db = firebase.firestore();
+            let allProducts = [];
 
-        function renderRows(products) {
-            const storeContent = document.getElementById("storeContent");
-            if(!storeContent) return;
+            // 100% Safe Base64 Image - Quotes or special characters won't break HTML anymore
+            const fallbackImg = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2Y0ZjRmNCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMnB4IiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=";
 
-            if(products.length === 0) {
-                storeContent.innerHTML = "<p style='text-align:center; padding: 40px; color: #666;'>No products found.</p>";
-                return;
-            }
-
-            const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
-            categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
-
-            let finalHTML = ""; 
-            let globalItemIndex = 0; 
-
-            categories.forEach(cat => {
-                const catProducts = products.filter(p => (p.category || 'Supplements') === cat);
-                let html = `<div class="category-section"><div class="category-header"><div class="category-title">${cat}</div></div><div class="product-grid">`;
-                
-                catProducts.forEach(item => {
-                    const isOut = item.stockStatus === "Out of Stock";
-                    const imgUrl = item.image || fallbackImg;
-                    
-                    // First 4 items load instantly, the rest are lazy loaded for better performance score
-                    const loadStrategy = globalItemIndex < 4 ? 'eager' : 'lazy';
-                    globalItemIndex++;
-                    
-                    html += `<a href="product?id=${item.id}" class="card">
-                        <span class="stock-badge ${isOut ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
-                        <div class="card-img">
-                            <img src="${imgUrl}" loading="${loadStrategy}" decoding="async" onerror="this.onerror=null; this.src='${fallbackImg}';" alt="${item.name}">
-                        </div>
-                        <div class="card-body"><h3>${item.name}</h3><div class="price">Rs. ${item.price}</div></div>
-                    </a>`;
+            db.collection("supplements").get().then((snapshot) => {
+                allProducts = [];
+                snapshot.forEach(doc => {
+                    let data = doc.data();
+                    data.id = doc.id;
+                    allProducts.push(data);
                 });
-                html += `</div></div>`;
-                finalHTML += html;
+                renderRows(allProducts);
             });
 
-            storeContent.innerHTML = finalHTML;
-        }
+            function renderRows(products) {
+                const storeContent = document.getElementById("storeContent");
+                if(!storeContent) return;
 
-        // Add search event listener
-        document.addEventListener('DOMContentLoaded', () => {
+                if(products.length === 0) {
+                    storeContent.innerHTML = "<p style='text-align:center; padding: 40px; color: #666;'>No products found.</p>";
+                    return;
+                }
+
+                const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
+                categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
+
+                let finalHTML = ""; 
+                let globalItemIndex = 0; 
+
+                categories.forEach(cat => {
+                    const catProducts = products.filter(p => (p.category || 'Supplements') === cat);
+                    let html = `<div class="category-section"><div class="category-header"><div class="category-title">${cat}</div></div><div class="product-grid">`;
+                    
+                    catProducts.forEach(item => {
+                        const isOut = item.stockStatus === "Out of Stock";
+                        const imgUrl = item.image || fallbackImg;
+                        
+                        // First 4 items load instantly, the rest are lazy loaded
+                        const loadStrategy = globalItemIndex < 4 ? 'eager' : 'lazy';
+                        globalItemIndex++;
+                        
+                        html += `<a href="product?id=${item.id}" class="card">
+                            <span class="stock-badge ${isOut ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
+                            <div class="card-img">
+                                <img src="${imgUrl}" loading="${loadStrategy}" decoding="async" onerror="this.onerror=null; this.src='${fallbackImg}';" alt="${item.name}">
+                            </div>
+                            <div class="card-body"><h3>${item.name}</h3><div class="price">Rs. ${item.price}</div></div>
+                        </a>`;
+                    });
+                    html += `</div></div>`;
+                    finalHTML += html;
+                });
+
+                storeContent.innerHTML = finalHTML;
+            }
+
+            // Search Filter
             let searchTimeout;
             const searchInput = document.getElementById('searchInput');
             if(searchInput) {
