@@ -2,108 +2,166 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>Ultra Nutritions | Best Supplement Shop & Online Store in Sri Lanka</title>
-    <meta name="description" content="Buy authentic Whey Protein, Creatine, and Bodybuilding Supplements in Sri Lanka. Best whey protein price and island-wide delivery.">
+    <title>Ultra Nutritions | Sri Lanka's Premium Supplement Store</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <div style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
+        <h1>Ultra Nutritions Sri Lanka - Best Whey Protein Price Colombo</h1>
+        <p>Buy 100% authentic bodybuilding supplements, Creatine, and Whey Gold Standard in Sri Lanka with island-wide delivery.</p>
+    </div>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <style>
-        :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #fcfcfc; }
-        
-        .visually-hidden {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+        :root { 
+            --primary: #e63946; 
+            --dark: #0f0f0f; 
+            --gray: #f4f4f4; 
+            --text: #1a1a1a;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; overflow-x: hidden; }
-        
-        header { background-color: var(--dark-color); color: white; padding: 15px 10px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .header-link { text-decoration: none; color: inherit; display: block; }
-        header h1 { margin: 0; font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; line-height: 1.2; }
-        header h1 span { color: var(--primary-color); }
-        
-        /* Sub-text under Ultra Nutritions logo */
-        .header-tagline { margin: 3px 0 0; font-size: 11px; color: #bbb; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 500; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #fff; 
+            margin: 0; padding: 0; 
+            color: var(--text); 
+            line-height: 1.6;
+            overflow-x: hidden; 
+        }
+
+        /* --- Header Section --- */
+        header { 
+            background-color: var(--dark); 
+            color: white; 
+            padding: 15px; 
+            text-align: center; 
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+        }
+        .header-link { text-decoration: none; color: inherit; }
+        header h1 { 
+            margin: 0; font-size: 22px; font-weight: 800; 
+            letter-spacing: -0.5px; text-transform: uppercase;
+        }
+        header h1 span { color: var(--primary); }
+        .header-tagline { 
+            font-size: 10px; color: #888; letter-spacing: 1.5px; 
+            margin-top: 2px; text-transform: uppercase; font-weight: 600;
+        }
+
+        /* --- Hero Section --- */
         .hero { 
-            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover; 
-            color: white; text-align: center; padding: 70px 15px; 
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000') center/cover; 
+            color: white; text-align: center; 
+            padding: 50px 20px 80px; 
         }
-        .hero h2 { font-size: 28px; font-weight: 800; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .hero h2 { font-size: 26px; font-weight: 700; margin: 0; color: #fff; }
         .hero p { 
-            font-size: 14px; color: rgba(255, 255, 255, 0.9); margin: 12px auto 0; 
-            max-width: 700px; font-weight: 400; letter-spacing: 0.5px; line-height: 1.5;
+            font-size: 13px; color: #ccc; margin: 10px auto 0; 
+            max-width: 500px; font-weight: 400; opacity: 0.9;
         }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+        /* --- Container & Search --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
 
-        .search-wrapper { max-width: 600px; margin: -30px auto 40px; position: relative; z-index: 10; }
+        .search-wrapper { 
+            max-width: 500px; margin: -28px auto 40px; 
+            position: relative; padding: 0 15px;
+        }
+        .search-inner { position: relative; width: 100%; }
         #searchInput { 
-            width: 100%; padding: 15px 25px 15px 55px; border-radius: 50px; 
-            border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.1); font-size: 15px; outline: none;
+            width: 100%; padding: 16px 20px 16px 50px; 
+            border-radius: 12px; border: 1px solid #ddd;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); 
+            font-size: 15px; outline: none; transition: 0.3s;
         }
-        .search-wrapper i { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: #888; font-size: 18px; }
+        #searchInput:focus { border-color: var(--primary); box-shadow: 0 15px 35px rgba(230, 57, 70, 0.2); }
+        .search-inner i { 
+            position: absolute; left: 18px; top: 50%; 
+            transform: translateY(-50%); color: var(--primary); font-size: 18px; 
+        }
 
-        .category-section { margin-bottom: 50px; width: 100%; }
-        .category-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-left: 5px solid var(--primary-color); padding-left: 15px; }
-        .category-title { font-size: 20px; font-weight: 700; text-transform: uppercase; margin: 0; color: var(--dark-color); }
+        /* --- Categories --- */
+        .category-section { margin-bottom: 40px; }
+        .category-header { 
+            display: flex; align-items: center; margin-bottom: 20px; 
+            padding-bottom: 8px; border-bottom: 1px solid #eee;
+        }
+        .category-title { 
+            font-size: 18px; font-weight: 700; color: var(--dark); 
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .category-title span { color: var(--primary); margin-right: 8px; }
 
+        /* --- Product Grid (Horizontal Scroll) --- */
         .product-grid { 
-            display: flex; overflow-x: auto; gap: 20px; padding: 10px 5px 20px 5px;
-            scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+            display: flex; overflow-x: auto; gap: 16px; 
+            padding-bottom: 15px; scrollbar-width: none; /* Firefox */
+            -webkit-overflow-scrolling: touch;
         }
-        .product-grid::-webkit-scrollbar { height: 6px; }
-        .product-grid::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+        .product-grid::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
+        /* --- Product Card --- */
         .card { 
-            min-width: 200px; max-width: 200px; background: white; border-radius: 12px; 
-            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
-            transition: 0.3s; border: 1px solid #f0f0f0; cursor: pointer; position: relative;
+            min-width: 180px; width: 180px; background: #fff; border-radius: 16px; 
+            border: 1px solid #efefef; position: relative; transition: 0.3s ease;
+            display: flex; flex-direction: column;
         }
-        @media (min-width: 768px) { .card { min-width: 240px; max-width: 240px; } }
-        
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card:active { transform: scale(0.97); }
 
-        .stock-badge { position: absolute; top: 10px; right: 10px; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; z-index: 5; }
-        .in-stock { background: #198754; color: white; }
-        .out-of-stock { background: var(--primary-color); color: white; }
+        .stock-badge { 
+            position: absolute; top: 10px; left: 10px; padding: 4px 8px; 
+            border-radius: 6px; font-size: 9px; font-weight: 700; z-index: 5; 
+        }
+        .in-stock { background: #e8f5e9; color: #2e7d32; }
+        .out-of-stock { background: #ffebee; color: #c62828; }
 
-        .card-img { height: 180px; display: flex; align-items: center; justify-content: center; padding: 20px; background: #fff; }
+        .card-img { 
+            height: 160px; padding: 15px; display: flex; 
+            align-items: center; justify-content: center;
+        }
         .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
         
-        .card-body { padding: 15px; border-top: 1px solid #f8f9fa; }
-        .card h3 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: #222; height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .price { color: var(--primary-color); font-size: 17px; font-weight: 800; margin: 0; }
+        .card-body { padding: 12px; text-align: center; background: #fafafa; border-radius: 0 0 16px 16px; }
+        .card h3 { 
+            margin: 0 0 6px; font-size: 13px; font-weight: 600; color: #333; 
+            height: 38px; overflow: hidden; display: -webkit-box; 
+            -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4;
+        }
+        .price { color: var(--primary); font-size: 16px; font-weight: 800; }
 
-        .seo-footer { background: var(--dark-color); color: #666; padding: 40px 20px; text-align: center; border-top: 1px solid #333; }
-        .footer-sub-text { font-size: 13px; color: #555; display: block; margin-bottom: 5px; font-weight: 500;}
+        /* --- Footer --- */
+        .seo-footer { background: var(--dark); color: #888; padding: 40px 20px; text-align: center; }
+        .footer-sub-text { font-size: 12px; display: block; margin-bottom: 10px; color: #bbb; }
 
-        @media (max-width: 600px) {
-            header h1 { font-size: 20px; }
-            .header-tagline { font-size: 9px; }
-            .hero h2 { font-size: 20px; }
-            .hero p { font-size: 12px; }
-            .card { min-width: 170px; max-width: 170px; }
-            .card-img { height: 140px; }
+        /* --- Tablet & Desktop Adjustments --- */
+        @media (min-width: 768px) {
+            header h1 { font-size: 28px; }
+            .hero h2 { font-size: 40px; }
+            .hero p { font-size: 16px; }
+            .card { min-width: 220px; width: 220px; }
+            .card-img { height: 200px; }
+            .product-grid { gap: 25px; }
         }
 
-        .loading-state { text-align: center; padding: 50px; width: 100%; }
-        .spinner { border: 3px solid rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        .loading-state { text-align: center; padding: 60px; color: #888; }
+        .spinner { 
+            width: 30px; height: 30px; border: 3px solid #eee; border-top: 3px solid var(--primary); 
+            border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 15px; 
+        }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-
-    <div class="visually-hidden">
-        <h1>Best Online Supplement Store in Sri Lanka - Ultra Nutritions</h1>
-        <p>Whey protein price in Sri Lanka, bodybuilding supplements Colombo, authentic creatine, and vitamins at Ultra Nutritions online store.</p>
-    </div>
 
     <header>
         <a href="index.html" class="header-link">
@@ -119,27 +177,27 @@
 
     <main class="container">
         <div class="search-wrapper">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Search supplements (e.g. Whey, Creatine, Brand)">
+            <div class="search-inner">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search protein, brand, creatine...">
+            </div>
         </div>
 
         <div id="storeContent">
             <div class="loading-state">
                 <div class="spinner"></div>
-                <p>Loading Authentic Supplements...</p>
+                <p>Authenticating Inventory...</p>
             </div>
         </div>
     </main>
 
     <footer class="seo-footer">
         <span class="footer-sub-text">Sri Lanka's Premier Destination for Fitness Nutrition.</span>
-        <div class="visually-hidden">
-            <p>Ultra Nutritions is the leading supplement shop in Sri Lanka offering the best prices for whey protein, muscle tech, on whey gold standard, and island-wide delivery in Colombo, Kandy, and Galle.</p>
-        </div>
-        <p style="font-size: 12px; margin: 0; color: #444;">&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
+        <p style="font-size: 11px; margin: 0; color: #555;">&copy; 2024 Ultra Nutritions. Island-wide Delivery Available.</p>
     </footer>
 
     <script>
+        // Firebase Configuration (Keep your existing config)
         const firebaseConfig = {
             apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
             authDomain: "ultranutritions.firebaseapp.com",
@@ -153,13 +211,17 @@
 
         let allProducts = [];
 
+        // Fetch Data
         db.collection("supplements").get().then((snapshot) => {
+            allProducts = [];
             snapshot.forEach(doc => {
                 let data = doc.data();
                 data.id = doc.id;
                 allProducts.push(data);
             });
             renderRows(allProducts);
+        }).catch(err => {
+            document.getElementById("storeContent").innerHTML = "<p style='text-align:center;'>Error loading products. Please refresh.</p>";
         });
 
         function renderRows(products) {
@@ -167,26 +229,24 @@
             storeContent.innerHTML = "";
 
             if(products.length === 0) {
-                storeContent.innerHTML = "<p style='text-align:center;'>No products found matching your search.</p>";
+                storeContent.innerHTML = "<p style='text-align:center; padding: 40px;'>No results found. Try another keyword.</p>";
                 return;
             }
 
-            const categories = [...new Set(products.map(p => p.category || 'Other Supplements'))];
+            const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
+            
+            // Sort categories (Whey first)
+            categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
 
-            const sortedCategories = categories.sort((a, b) => {
-                if (a.toLowerCase().includes('whey')) return -1;
-                return 1;
-            });
-
-            sortedCategories.forEach(cat => {
-                const catProducts = products.filter(p => (p.category || 'Other Supplements') === cat);
+            categories.forEach(cat => {
+                const catProducts = products.filter(p => (p.category || 'Supplements') === cat);
                 
                 const section = document.createElement('div');
                 section.className = 'category-section';
                 
                 let html = `
                     <div class="category-header">
-                        <h2 class="category-title">${cat}</h2>
+                        <div class="category-title"><span>|</span> ${cat}</div>
                     </div>
                     <div class="product-grid">
                 `;
@@ -201,7 +261,7 @@
                             </div>
                             <div class="card-body">
                                 <h3>${item.name}</h3>
-                                <p class="price">Rs. ${item.price}</p>
+                                <div class="price">Rs. ${item.price}</div>
                             </div>
                         </div>
                     `;
@@ -213,6 +273,7 @@
             });
         }
 
+        // Optimized Search
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
             const filtered = allProducts.filter(p => 
