@@ -3,84 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details | Ultra Nutritions</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Product Details | Ultra Nutritions Sri Lanka</title>
+    <meta name="description" id="meta-description" content="Buy authentic bodybuilding supplements, whey protein, and sports nutrition in Sri Lanka. Best prices, island-wide delivery at Ultra Nutritions.">
+    
+    <meta name="keywords" content="Supplement price in Sri Lanka, Best supplement Shop in Sri Lanka, Protein supplement Sri Lanka, Online supplement store Sri Lanka, Whey Protein 1kg price in Sri Lanka, whey protein sri lanka, whey protein price in sri lanka, whey protein supplement, whey protein powder, whey protein isolate, whey protein gold standard, Top 10 bodybuilding supplements, Bodybuilding supplements near me, Bodybuilding supplements Sri Lanka, Bodybuilding Supplements price in sri lanka, Bodybuilding supplements list, Supplement lk, Supplement Factory, Top 3 bodybuilding supplements, Supplement factory Sri Lanka, Supplement Shop colombo, Supplement Sri Lanka price, Fitness Island, Supplement Shop Galle, supplement shops in sri lanka, supplement warehouse, supplement store">
+    
+    <meta name="author" content="Ultra Nutritions">
+    <meta name="robots" content="index, follow">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
     <style>
-        :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; --whatsapp-color: #25D366; }
+        :root { --primary-color: #e63946; --dark-color: #212529; --bg-color: #f8f9fa; --whatsapp-color: #25D366; }
         
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; overflow-x: hidden; }
-        header { background-color: var(--dark-color); color: white; padding: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        header h1 { margin: 0; font-size: 22px; font-weight: 700; text-transform: uppercase; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: #333; overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh;}
+        
+        /* Header Aligned with Index */
+        header { background-color: var(--dark-color); color: white; padding: 15px 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .header-link { text-decoration: none; color: inherit; display: inline-block; cursor: pointer; }
+        header h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
         header h1 span { color: var(--primary-color); }
+        header p { margin: 5px 0 0; font-size: 12px; color: #ccc; }
         
-        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; box-sizing: border-box; }
-        .back-btn { display: inline-flex; align-items: center; gap: 8px; color: #666; text-decoration: none; font-weight: 500; margin-bottom: 15px; font-size: 14px; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; box-sizing: border-box; flex-grow: 1;}
+        
+        /* Breadcrumb / Back Button */
+        .breadcrumb { display: inline-flex; align-items: center; gap: 8px; color: #666; text-decoration: none; font-weight: 500; margin-bottom: 20px; font-size: 14px; transition: color 0.3s; }
+        .breadcrumb:hover { color: var(--primary-color); }
 
+        /* Product Layout */
         .product-layout { 
             display: flex; flex-direction: row; flex-wrap: wrap; 
-            background: white; border-radius: 15px; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;
+            background: white; border-radius: 12px; overflow: hidden; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #eaeaea;
         }
 
         .product-image { 
-            flex: 1; min-width: 320px; padding: 30px; 
+            flex: 1; min-width: 320px; padding: 40px; 
             display: flex; justify-content: center; align-items: center; 
             background: #fff; border-right: 1px solid #f4f4f4;
+            position: relative;
         }
-        .product-image img { max-width: 100%; height: auto; max-height: 400px; object-fit: contain; }
+        .product-image img { max-width: 100%; height: auto; max-height: 450px; object-fit: contain; transition: transform 0.4s ease; }
+        .product-image:hover img { transform: scale(1.05); }
         
-        .product-info { flex: 1.2; min-width: 320px; padding: 40px; box-sizing: border-box; }
-        .cat-badge { display: inline-block; background: #f8f9fa; padding: 6px 14px; border-radius: 5px; font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; margin-bottom: 15px; border: 1px solid #eee; }
+        .product-info { flex: 1.2; min-width: 320px; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column;}
         
-        .product-info h1 { margin: 0 0 10px 0; font-size: 26px; color: var(--dark-color); font-weight: 700; line-height: 1.2; }
-        .product-info .price { font-size: 24px; color: var(--primary-color); font-weight: 700; margin: 0 0 15px 0; }
+        .cat-badge { display: inline-block; background: var(--bg-color); padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 15px; border: 1px solid #ddd; letter-spacing: 0.5px;}
         
-        .status-badge { display: inline-block; padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; color: white; margin-bottom: 25px; text-transform: uppercase; }
-        .in-stock { background-color: var(--whatsapp-color); }
+        .product-info h1 { margin: 0 0 10px 0; font-size: 28px; color: var(--dark-color); font-weight: 700; line-height: 1.3; }
+        
+        .price-wrapper { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee;}
+        .price { font-size: 28px; color: var(--primary-color); font-weight: 700; margin: 0; }
+        
+        .status-badge { display: inline-block; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+        .in-stock { background-color: #198754; }
         .out-of-stock { background-color: var(--primary-color); }
 
-        .description-title { font-size: 16px; font-weight: 700; color: var(--dark-color); margin-bottom: 10px; border-bottom: 2px solid #f4f4f4; padding-bottom: 5px; display: inline-block; }
+        .description-section { margin-bottom: 30px; flex-grow: 1;}
+        .description-title { font-size: 16px; font-weight: 600; color: var(--dark-color); margin-bottom: 15px; display: block; text-transform: uppercase; letter-spacing: 0.5px;}
         
-        /* Description එක Bullet points විදියට පෙන්වන්න */
-        .description-content { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 30px; }
-        .description-content ul { padding-left: 20px; margin: 0; }
-        .description-content li { margin-bottom: 8px; position: relative; list-style: none; }
-        .description-content li::before { content: "•"; color: var(--primary-color); font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; }
+        .description-content { font-size: 14px; color: #555; line-height: 1.8; }
+        .description-content ul { padding-left: 0; margin: 0; list-style: none; }
+        .description-content li { margin-bottom: 10px; position: relative; padding-left: 25px; }
+        .description-content li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); position: absolute; left: 0; top: 2px; font-size: 12px; }
 
-        .buy-btn { background: var(--whatsapp-color); color: white; padding: 16px; border: none; width: 100%; cursor: pointer; border-radius: 10px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
-        .buy-btn:hover { background: #20b858; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2); }
-        .buy-btn:disabled { background: #eee; color: #aaa; cursor: not-allowed; }
+        .buy-btn { background: var(--whatsapp-color); color: white; padding: 16px; border: none; width: 100%; cursor: pointer; border-radius: 8px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);}
+        .buy-btn:hover:not(:disabled) { background: #20b858; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
+        .buy-btn:disabled { background: #e0e0e0; color: #999; cursor: not-allowed; box-shadow: none; transform: none;}
+
+        /* Professional Trust Badges */
+        .trust-badges { display: flex; gap: 20px; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; flex-wrap: wrap;}
+        .trust-badge { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #444; font-weight: 500;}
+        .trust-badge i { color: var(--primary-color); font-size: 18px;}
+
+        /* Footer Aligned with Index */
+        .seo-footer { background-color: var(--dark-color); color: #aaa; padding: 30px 15px; text-align: center; margin-top: 50px; font-size: 12px; line-height: 1.6; }
+        .seo-footer p { max-width: 900px; margin: 0 auto 10px; }
+        .seo-footer strong { color: #fff; }
 
         @media (max-width: 768px) {
             .product-layout { flex-direction: column; }
-            .product-image { border-right: none; border-bottom: 1px solid #f4f4f4; padding: 20px; }
+            .product-image { border-right: none; border-bottom: 1px solid #f4f4f4; padding: 30px 20px; }
             .product-info { padding: 25px; }
             .product-info h1 { font-size: 22px; }
+            .price { font-size: 24px; }
+            .trust-badges { gap: 15px; flex-direction: column; }
         }
 
-        .loading { text-align: center; padding: 100px; font-size: 16px; color: #999; }
-        .spinner { border: 3px solid rgba(0,0,0,0.1); width: 35px; height: 35px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        .loading { text-align: center; padding: 100px; font-size: 16px; color: #999; width: 100%;}
+        .spinner { border: 3px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Ultra <span>Nutritions</span></h1>
+        <a href="index.html" class="header-link">
+            <h1>Ultra <span>Nutritions</span></h1>
+            <p>Top Rated Supplement Store in Sri Lanka</p>
+        </a>
     </header>
 
     <div class="container" id="productContainer">
         <div class="loading">
             <div class="spinner"></div>
-            Loading product...
+            Loading product details...
         </div>
     </div>
+
+    <footer class="seo-footer">
+        <p><strong>Ultra Nutritions</strong> is your trusted online supplement store in Sri Lanka. 100% authentic products with island-wide delivery.</p>
+        <p>&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
+    </footer>
 
     <script>
         const firebaseConfig = {
@@ -109,29 +149,63 @@
                     let stockStatus = item.stockStatus || "In Stock";
                     let isOutOfStock = stockStatus === "Out of Stock";
                     
-                    // විස්තරය Bullet points වලට හැරවීම (නව පේළි අනුව)
+                    document.title = `${item.name} Price in Sri Lanka | Ultra Nutritions`;
+                    document.getElementById("meta-description").content = `Buy 100% authentic ${item.name} in Sri Lanka. Best ${item.category || 'bodybuilding supplement'} prices with island-wide delivery.`;
+
+                    let schema = {
+                        "@context": "https://schema.org/",
+                        "@type": "Product",
+                        "name": item.name,
+                        "image": imageUrl,
+                        "description": `Buy ${item.name} in Sri Lanka. 100% authentic ${item.category || 'bodybuilding supplements'}.`,
+                        "brand": { "@type": "Brand", "name": "Ultra Nutritions" },
+                        "offers": {
+                            "@type": "Offer",
+                            "url": window.location.href,
+                            "priceCurrency": "LKR",
+                            "price": item.price,
+                            "availability": isOutOfStock ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
+                        }
+                    };
+                    let scriptTag = document.createElement('script');
+                    scriptTag.type = 'application/ld+json';
+                    scriptTag.text = JSON.stringify(schema);
+                    document.head.appendChild(scriptTag);
+
                     let descHTML = "";
                     if(item.description) {
                         let lines = item.description.split('\n');
                         descHTML = "<ul>" + lines.map(line => line.trim() ? `<li>${line}</li>` : "").join('') + "</ul>";
                     } else {
-                        descHTML = "<p>Premium quality supplement for your fitness goals.</p>";
+                        descHTML = "<p>Premium quality supplement tailored for your fitness goals.</p>";
                     }
                     
                     let message = `Hello Ultra Nutritions! I want to buy:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nIs this available?`;
                     let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
+                    let imageAltText = `Buy ${item.name} - Best Supplement Price in Sri Lanka`;
+                    let imageTitleText = `${item.name} | Ultra Nutritions Online Store`;
+
                     container.innerHTML = `
-                        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+                        <a href="index.html" class="breadcrumb"><i class="fas fa-arrow-left"></i> Back to Products</a>
                         <div class="product-layout">
                             <div class="product-image">
-                                <img src="${imageUrl}" alt="${item.name}" style="${isOutOfStock ? 'opacity: 0.5; filter: grayscale(100%);' : ''}">
+                                <img src="${imageUrl}" 
+                                     alt="${imageAltText}" 
+                                     title="${imageTitleText}" 
+                                     loading="lazy"
+                                     style="${isOutOfStock ? 'opacity: 0.5; filter: grayscale(100%);' : ''}">
                             </div>
                             <div class="product-info">
-                                <span class="cat-badge">${item.category || 'Supplement'}</span>
+                                <div>
+                                    <span class="cat-badge">${item.category || 'Supplement'}</span>
+                                </div>
                                 <h1>${item.name}</h1>
-                                <p class="price">Rs. ${item.price}</p>
-                                <div class="status-badge ${isOutOfStock ? 'out-of-stock' : 'in-stock'}">${stockStatus}</div>
+                                
+                                <div class="price-wrapper">
+                                    <p class="price">Rs. ${item.price}</p>
+                                    <div class="status-badge ${isOutOfStock ? 'out-of-stock' : 'in-stock'}">${stockStatus}</div>
+                                </div>
                                 
                                 <div class="description-section">
                                     <span class="description-title">Product Highlights</span>
@@ -143,10 +217,20 @@
                                 <button class="buy-btn" ${isOutOfStock ? 'disabled' : ''} onclick="window.open('${whatsappUrl}', '_blank')">
                                     <i class="fab fa-whatsapp"></i> ${isOutOfStock ? 'Out of Stock' : 'Order via WhatsApp'}
                                 </button>
+
+                                <div class="trust-badges">
+                                    <div class="trust-badge"><i class="fas fa-shield-alt"></i> 100% Authentic</div>
+                                    <div class="trust-badge"><i class="fas fa-truck-fast"></i> Fast Delivery</div>
+                                    <div class="trust-badge"><i class="fas fa-medal"></i> Top Quality Brands</div>
+                                </div>
                             </div>
                         </div>
                     `;
+                } else {
+                    container.innerHTML = `<div class="loading">Product not found!</div>`;
                 }
+            }).catch(err => {
+                container.innerHTML = `<div class="loading">Error loading product details.</div>`;
             });
         }
     </script>
