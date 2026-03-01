@@ -9,7 +9,7 @@
     
     <meta name="keywords" content="Supplement price in Sri Lanka, Best supplement Shop in Sri Lanka, Protein supplement Sri Lanka, Online supplement store Sri Lanka, Whey Protein 1kg price in Sri Lanka, whey protein sri lanka, whey protein price in sri lanka, whey protein supplement, whey protein powder, whey protein isolate, whey protein gold standard, Top 10 bodybuilding supplements, Bodybuilding supplements near me, Bodybuilding supplements Sri Lanka, Bodybuilding Supplements price in sri lanka, Bodybuilding supplements list, Supplement lk, Supplement Factory, Top 3 bodybuilding supplements, Supplement factory Sri Lanka, Supplement Shop colombo, Supplement Sri Lanka price, Fitness Island, Supplement Shop Galle, supplement shops in sri lanka, supplement warehouse, supplement store">
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -20,13 +20,12 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            /* Update to Dark Gym Fixed Background */
             background:
                 linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
                 url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover no-repeat fixed;
             margin: 0;
             padding: 0;
-            color: var(--text-light); /* Light text overall outside cards */
+            color: var(--text-light);
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
@@ -35,29 +34,28 @@
         
         header { background-color: var(--dark-color); color: white; padding: 15px 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
         .header-link { text-decoration: none; color: inherit; display: inline-block; cursor: pointer; }
-        header h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        header h1 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
         header h1 span { color: var(--primary-color); }
-        header p { margin: 5px 0 0; font-size: 12px; color: #ccc; }
+        header p { margin: 5px 0 0; font-size: 12px; color: #ccc; letter-spacing: 0.5px;}
         
         .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; box-sizing: border-box; flex-grow: 1;}
         
-        /* Updated Breadcrumb for Dark Background */
         .breadcrumb { display: inline-flex; align-items: center; gap: 8px; color: #aaa; text-decoration: none; font-weight: 500; margin-bottom: 20px; font-size: 14px; transition: color 0.3s; }
         .breadcrumb:hover { color: var(--primary-color); }
 
         .product-layout { 
             display: flex; flex-direction: row; flex-wrap: wrap; 
-            background: white; /* Card remains white for contrast */
-            color: #333; /* Dark text inside card */
-            border-radius: 12px;
+            background: white; 
+            color: #333; 
+            border-radius: 16px;
             overflow: hidden; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5); /* Stronger shadow on dark background */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); 
             border: 1px solid #444;
         }
 
         /* IMAGE SLIDER CSS */
         .product-image-container { 
-            flex: 1; min-width: 320px; padding: 20px; 
+            flex: 1; min-width: 320px; padding: 30px; 
             background: #fff; border-right: 1px solid #f4f4f4;
             position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
@@ -66,51 +64,97 @@
         .slide { min-width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
         .slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
         
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.2); color: #555; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; z-index: 10; transition: 0.3s; display: none; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.1); color: #333; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10; transition: 0.3s; display: none; }
         .slider-btn:hover { background: var(--primary-color); color: white; }
         .prev { left: 10px; }
         .next { right: 10px; }
 
-        .dots { display: flex; justify(content): center; gap: 8px; margin-top: 15px; }
+        .dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
         .dot { width: 8px; height: 8px; background: #ddd; border-radius: 50%; cursor: pointer; transition: 0.3s; }
-        .dot.active { background: var(--primary-color); width: 20px; border-radius: 10px; }
+        .dot.active { background: var(--primary-color); width: 24px; border-radius: 10px; }
 
         /* INFO CSS */
-        .product-info { flex: 1.2; min-width: 320px; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; color: #333;}
-        .cat-badge { display: inline-block; background: #eee; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; color: #555; text-transform: uppercase; margin-bottom: 15px; border: 1px solid #ddd; }
-        .product-info h1 { margin: 0 0 10px 0; font-size: 28px; color: var(--dark-color); font-weight: 700; line-height: 1.3; }
-        .price-wrapper { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd;}
-        .price { font-size: 28px; color: var(--primary-color); font-weight: 700; margin: 0; }
-        .status-badge { display: inline-block; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; color: white; text-transform: uppercase; }
+        .product-info { flex: 1.2; min-width: 320px; padding: 40px 50px; box-sizing: border-box; display: flex; flex-direction: column; color: #333;}
+        .cat-badge { display: inline-block; background: #f8f9fa; padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 15px; border: 1px solid #eaeaea; letter-spacing: 1px;}
+        
+        /* Updated Typography for Professional Look */
+        .product-info h1 { margin: 0 0 10px 0; font-size: 32px; color: var(--dark-color); font-weight: 800; line-height: 1.2; letter-spacing: -0.5px;}
+        .price-wrapper { display: flex; align-items: center; gap: 20px; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #eee;}
+        .price { font-size: 30px; color: var(--primary-color); font-weight: 700; margin: 0; letter-spacing: -0.5px;}
+        
+        .status-badge { display: inline-block; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.5px;}
         .in-stock { background-color: #198754; }
         .out-of-stock { background-color: var(--primary-color); }
 
-        .description-section { margin-bottom: 30px; flex-grow: 1;}
-        .description-title { font-size: 16px; font-weight: 600; color: var(--dark-color); margin-bottom: 15px; display: block; text-transform: uppercase; }
-        .description-content { font-size: 14px; color: #555; line-height: 1.8; }
+        .description-section { margin-bottom: 35px; flex-grow: 1;}
+        .description-title { font-size: 14px; font-weight: 700; color: #888; margin-bottom: 15px; display: block; text-transform: uppercase; letter-spacing: 1px;}
+        .description-content { font-size: 15px; color: #555; line-height: 1.8; font-weight: 400;}
         .description-content ul { padding-left: 0; margin: 0; list-style: none; }
-        .description-content li { margin-bottom: 10px; position: relative; padding-left: 25px; }
-        .description-content li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); position: absolute; left: 0; top: 2px; font-size: 12px; }
+        .description-content li { margin-bottom: 12px; position: relative; padding-left: 28px; }
+        .description-content li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); position: absolute; left: 0; top: 2px; font-size: 14px; }
 
-        .buy-btn { background: var(--whatsapp-color); color: white; padding: 16px; border: none; width: 100%; cursor: pointer; border-radius: 8px; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; text-transform: uppercase; }
-        .buy-btn:hover:not(:disabled) { background: #20b858; transform: translateY(-2px); }
-        .buy-btn:disabled { background: #e0e0e0; color: #999; cursor: not-allowed; }
+        /* Updated Professional Button */
+        .buy-btn { 
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white; 
+            padding: 16px 32px; 
+            border: none; 
+            width: fit-content; /* Stops it from being full width */
+            min-width: 250px;
+            cursor: pointer; 
+            border-radius: 8px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            transition: all 0.3s ease; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+        }
+        .buy-btn i { font-size: 18px; }
+        .buy-btn:hover:not(:disabled) { 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); 
+            background: linear-gradient(135deg, #28e06d 0%, #107c6f 100%);
+        }
+        .buy-btn:disabled { background: #e0e0e0; color: #999; cursor: not-allowed; box-shadow: none; transform: none;}
 
-        .trust-badges { display: flex; gap: 20px; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px; flex-wrap: wrap;}
-        .trust-badge { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; font-weight: 500;}
-        .trust-badge i { color: var(--primary-color); font-size: 18px;}
+        /* Trust Badges */
+        .trust-badges { display: flex; gap: 25px; margin-top: 35px; border-top: 1px solid #eee; padding-top: 25px; flex-wrap: wrap;}
+        .trust-badge { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #666; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;}
+        .trust-badge i { color: var(--dark-color); font-size: 18px;}
 
         .seo-footer { background-color: var(--dark-color); color: #aaa; padding: 30px 15px; text-align: center; margin-top: 50px; font-size: 12px; border-top: 1px solid #333; }
 
         @media (max-width: 768px) {
             .product-layout { flex-direction: column; }
             .product-image-container { border-right: none; border-bottom: 1px solid #f4f4f4; padding: 20px; }
+            .product-info { padding: 30px 20px; }
             .slider { height: 300px; }
+            .buy-btn { width: 100%; min-width: unset; } /* Full width only on mobile phones */
+            .price-wrapper { justify-content: space-between; }
         }
 
-        /* Light Loading Text for Dark BG */
-        .loading { text-align: center; padding: 100px; font-size: 16px; color: #ccc; width: 100%;}
-        .spinner { border: 3px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        /* Fixed Centered Loading Spinner */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh; /* Centers vertically */
+            width: 100%; /* Centers horizontally */
+        }
+        .loading-text { font-size: 16px; color: #ccc; letter-spacing: 1px; margin-top: 15px;}
+        .spinner { 
+            border: 3px solid rgba(255,255,255,0.1); 
+            width: 45px; height: 45px; 
+            border-radius: 50%; 
+            border-left-color: var(--primary-color); 
+            animation: spin 1s linear infinite; 
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -124,9 +168,9 @@
     </header>
 
     <div class="container" id="productContainer">
-        <div class="loading">
+        <div class="loading-container">
             <div class="spinner"></div>
-            Loading product details...
+            <div class="loading-text">Loading product details...</div>
         </div>
     </div>
 
@@ -161,7 +205,6 @@
                     let stockStatus = item.stockStatus || "In Stock";
                     let isOutOfStock = stockStatus === "Out of Stock";
                     
-                    // Collect images
                     let images = [];
                     if(item.image) images.push(item.image);
                     if(item.image2) images.push(item.image2);
@@ -186,7 +229,7 @@
                                 </div>
                             </div>
                             <div class="product-info">
-                                <span class="cat-badge">${item.category || 'Supplement'}</span>
+                                <div><span class="cat-badge">${item.category || 'Supplement'}</span></div>
                                 <h1>${item.name}</h1>
                                 <div class="price-wrapper">
                                     <p class="price">Rs. ${item.price}</p>
