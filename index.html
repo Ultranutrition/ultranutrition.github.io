@@ -11,7 +11,7 @@
         <p>100% Authentic Whey Protein & Bodybuilding Supplements at the Best Prices in Sri Lanka.</p>
     </div>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -45,27 +45,27 @@
             border-bottom: 2px solid var(--primary);
         }
         .header-link { text-decoration: none; color: inherit; }
-        header h1 { margin: 0; font-size: 20px; font-weight: 800; text-transform: uppercase; }
+        /* Logo font size slightly increased and font changed */
+        header h1 { margin: 0; font-size: 23px; font-weight: 800; text-transform: uppercase; font-family: 'Montserrat', sans-serif; letter-spacing: -0.5px; }
         header h1 span { color: var(--primary); }
         .header-tagline { font-size: 9px; color: #888; letter-spacing: 1.5px; margin-top: 2px; text-transform: uppercase; }
 
-        /* --- Updated Hero Section (Ultra Compact & Clean) --- */
+        /* --- Hero Section (Premium Look) --- */
         .hero { 
-            background: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.88)), 
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
                         url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; 
             color: white; text-align: center; 
-            padding: 20px 15px 35px; /* ගොඩක් ඉඩ අඩු කළා */
+            padding: 22px 15px 35px; 
         }
         .hero h2 { 
-            font-family: 'Poppins', sans-serif; 
-            font-size: 18px; 
-            font-weight: 900; 
+            font-family: 'Montserrat', sans-serif; /* Professional Font */
+            font-size: 16px; 
+            font-weight: 600; /* Medium bold for elegance */
             margin: 0; 
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             color: #ffffff;
-            line-height: 1.2;
-            /* රතු පාට underline එක සම්පූර්ණයෙන්ම ඉවත් කළා */
+            line-height: 1.4;
         }
 
         /* --- Search --- */
@@ -75,7 +75,7 @@
             width: 100%; padding: 14px 20px 14px 45px; 
             border-radius: 12px; border: none;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
-            font-size: 14px; outline: none;
+            font-size: 14px; outline: none; font-family: 'Inter', sans-serif;
         }
         .search-inner i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); }
 
@@ -83,7 +83,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 12px 40px; }
         .category-section { margin-bottom: 35px; }
         .category-header { margin-bottom: 15px; padding-left: 10px; border-left: 3px solid var(--primary); }
-        .category-title { font-size: 16px; font-weight: 700; text-transform: uppercase; color: var(--dark); }
+        .category-title { font-size: 16px; font-weight: 700; text-transform: uppercase; color: var(--dark); font-family: 'Montserrat', sans-serif; }
 
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
@@ -95,20 +95,38 @@
         .out-of-stock { background: #ffebee; color: #c62828; }
         .card-img { aspect-ratio: 1 / 1; padding: 12px; display: flex; align-items: center; justify-content: center; background: #fff; }
         .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .card-body { padding: 10px; text-align: center; border-top: 1px solid #f9f9f9; flex-grow: 1; }
-        .card h3 { margin: 0 0 5px; font-size: 12px; font-weight: 600; color: #333; height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; }
+        .card-body { padding: 10px; text-align: center; border-top: 1px solid #f9f9f9; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
+        .card h3 { margin: 0 0 8px; font-size: 12px; font-weight: 600; color: #333; height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; }
         .price { color: var(--primary); font-size: 14px; font-weight: 800; }
 
-        @media (min-width: 768px) {
-            .hero { padding: 40px 20px 50px; }
-            .hero h2 { font-size: 30px; letter-spacing: 3px; }
-            .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        /* --- Professional Skeleton Loading Animation --- */
+        .skeleton-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding-top: 10px; }
+        .skeleton-card { background: #fff; border-radius: 12px; border: 1px solid #eee; height: 230px; display: flex; flex-direction: column; padding: 15px; }
+        .skeleton-img, .skeleton-text, .skeleton-price {
+            background: #f0f0f0;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+            border-radius: 8px;
+        }
+        .skeleton-img { height: 130px; width: 100%; margin-bottom: 15px; border-radius: 10px; }
+        .skeleton-text { height: 14px; width: 85%; margin: 0 auto 10px; }
+        .skeleton-price { height: 16px; width: 50%; margin: 0 auto; }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
-        .loading-state { text-align: center; padding: 50px; color: #888; }
-        .spinner { width: 30px; height: 30px; border: 3px solid #ddd; border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 10px; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        footer { background: var(--dark); color: #555; padding: 30px 20px; text-align: center; font-size: 10px; }
+        /* Desktop Adjustments */
+        @media (min-width: 768px) {
+            header h1 { font-size: 28px; }
+            .hero { padding: 40px 20px 50px; }
+            .hero h2 { font-size: 24px; letter-spacing: 4px; }
+            .product-grid, .skeleton-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        }
+
+        footer { background: var(--dark); color: #555; padding: 30px 20px; text-align: center; font-size: 11px; }
     </style>
 </head>
 <body>
@@ -128,13 +146,16 @@
         <div class="search-wrapper">
             <div class="search-inner">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search products...">
+                <input type="text" id="searchInput" placeholder="Search supplements...">
             </div>
         </div>
+        
         <div id="storeContent">
-            <div class="loading-state">
-                <div class="spinner"></div>
-                <p>Syncing...</p>
+            <div class="skeleton-grid">
+                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-price"></div></div>
+                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-price"></div></div>
+                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-price"></div></div>
+                <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-price"></div></div>
             </div>
         </div>
     </main>
@@ -170,6 +191,12 @@
         function renderRows(products) {
             const storeContent = document.getElementById("storeContent");
             storeContent.innerHTML = "";
+
+            if(products.length === 0) {
+                storeContent.innerHTML = "<p style='text-align:center; padding: 40px; color: #666;'>No products found.</p>";
+                return;
+            }
+
             const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
             categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
 
@@ -180,7 +207,7 @@
                     const isOut = item.stockStatus === "Out of Stock";
                     html += `<div class="card" onclick="window.location.href='product.html?id=${item.id}'">
                         <span class="stock-badge ${isOut ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</span>
-                        <div class="card-img"><img src="${item.image || 'https://via.placeholder.com/200'}" loading="lazy"></div>
+                        <div class="card-img"><img src="${item.image || 'https://via.placeholder.com/200'}" loading="lazy" alt="${item.name}"></div>
                         <div class="card-body"><h3>${item.name}</h3><div class="price">Rs. ${item.price}</div></div>
                     </div>`;
                 });
