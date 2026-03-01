@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>Ultra Nutritions | Sri Lanka's Premium Supplement Store</title>
+    <title>Ultra Nutritions | Premium Supplement Store Sri Lanka</title>
     
-    <div style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
-        <h1>Ultra Nutritions Sri Lanka - Best Whey Protein Price Colombo</h1>
-        <p>Buy 100% authentic bodybuilding supplements, Creatine, and Whey Gold Standard in Sri Lanka with island-wide delivery.</p>
+    <div style="display: none !important; visibility: hidden;">
+        <h1>Ultra Nutritions Sri Lanka - Best Whey Protein & Supplements</h1>
+        <p>Authentic Whey Protein, Creatine, and Pre-workout supplements in Sri Lanka with island-wide delivery.</p>
     </div>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -21,23 +21,21 @@
         :root { 
             --primary: #e63946; 
             --dark: #0f0f0f; 
-            --gray: #f4f4f4; 
+            --light-bg: #f8f9fa;
             --text: #1a1a1a;
-            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #fff; 
+            background-color: var(--light-bg); 
             margin: 0; padding: 0; 
             color: var(--text); 
-            line-height: 1.6;
             overflow-x: hidden; 
         }
 
-        /* --- Header Section --- */
+        /* --- Header --- */
         header { 
             background-color: var(--dark); 
             color: white; 
@@ -47,118 +45,98 @@
             border-bottom: 2px solid var(--primary);
         }
         .header-link { text-decoration: none; color: inherit; }
-        header h1 { 
-            margin: 0; font-size: 22px; font-weight: 800; 
-            letter-spacing: -0.5px; text-transform: uppercase;
-        }
+        header h1 { margin: 0; font-size: 22px; font-weight: 800; text-transform: uppercase; }
         header h1 span { color: var(--primary); }
-        .header-tagline { 
-            font-size: 10px; color: #888; letter-spacing: 1.5px; 
-            margin-top: 2px; text-transform: uppercase; font-weight: 600;
-        }
+        .header-tagline { font-size: 10px; color: #888; letter-spacing: 1px; margin-top: 2px; text-transform: uppercase; }
 
-        /* --- Hero Section --- */
+        /* --- Hero --- */
         .hero { 
             background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000') center/cover; 
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; 
             color: white; text-align: center; 
-            padding: 50px 20px 80px; 
+            padding: 40px 20px 60px; 
         }
-        .hero h2 { font-size: 26px; font-weight: 700; margin: 0; color: #fff; }
-        .hero p { 
-            font-size: 13px; color: #ccc; margin: 10px auto 0; 
-            max-width: 500px; font-weight: 400; opacity: 0.9;
-        }
+        .hero h2 { font-size: 24px; font-weight: 700; margin: 0; }
+        .hero p { font-size: 13px; color: #ccc; margin: 8px auto 0; max-width: 500px; }
 
-        /* --- Container & Search --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-
-        .search-wrapper { 
-            max-width: 500px; margin: -28px auto 40px; 
-            position: relative; padding: 0 15px;
-        }
-        .search-inner { position: relative; width: 100%; }
+        /* --- Search --- */
+        .search-wrapper { max-width: 500px; margin: -25px auto 30px; padding: 0 15px; position: relative; z-index: 10; }
+        .search-inner { position: relative; }
         #searchInput { 
-            width: 100%; padding: 16px 20px 16px 50px; 
-            border-radius: 12px; border: 1px solid #ddd;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15); 
-            font-size: 15px; outline: none; transition: 0.3s;
+            width: 100%; padding: 14px 20px 14px 45px; 
+            border-radius: 12px; border: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            font-size: 15px; outline: none;
         }
-        #searchInput:focus { border-color: var(--primary); box-shadow: 0 15px 35px rgba(230, 57, 70, 0.2); }
-        .search-inner i { 
-            position: absolute; left: 18px; top: 50%; 
-            transform: translateY(-50%); color: var(--primary); font-size: 18px; 
-        }
+        .search-inner i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); }
 
-        /* --- Categories --- */
-        .category-section { margin-bottom: 40px; }
+        /* --- Grid Logic (The Core Change) --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 12px 40px; }
+        
+        .category-section { margin-bottom: 35px; }
         .category-header { 
-            display: flex; align-items: center; margin-bottom: 20px; 
-            padding-bottom: 8px; border-bottom: 1px solid #eee;
+            margin-bottom: 15px; padding-left: 10px;
+            border-left: 4px solid var(--primary);
         }
-        .category-title { 
-            font-size: 18px; font-weight: 700; color: var(--dark); 
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .category-title span { color: var(--primary); margin-right: 8px; }
+        .category-title { font-size: 18px; font-weight: 700; text-transform: uppercase; color: var(--dark); }
 
-        /* --- Product Grid (Horizontal Scroll) --- */
+        /* Mobile First: 2 Columns Grid */
         .product-grid { 
-            display: flex; overflow-x: auto; gap: 16px; 
-            padding-bottom: 15px; scrollbar-width: none; /* Firefox */
-            -webkit-overflow-scrolling: touch;
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); /* 2 items per row on mobile */
+            gap: 12px; 
         }
-        .product-grid::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
         /* --- Product Card --- */
         .card { 
-            min-width: 180px; width: 180px; background: #fff; border-radius: 16px; 
-            border: 1px solid #efefef; position: relative; transition: 0.3s ease;
+            background: #fff; border-radius: 12px; 
+            border: 1px solid #eee; position: relative; 
             display: flex; flex-direction: column;
+            overflow: hidden; transition: 0.2s;
+            text-decoration: none; color: inherit;
         }
-        .card:active { transform: scale(0.97); }
+        .card:active { transform: scale(0.98); }
 
         .stock-badge { 
-            position: absolute; top: 10px; left: 10px; padding: 4px 8px; 
-            border-radius: 6px; font-size: 9px; font-weight: 700; z-index: 5; 
+            position: absolute; top: 8px; left: 8px; padding: 3px 6px; 
+            border-radius: 4px; font-size: 8px; font-weight: 700; z-index: 2; 
         }
         .in-stock { background: #e8f5e9; color: #2e7d32; }
         .out-of-stock { background: #ffebee; color: #c62828; }
 
         .card-img { 
-            height: 160px; padding: 15px; display: flex; 
-            align-items: center; justify-content: center;
+            aspect-ratio: 1 / 1; padding: 12px; display: flex; 
+            align-items: center; justify-content: center; background: #fff;
         }
         .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
         
-        .card-body { padding: 12px; text-align: center; background: #fafafa; border-radius: 0 0 16px 16px; }
+        .card-body { padding: 10px; text-align: center; border-top: 1px solid #f9f9f9; flex-grow: 1; }
         .card h3 { 
-            margin: 0 0 6px; font-size: 13px; font-weight: 600; color: #333; 
-            height: 38px; overflow: hidden; display: -webkit-box; 
+            margin: 0 0 5px; font-size: 12px; font-weight: 600; color: #333; 
+            height: 34px; overflow: hidden; display: -webkit-box; 
             -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4;
         }
-        .price { color: var(--primary); font-size: 16px; font-weight: 800; }
+        .price { color: var(--primary); font-size: 14px; font-weight: 800; }
 
-        /* --- Footer --- */
-        .seo-footer { background: var(--dark); color: #888; padding: 40px 20px; text-align: center; }
-        .footer-sub-text { font-size: 12px; display: block; margin-bottom: 10px; color: #bbb; }
-
-        /* --- Tablet & Desktop Adjustments --- */
+        /* --- Laptop/Desktop Adjustments --- */
         @media (min-width: 768px) {
             header h1 { font-size: 28px; }
-            .hero h2 { font-size: 40px; }
-            .hero p { font-size: 16px; }
-            .card { min-width: 220px; width: 220px; }
-            .card-img { height: 200px; }
-            .product-grid { gap: 25px; }
+            .hero { padding: 60px 20px 80px; }
+            .hero h2 { font-size: 36px; }
+            /* Desktop: 4 or 5 columns */
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+            .card h3 { font-size: 14px; height: 40px; }
+            .price { font-size: 16px; }
         }
 
-        .loading-state { text-align: center; padding: 60px; color: #888; }
+        .loading-state { text-align: center; padding: 50px; color: #888; }
         .spinner { 
-            width: 30px; height: 30px; border: 3px solid #eee; border-top: 3px solid var(--primary); 
-            border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 15px; 
+            width: 30px; height: 30px; border: 3px solid #ddd; border-top: 3px solid var(--primary); 
+            border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 10px; 
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        footer { background: var(--dark); color: #555; padding: 30px 20px; text-align: center; font-size: 11px; }
     </style>
 </head>
 <body>
@@ -179,25 +157,25 @@
         <div class="search-wrapper">
             <div class="search-inner">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search protein, brand, creatine...">
+                <input type="text" id="searchInput" placeholder="Search supplements...">
             </div>
         </div>
 
         <div id="storeContent">
             <div class="loading-state">
                 <div class="spinner"></div>
-                <p>Authenticating Inventory...</p>
+                <p>Loading Inventory...</p>
             </div>
         </div>
     </main>
 
-    <footer class="seo-footer">
-        <span class="footer-sub-text">Sri Lanka's Premier Destination for Fitness Nutrition.</span>
-        <p style="font-size: 11px; margin: 0; color: #555;">&copy; 2024 Ultra Nutritions. Island-wide Delivery Available.</p>
+    <footer>
+        <p>&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
+        <p>Premium Destination for Fitness Nutrition in Sri Lanka.</p>
     </footer>
 
     <script>
-        // Firebase Configuration (Keep your existing config)
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyChnk_4ncFbSBkAPqEZQy0Bow-h2cVTLrs",
             authDomain: "ultranutritions.firebaseapp.com",
@@ -211,7 +189,6 @@
 
         let allProducts = [];
 
-        // Fetch Data
         db.collection("supplements").get().then((snapshot) => {
             allProducts = [];
             snapshot.forEach(doc => {
@@ -220,8 +197,6 @@
                 allProducts.push(data);
             });
             renderRows(allProducts);
-        }).catch(err => {
-            document.getElementById("storeContent").innerHTML = "<p style='text-align:center;'>Error loading products. Please refresh.</p>";
         });
 
         function renderRows(products) {
@@ -229,13 +204,11 @@
             storeContent.innerHTML = "";
 
             if(products.length === 0) {
-                storeContent.innerHTML = "<p style='text-align:center; padding: 40px;'>No results found. Try another keyword.</p>";
+                storeContent.innerHTML = "<p style='text-align:center; grid-column: 1/-1; padding: 40px;'>No items found.</p>";
                 return;
             }
 
             const categories = [...new Set(products.map(p => p.category || 'Supplements'))];
-            
-            // Sort categories (Whey first)
             categories.sort((a, b) => a.toLowerCase().includes('whey') ? -1 : 1);
 
             categories.forEach(cat => {
@@ -246,7 +219,7 @@
                 
                 let html = `
                     <div class="category-header">
-                        <div class="category-title"><span>|</span> ${cat}</div>
+                        <div class="category-title">${cat}</div>
                     </div>
                     <div class="product-grid">
                 `;
@@ -273,7 +246,6 @@
             });
         }
 
-        // Optimized Search
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
             const filtered = allProducts.filter(p => 
