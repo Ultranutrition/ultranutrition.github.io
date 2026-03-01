@@ -11,17 +11,24 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ultranutritions.com/">
     
+    <meta name="theme-color" content="#0f0f0f">
+    
+    <meta property="og:title" content="Ultra Nutritions | Premium Supplement Store Sri Lanka">
+    <meta property="og:description" content="100% Authentic Whey Protein & Bodybuilding Supplements at the Best Prices in Sri Lanka.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800">
+    <meta property="og:type" content="website">
+
     <link rel="icon" href="favicon.jpg" type="image/jpeg">
     <link rel="apple-touch-icon" href="favicon.jpg">
 
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800" fetchpriority="high">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.gstatic.com">
     <link rel="preconnect" href="https://firestore.googleapis.com">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root { 
@@ -53,7 +60,8 @@
         .header-link { text-decoration: none; color: inherit; display: inline-block; }
         header h1 { margin: 0; font-size: 23px; font-weight: 800; text-transform: uppercase; font-family: 'Montserrat', sans-serif; letter-spacing: -0.5px; }
         header h1 span { color: var(--primary); }
-        .header-tagline { font-size: 9px; color: #888; letter-spacing: 1.5px; margin-top: 2px; text-transform: uppercase; }
+        /* Accessibility වලට Contrast වැඩි කළා (#888 වෙනුවට #b3b3b3) */
+        .header-tagline { font-size: 9px; color: #b3b3b3; letter-spacing: 1.5px; margin-top: 2px; text-transform: uppercase; }
 
         /* --- Hero Section --- */
         .hero { 
@@ -82,7 +90,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
             font-size: 14px; outline: none; font-family: 'Inter', sans-serif;
         }
-        /* SVG Search Icon Styling */
         .search-inner svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); stroke: var(--primary); width: 18px; height: 18px; }
 
         /* --- Grid & Categories --- */
@@ -94,7 +101,8 @@
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
         /* --- Product Card --- */
-        .card { background: #fff; border-radius: 12px; border: 1px solid #eee; position: relative; display: flex; flex-direction: column; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; cursor: pointer; will-change: transform; }
+        /* will-change අයින් කළා Mobile RAM එක ඉතුරු කරන්න */
+        .card { background: #fff; border-radius: 12px; border: 1px solid #eee; position: relative; display: flex; flex-direction: column; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; color: inherit; cursor: pointer; }
         .card:active { transform: scale(0.98); }
         .stock-badge { position: absolute; top: 8px; left: 8px; padding: 3px 6px; border-radius: 4px; font-size: 8px; font-weight: 700; z-index: 2; }
         .in-stock { background: #e8f5e9; color: #2e7d32; }
@@ -132,7 +140,8 @@
             .product-grid, .skeleton-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
         }
 
-        footer { background: var(--dark); color: #555; padding: 30px 20px; text-align: center; font-size: 11px; }
+        /* Accessibility වලට Contrast වැඩි කළා (#555 වෙනුවට #a0a0a0) */
+        footer { background: var(--dark); color: #a0a0a0; padding: 30px 20px; text-align: center; font-size: 11px; }
     </style>
 </head>
 <body>
