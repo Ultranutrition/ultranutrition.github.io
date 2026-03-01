@@ -7,60 +7,80 @@
     <title>Product Details | Ultra Nutritions Sri Lanka</title>
     <meta name="description" content="Buy authentic bodybuilding supplements in Sri Lanka at Ultra Nutritions. Best prices and island-wide delivery.">
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="/favicon.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&family=Montserrat:wght@600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
     <style>
-        :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; --text-dark: #333; --border-color: #eaeaea;}
+        :root { 
+            --primary: #e63946; /* Matching index.html variable name */
+            --primary-color: #e63946; 
+            --dark-color: #0f0f0f; /* Matched dark color from index */
+            --dark: #0f0f0f;
+            --bg-color: #f8f9fa; 
+            --light-bg: #f8f9fa;
+            --text-dark: #1a1a1a; 
+            --text: #1a1a1a;
+            --border-color: #eaeaea;
+        }
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Poppins', sans-serif; background-color: white; margin: 0; padding: 0; color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--light-bg); margin: 0; padding: 0; color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        /* --- Standardized Header --- */
-        header { background-color: var(--dark-color); padding: 20px 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
-        .header-link { text-decoration: none; color: white; display: inline-block;}
-        header h1 { margin: 0; font-size: 26px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;}
-        header h1 span { color: var(--primary-color); }
-        .header-tagline { color: #aaa; font-size: 12px; margin: 5px 0 0 0; font-weight: 400; }
+        /* --- Standardized Header (Identical to Index) --- */
+        header { background-color: var(--dark); color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary); }
+        .header-link { text-decoration: none; color: inherit; display: inline-block; }
+        header h1 { margin: 0; font-size: 23px; font-weight: 800; text-transform: uppercase; font-family: 'Montserrat', sans-serif; letter-spacing: -0.5px; }
+        header h1 span { color: var(--primary); }
+        .header-tagline { font-size: 9px; color: #b3b3b3; letter-spacing: 1.5px; margin-top: 2px; text-transform: uppercase; font-family: 'Inter', sans-serif; }
         
+        @media (min-width: 768px) { 
+            header h1 { font-size: 28px; } 
+        }
+
         .container { width: 100%; max-width: 1200px; margin: 30px auto; padding: 0 20px; flex-grow: 1;}
         
-        .breadcrumb { display: inline-flex; align-items: center; gap: 8px; color: #666; text-decoration: none; font-size: 14px; margin-bottom: 25px; font-weight: 500; transition: 0.2s;}
-        .breadcrumb:hover { color: var(--primary-color); }
+        .breadcrumb { display: inline-flex; align-items: center; gap: 8px; color: #666; text-decoration: none; font-size: 14px; margin-bottom: 25px; font-weight: 600; transition: 0.2s;}
+        .breadcrumb:hover { color: var(--primary); }
 
         /* --- Professional Product Layout --- */
-        .product-layout { display: flex; gap: 40px; align-items: flex-start; }
+        .product-layout { display: flex; gap: 40px; align-items: flex-start; font-family: 'Poppins', sans-serif;}
 
         /* Image Gallery Section (Amazon Style) */
         .product-gallery { display: flex; gap: 15px; width: 50%; max-width: 550px; }
         .thumbnail-list { display: flex; flex-direction: column; gap: 10px; width: 70px; }
         .thumbnail { width: 100%; aspect-ratio: 1; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; padding: 5px; background: #fff; transition: 0.2s;}
-        .thumbnail:hover, .thumbnail.active { border-color: var(--primary-color); box-shadow: 0 0 5px rgba(230,57,70,0.3); }
+        .thumbnail:hover, .thumbnail.active { border-color: var(--primary); box-shadow: 0 0 5px rgba(230,57,70,0.3); }
         .thumbnail img { width: 100%; height: 100%; object-fit: contain; }
 
         .main-image-container { flex: 1; border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; background: #fff; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; aspect-ratio: 1; cursor: crosshair;}
         .main-image-container img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.1s ease-out; transform-origin: center center; }
 
         /* Product Info Section */
-        .product-info { flex: 1; display: flex; flex-direction: column; }
+        .product-info { flex: 1; display: flex; flex-direction: column; font-family: 'Poppins', sans-serif;}
         .cat-badge { display: inline-block; background: #f0f0f0; padding: 5px 12px; border-radius: 5px; font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 12px; width: fit-content; }
         
         .product-info h1 { margin: 0 0 15px 0; font-size: 30px; font-weight: 800; color: #111; line-height: 1.2; }
         
         .price-section { padding: 15px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin-bottom: 25px; display: flex; align-items: center; gap: 20px; }
-        .price { font-size: 28px; color: var(--primary-color); font-weight: 800; margin: 0; }
+        .price { font-size: 28px; color: var(--primary); font-weight: 800; margin: 0; }
         .status-badge { padding: 6px 15px; border-radius: 50px; font-size: 11px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.5px;}
-        .in-stock { background-color: #198754; } .out-of-stock { background-color: #dc3545; }
+        .in-stock { background-color: #2e7d32; } .out-of-stock { background-color: #c62828; }
 
         .description-section { margin-bottom: 30px; }
         .description-title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 12px; display: block;}
         .description-content { font-size: 14px; color: #555; line-height: 1.7; }
         .description-content ul { padding: 0; margin: 0; }
         .description-content li { margin-bottom: 8px; position: relative; padding-left: 25px; list-style: none;}
-        .description-content li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); position: absolute; left: 0; font-size: 13px; top: 3px;}
+        .description-content li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary); position: absolute; left: 0; font-size: 13px; top: 3px;}
 
         .action-buttons { margin-top: auto; }
         
@@ -70,44 +90,38 @@
             width: 100%; max-width: 320px; cursor: pointer; border-radius: 8px; font-size: 15px; font-weight: 700; 
             display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; transition: 0.3s;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+            font-family: 'Inter', sans-serif;
         }
         .buy-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
         .buy-btn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; color: #666;}
 
-        /* --- SEO ARTICLE SECTION (Updated for Auto Formatting) --- */
-        .seo-article-container { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-color); }
+        /* --- SEO ARTICLE SECTION --- */
+        .seo-article-container { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-color); font-family: 'Inter', sans-serif;}
         .seo-article { max-width: 900px; color: #444; font-size: 14.5px; }
-        
-        /* Auto-generated Titles will take these styles */
-        .seo-article h3 { 
-            color: #111; 
-            font-size: 18px; 
-            margin-top: 30px; 
-            margin-bottom: 12px; 
-            font-weight: 700;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 5px;
-            display: inline-block;
-        }
-        
-        /* Auto-generated Paragraphs */
-        .seo-article p { 
-            margin-bottom: 18px; 
-            line-height: 1.8;
-            text-align: justify;
-        }
+        .seo-article h3 { color: #111; font-size: 18px; margin-top: 30px; margin-bottom: 12px; font-weight: 700; border-bottom: 2px solid #f0f0f0; padding-bottom: 5px; display: inline-block; }
+        .seo-article p { margin-bottom: 18px; line-height: 1.8; text-align: justify; }
 
-        /* --- Standardized Footer --- */
-        .main-footer { background-color: var(--dark-color); color: #999; padding: 30px 20px 20px; text-align: center; font-size: 13px; line-height: 1.8; margin-top: 60px;}
-        .main-footer p { max-width: 800px; margin: 0 auto; }
-        .main-footer strong { color: #fff; }
-        
+        /* --- Standardized Footer (Identical to Index) --- */
+        .site-footer { background-color: var(--dark); color: #e0e0e0; padding: 50px 20px 20px; font-size: 13px; border-top: 3px solid var(--primary); margin-top: auto; font-family: 'Inter', sans-serif;}
+        .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 30px; margin-bottom: 30px; }
+        .footer-col h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; text-transform: uppercase; color: #fff; margin: 0 0 15px; letter-spacing: -0.5px; }
+        .footer-col h3 span { color: var(--primary); }
+        .footer-col h4 { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col p { line-height: 1.6; color: #a0a0a0; margin: 0 0 15px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 12px; color: #a0a0a0; display: flex; align-items: center; gap: 8px; }
+        .footer-col ul li a { color: #a0a0a0; text-decoration: none; transition: color 0.2s ease; }
+        .footer-col ul li a:hover { color: var(--primary); }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #222; color: #777; font-size: 12px; }
+
         /* Hidden SEO Text for Google Bots only */
         .seo-hidden-text { display: none; }
-        
-        .copyright { margin-top: 20px !important; border-top: 1px solid #333; padding-top: 20px; font-size: 12px;}
 
         /* Responsive */
+        @media (min-width: 768px) {
+            .footer-container { grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: left; }
+        }
+
         @media (max-width: 850px) {
             .product-layout { flex-direction: column; gap: 20px; }
             .product-gallery { width: 100%; max-width: 100%; flex-direction: column-reverse; }
@@ -121,14 +135,14 @@
         }
 
         .loading-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; width: 100%;}
-        .spinner { border: 3px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 0.8s linear infinite; }
+        .spinner { border: 3px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary); animation: spin 0.8s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="index.html" class="header-link">
+        <a href="/" class="header-link">
             <h1>Ultra <span>Nutritions</span></h1>
             <p class="header-tagline">Top Rated Supplement Store in Sri Lanka</p>
         </a>
@@ -141,14 +155,47 @@
         </div>
     </div>
 
-    <footer class="main-footer">
-        <p><strong>Ultra Nutritions</strong> - Premium Online Supplement Store in Sri Lanka. 100% Authentic Products Guaranteed.</p>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Ultra <span>Nutritions</span></h3>
+                <p>100% Authentic Whey Protein & Bodybuilding Supplements at the Best Prices in Sri Lanka. Your fitness journey starts here.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">Shop All</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Return & Refund Policy</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>📞 <a href="tel:+94718136757">+94 71 813 6757</a></li> 
+                    <li>✉️ <a href="mailto:ultranutritionmatara@gmail.com">ultranutritionmatara@gmail.com</a></li> 
+                    <li>📍 Matara, Sri Lanka</li> 
+                </ul>
+            </div>
+        </div>
         
         <div class="seo-hidden-text">
             We offer the best whey protein prices in Sri Lanka, including whey protein isolate and gold standard options. Whether you are searching for top 10 bodybuilding supplements in Colombo, Galle, or island-wide, we guarantee 100% authentic products. Compare our supplement prices in Sri Lanka and build your physique with confidence.
         </div>
         
-        <p class="copyright">&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Ultra Nutritions. All Rights Reserved. Designed for Excellence.</p>
+        </div>
     </footer>
 
     <script>
@@ -169,11 +216,36 @@
         const contentDiv = document.getElementById("mainContent");
 
         if(!productId) {
-            window.location.href = 'index.html';
+            window.location.href = '/';
         } else {
             db.collection("supplements").doc(productId).get().then((doc) => {
                 if(doc.exists) {
-                    renderProduct(doc.data());
+                    let item = doc.data();
+                    let seoHTML = "";
+                    
+                    if (item.seoArticle && item.seoArticle.trim() !== "") {
+                        let formattedSEO = item.seoArticle;
+                        if (!formattedSEO.includes('<p>') && !formattedSEO.includes('<br>')) {
+                            formattedSEO = formattedSEO.split(/\r?\n/).map(line => {
+                                line = line.trim();
+                                if (!line) return ""; 
+                                if (line.length < 80 && !line.endsWith('.')) {
+                                    return `<h3>${line}</h3>`;
+                                } else {
+                                    return `<p>${line}</p>`;
+                                }
+                            }).join('');
+                        }
+
+                        seoHTML = `
+                        <div class="seo-article-container">
+                            <article class="seo-article">
+                                ${formattedSEO}
+                            </article>
+                        </div>`;
+                    }
+                    
+                    renderProduct(item, seoHTML);
                 } else {
                     contentDiv.innerHTML = "<h2 style='text-align:center; padding: 50px 0;'>Product Not Found</h2>";
                 }
@@ -183,7 +255,7 @@
             });
         }
 
-        function renderProduct(item) {
+        function renderProduct(item, seoArticleHTML) {
             let isOutOfStock = (item.stockStatus === "Out of Stock");
             let images = [];
             if(item.image) images.push(item.image);
@@ -192,36 +264,6 @@
 
             let descHTML = item.description ? "<ul>" + item.description.split('\n').map(line => line.trim() ? `<li>${line}</li>` : "").join('') + "</ul>" : "<p>Premium quality fitness supplement.</p>";
             let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hello Ultra Nutritions! I want to order:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nPlease confirm availability.`)}`;
-
-            let seoArticleHTML = "";
-            if (item.seoArticle && item.seoArticle.trim() !== "") {
-                
-                // --- Auto Format Logic ---
-                let formattedSEO = item.seoArticle;
-                
-                // HTML Tags (p, br, h3) මුකුත් නැත්නම් විතරක් Auto Format කරනවා
-                if (!formattedSEO.includes('<p>') && !formattedSEO.includes('<br>')) {
-                    formattedSEO = formattedSEO.split(/\r?\n/).map(line => {
-                        line = line.trim();
-                        if (!line) return ""; // හිස් පේළි අයින් කරනවා
-                        
-                        // අකුරු 80කට වඩා අඩු, අගට තිතක් නැති පේළි Title විදිහට ගන්නවා
-                        if (line.length < 80 && !line.endsWith('.')) {
-                            return `<h3>${line}</h3>`;
-                        } else {
-                            // අනිත් ඒවා Paragraph විදිහට ගන්නවා
-                            return `<p>${line}</p>`;
-                        }
-                    }).join('');
-                }
-
-                seoArticleHTML = `
-                <div class="seo-article-container">
-                    <article class="seo-article">
-                        ${formattedSEO}
-                    </article>
-                </div>`;
-            }
 
             let thumbnailHTML = "";
             if (images.length > 1) {
@@ -235,7 +277,7 @@
             }
 
             contentDiv.innerHTML = `
-                <a href="index.html" class="breadcrumb"><i class="fas fa-arrow-left"></i> Back to Products</a>
+                <a href="/" class="breadcrumb"><i class="fas fa-arrow-left"></i> Back to Products</a>
                 
                 <div class="product-layout">
                     <div class="product-gallery">
