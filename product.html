@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>Product Details | Ultra Nutritions Sri Lanka</title>
-    <meta name="description" id="meta-description" content="Buy authentic bodybuilding supplements in Sri Lanka at Ultra Nutritions. Best prices and island-wide delivery.">
+    <meta name="description" content="Buy authentic bodybuilding supplements in Sri Lanka at Ultra Nutritions. Best prices and island-wide delivery.">
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,105 +14,89 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
     <style>
-        :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; --whatsapp-color: #25D366; --text-dark: #333;}
+        :root { --primary-color: #e63946; --dark-color: #1a1a1a; --bg-color: #f8f9fa; --text-dark: #333; --border-color: #eaeaea;}
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            scroll-behavior: smooth;
-        }
-
-        /* --- Changed to White/Light Theme --- */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color); /* Light gray background */
-            margin: 0; padding: 0; color: var(--text-dark); min-height: 100vh;
-            display: flex; flex-direction: column;
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: white; margin: 0; padding: 0; color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
         
-        header { background-color: var(--dark-color); color: white; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--primary-color); width: 100%; }
-        .header-link { text-decoration: none; color: inherit; }
-        header h1 { margin: 0; font-size: 22px; font-weight: 800; text-transform: uppercase; }
+        /* --- Standardized Header --- */
+        header { background-color: var(--dark-color); padding: 20px 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        .header-link { text-decoration: none; color: white; display: inline-block;}
+        header h1 { margin: 0; font-size: 26px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;}
         header h1 span { color: var(--primary-color); }
+        .header-tagline { color: #aaa; font-size: 12px; margin: 5px 0 0 0; font-weight: 400; }
         
-        .container { width: 100%; max-width: 1100px; margin: 20px auto; padding: 0 15px; flex-grow: 1;}
+        .container { width: 100%; max-width: 1200px; margin: 30px auto; padding: 0 20px; flex-grow: 1;}
         
-        /* Breadcrumb updated for light theme */
-        .breadcrumb { display: inline-flex; align-items: center; gap: 8px; color: #555; text-decoration: none; font-size: 13px; margin-bottom: 15px; font-weight: 500; transition: 0.2s;}
+        .breadcrumb { display: inline-flex; align-items: center; gap: 8px; color: #666; text-decoration: none; font-size: 14px; margin-bottom: 25px; font-weight: 500; transition: 0.2s;}
         .breadcrumb:hover { color: var(--primary-color); }
 
-        /* Main Product Card Alignment */
-        .product-layout { 
-            display: flex; flex-direction: row; flex-wrap: wrap; background: white; color: #333; 
-            border-radius: 16px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); width: 100%; border: 1px solid #eaeaea;
-        }
+        /* --- Professional Product Layout --- */
+        .product-layout { display: flex; gap: 40px; align-items: flex-start; }
 
-        .product-image-container { 
-            flex: 1; min-width: 300px; padding: 25px; background: #fff; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;
-            border-right: 1px solid #f0f0f0;
-        }
+        /* Image Gallery Section (Amazon Style) */
+        .product-gallery { display: flex; gap: 15px; width: 50%; max-width: 550px; }
+        .thumbnail-list { display: flex; flex-direction: column; gap: 10px; width: 70px; }
+        .thumbnail { width: 100%; aspect-ratio: 1; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; padding: 5px; background: #fff; transition: 0.2s;}
+        .thumbnail:hover, .thumbnail.active { border-color: var(--primary-color); box-shadow: 0 0 5px rgba(230,57,70,0.3); }
+        .thumbnail img { width: 100%; height: 100%; object-fit: contain; }
+
+        .main-image-container { flex: 1; border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; background: #fff; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; aspect-ratio: 1; cursor: crosshair;}
+        .main-image-container img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.1s ease-out; transform-origin: center center; }
+
+        /* Product Info Section */
+        .product-info { flex: 1; display: flex; flex-direction: column; }
+        .cat-badge { display: inline-block; background: #f0f0f0; padding: 5px 12px; border-radius: 5px; font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 12px; width: fit-content; }
         
-        .slider { position: relative; width: 100%; max-width: 350px; overflow: hidden; aspect-ratio: 1/1; display: flex; align-items: center; }
-        .slides { display: flex; transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); width: 100%; }
-        .slide { min-width: 100%; display: flex; justify-content: center; align-items: center; }
-        .slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .product-info h1 { margin: 0 0 15px 0; font-size: 32px; font-weight: 800; color: #111; line-height: 1.2; }
         
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.05); border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; z-index: 5; display: none; color: #333;}
-        .slider-btn:hover { background: rgba(0,0,0,0.1); }
-        .prev { left: 5px; } .next { right: 5px; }
+        .price-section { padding: 20px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin-bottom: 25px; display: flex; align-items: center; gap: 20px; }
+        .price { font-size: 32px; color: var(--primary-color); font-weight: 800; margin: 0; }
+        .status-badge { padding: 6px 15px; border-radius: 50px; font-size: 12px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.5px;}
+        .in-stock { background-color: #198754; } .out-of-stock { background-color: #dc3545; }
 
-        .dots { display: flex; justify-content: center; gap: 6px; margin-top: 15px; }
-        .dot { width: 7px; height: 7px; background: #ddd; border-radius: 50%; cursor: pointer;}
-        .dot.active { background: var(--primary-color); width: 20px; border-radius: 10px; }
-
-        .product-info { flex: 1.2; min-width: 300px; padding: 30px; box-sizing: border-box; display: flex; flex-direction: column; background: #fff;}
-        .cat-badge { display: inline-block; background: #f8f9fa; padding: 4px 12px; border-radius: 50px; font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; margin-bottom: 10px; border: 1px solid #eee; }
-        .product-info h1 { margin: 0 0 10px 0; font-size: 26px; font-weight: 800; color: #111; line-height: 1.2; }
-        
-        .price-wrapper { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
-        .price { font-size: 28px; color: var(--primary-color); font-weight: 800; margin: 0; }
-        .status-badge { padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; color: white; text-transform: uppercase; }
-        .in-stock { background-color: #198754; } .out-of-stock { background-color: var(--primary-color); }
-
-        .description-title { font-size: 13px; font-weight: 700; color: #777; text-transform: uppercase; margin-bottom: 12px; display: block;}
-        .description-content { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 25px; flex-grow: 1;}
+        .description-section { margin-bottom: 30px; }
+        .description-title { font-size: 16px; font-weight: 700; color: #111; margin-bottom: 15px; display: block;}
+        .description-content { font-size: 15px; color: #555; line-height: 1.7; }
         .description-content ul { padding: 0; margin: 0; }
-        .description-content li { margin-bottom: 8px; position: relative; padding-left: 22px; list-style: none;}
-        .description-content li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); position: absolute; left: 0; font-size: 12px; }
+        .description-content li { margin-bottom: 10px; position: relative; padding-left: 25px; list-style: none;}
+        .description-content li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); position: absolute; left: 0; font-size: 14px; top: 3px;}
 
+        .action-buttons { margin-top: auto; }
         .buy-btn { 
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 16px 25px; border: none; 
-            width: fit-content; min-width: 260px; cursor: pointer; border-radius: 10px; font-size: 15px; font-weight: 700; 
-            display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; transition: 0.2s;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 18px 30px; border: none; 
+            width: 100%; max-width: 400px; cursor: pointer; border-radius: 8px; font-size: 16px; font-weight: 700; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-transform: uppercase; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
         }
-        .buy-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
+        .buy-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
+        .buy-btn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; color: #666;}
 
-        /* --- Light Theme SEO ARTICLE SECTION --- */
-        .seo-article-container { margin-top: 30px; background: white; border-radius: 16px; padding: 25px; border: 1px solid #eaeaea; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
-        .seo-article { max-width: 800px; margin: 0 auto; line-height: 1.7; color: #444; font-size: 14px; }
-        .seo-article h2 { color: #111; font-size: 20px; margin-bottom: 15px; border-left: 3px solid var(--primary-color); padding-left: 12px; }
-        .seo-article h3 { color: var(--primary-color); font-size: 17px; margin-top: 25px; margin-bottom: 10px; }
+        /* --- SEO ARTICLE SECTION --- */
+        .seo-article-container { margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border-color); }
+        .seo-article { max-width: 900px; line-height: 1.8; color: #444; font-size: 15px; }
+        .seo-article h2 { color: #111; font-size: 24px; margin-bottom: 20px; }
+        .seo-article h3 { color: #222; font-size: 18px; margin-top: 30px; margin-bottom: 12px; }
         .seo-article p { margin-bottom: 15px; }
 
-        /* Updated Footer */
-        .seo-footer { background-color: #fff; color: #555; padding: 30px 15px; text-align: center; margin-top: auto; font-size: 12px; border-top: 1px solid #eaeaea; width: 100%; }
+        /* --- Standardized Footer --- */
+        .main-footer { background-color: var(--dark-color); color: #999; padding: 40px 20px 30px; text-align: center; font-size: 13px; line-height: 1.8; margin-top: 60px;}
+        .main-footer p { max-width: 800px; margin: 0 auto 10px auto; }
+        .main-footer strong { color: #fff; }
+        .main-footer i { color: #ccc; font-style: normal; }
+        .copyright { margin-top: 25px !important; border-top: 1px solid #333; padding-top: 25px; font-size: 12px;}
 
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .container { padding: 0 12px; margin: 15px auto; }
-            .product-layout { flex-direction: column; border-radius: 12px; }
-            .product-image-container { padding: 20px; border-right: none; border-bottom: 1px solid #eee; }
-            .product-info { padding: 25px 20px; }
-            .product-info h1 { font-size: 22px; }
-            .buy-btn { width: 100%; } 
-            .seo-article-container { padding: 20px; margin-top: 20px; }
+        /* Responsive */
+        @media (max-width: 850px) {
+            .product-layout { flex-direction: column; gap: 20px; }
+            .product-gallery { width: 100%; max-width: 100%; flex-direction: column-reverse; }
+            .thumbnail-list { flex-direction: row; width: 100%; justify-content: center; gap: 15px;}
+            .thumbnail { width: 60px; height: 60px; }
+            .product-info h1 { font-size: 26px; }
+            .price { font-size: 28px; }
+            .buy-btn { max-width: 100%; }
         }
 
-        /* Updated Loader for Light Theme */
         .loading-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; width: 100%;}
         .spinner { border: 3px solid rgba(0,0,0,0.1); width: 40px; height: 40px; border-radius: 50%; border-left-color: var(--primary-color); animation: spin 0.8s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -123,19 +107,21 @@
     <header>
         <a href="index.html" class="header-link">
             <h1>Ultra <span>Nutritions</span></h1>
+            <p class="header-tagline">Top Rated Supplement Store in Sri Lanka</p>
         </a>
     </header>
 
     <div class="container" id="mainContent">
         <div class="loading-container">
             <div class="spinner"></div>
-            <p style="margin-top: 15px; color: #888; font-size: 14px;">Loading Product...</p>
+            <p style="margin-top: 15px; color: #888; font-size: 14px;">Loading Product Details...</p>
         </div>
     </div>
 
-    <footer class="seo-footer">
-        <p><strong>Ultra Nutritions Sri Lanka</strong><br>100% Authentic Supplements & Island-wide Delivery.</p>
-        <p>&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
+    <footer class="main-footer">
+        <p><strong>Ultra Nutritions</strong> is your trusted online supplement store in Sri Lanka. We offer the best whey protein prices in Sri Lanka, including whey protein isolate and gold standard options. Whether you are searching for top 10 bodybuilding supplements in Colombo, Galle, or island-wide, we guarantee 100% authentic products.</p>
+        <p>Compare our supplement prices in Sri Lanka and build your physique with confidence.</p>
+        <p class="copyright">&copy; 2024 Ultra Nutritions. All Rights Reserved.</p>
     </footer>
 
     <script>
@@ -175,12 +161,11 @@
             let images = [];
             if(item.image) images.push(item.image);
             if(item.image2) images.push(item.image2);
-            if(images.length === 0) images.push("https://via.placeholder.com/400x400?text=No+Image");
+            if(images.length === 0) images.push("https://via.placeholder.com/600x600?text=No+Image");
 
             let descHTML = item.description ? "<ul>" + item.description.split('\n').map(line => line.trim() ? `<li>${line}</li>` : "").join('') + "</ul>" : "<p>Premium quality fitness supplement.</p>";
             let whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hello Ultra Nutritions! I want to order:\n\n*Item:* ${item.name}\n*Price:* Rs. ${item.price}\n\nPlease confirm availability.`)}`;
 
-            // Check if SEO Article exists in Firebase, otherwise keep it empty
             let seoArticleHTML = "";
             if (item.seoArticle && item.seoArticle.trim() !== "") {
                 seoArticleHTML = `
@@ -191,62 +176,77 @@
                 </div>`;
             }
 
+            let thumbnailHTML = "";
+            if (images.length > 1) {
+                thumbnailHTML = `<div class="thumbnail-list">
+                    ${images.map((img, idx) => `
+                        <div class="thumbnail ${idx === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)">
+                            <img src="${img}" alt="Thumbnail ${idx+1}">
+                        </div>
+                    `).join('')}
+                </div>`;
+            }
+
             contentDiv.innerHTML = `
                 <a href="index.html" class="breadcrumb"><i class="fas fa-arrow-left"></i> Back to Products</a>
+                
                 <div class="product-layout">
-                    <div class="product-image-container">
-                        <div class="slider">
-                            <div class="slides" id="slides">
-                                ${images.map(img => `<div class="slide"><img src="${img}" alt="${item.name}" style="${isOutOfStock ? 'opacity: 0.5; filter: grayscale(1);' : ''}"></div>`).join('')}
-                            </div>
-                            <button class="slider-btn prev" id="prevBtn" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
-                            <button class="slider-btn next" id="nextBtn" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-                        <div class="dots" id="dotsContainer">
-                            ${images.length > 1 ? images.map((_, i) => `<div class="dot ${i===0?'active':''}" onclick="currentSlide(${i})"></div>`).join('') : ''}
+                    <div class="product-gallery">
+                        ${thumbnailHTML}
+                        <div class="main-image-container" onmousemove="zoomImage(event, this)" onmouseleave="resetZoom(this)">
+                            <img id="mainProductImage" src="${images[0]}" alt="${item.name}" style="${isOutOfStock ? 'opacity: 0.6; filter: grayscale(1);' : ''}">
                         </div>
                     </div>
+                    
                     <div class="product-info">
                         <div><span class="cat-badge">${item.category || 'Supplement'}</span></div>
                         <h1>${item.name}</h1>
-                        <div class="price-wrapper">
+                        
+                        <div class="price-section">
                             <p class="price">Rs. ${item.price}</p>
                             <div class="status-badge ${isOutOfStock ? 'out-of-stock' : 'in-stock'}">${item.stockStatus || 'In Stock'}</div>
                         </div>
+                        
                         <div class="description-section">
-                            <span class="description-title">Highlights</span>
+                            <span class="description-title">Product Highlights</span>
                             <div class="description-content">${descHTML}</div>
                         </div>
-                        <button class="buy-btn" ${isOutOfStock ? 'disabled' : ''} onclick="window.open('${whatsappUrl}', '_blank')">
-                            <i class="fab fa-whatsapp"></i> ${isOutOfStock ? 'Out of Stock' : 'Order via WhatsApp'}
-                        </button>
+                        
+                        <div class="action-buttons">
+                            <button class="buy-btn" ${isOutOfStock ? 'disabled' : ''} onclick="window.open('${whatsappUrl}', '_blank')">
+                                <i class="fab fa-whatsapp" style="font-size: 20px;"></i> ${isOutOfStock ? 'Currently Unavailable' : 'Order via WhatsApp'}
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 ${seoArticleHTML} `;
-
-            if(images.length > 1) {
-                document.getElementById('prevBtn').style.display = 'block';
-                document.getElementById('nextBtn').style.display = 'block';
-            }
         }
 
-        let slideIndex = 0;
-        function moveSlide(step) {
-            const slides = document.getElementById("slides");
-            const dots = document.querySelectorAll(".dot");
-            const total = slides.children.length;
-            slideIndex = (slideIndex + step + total) % total;
-            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
-            dots.forEach(d => d.classList.remove("active"));
-            dots[slideIndex].classList.add("active");
+        // Change Main Image on Thumbnail Click
+        function changeImage(src, element) {
+            document.getElementById('mainProductImage').src = src;
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
         }
-        function currentSlide(index) {
-            slideIndex = index;
-            document.getElementById("slides").style.transform = `translateX(-${slideIndex * 100}%)`;
-            const dots = document.querySelectorAll(".dot");
-            dots.forEach(d => d.classList.remove("active"));
-            dots[slideIndex].classList.add("active");
+
+        // Hover Zoom Effect Logic
+        function zoomImage(e, container) {
+            const img = container.querySelector('img');
+            const rect = container.getBoundingClientRect();
+            
+            // Calculate mouse position relative to the container
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            img.style.transformOrigin = `${x}% ${y}%`;
+            img.style.transform = 'scale(2)'; // Change this value to increase/decrease zoom level
+        }
+
+        function resetZoom(container) {
+            const img = container.querySelector('img');
+            img.style.transformOrigin = 'center center';
+            img.style.transform = 'scale(1)';
         }
     </script>
 </body>
